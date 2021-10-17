@@ -25,8 +25,6 @@ public class VentanaActividades extends JFrame{
 		JPanel panel5 = new JPanel();
 		JPanel panel6 = new JPanel();
 		JPanel panel7 = new JPanel();
-		JPanel panel8 = new JPanel();
-		JPanel panel9 = new JPanel();
 		
 		
 		JComboBox combobox = new JComboBox();
