@@ -26,6 +26,8 @@ public class VentanaActividades extends JFrame{
 		JPanel panel6 = new JPanel();
 		JPanel panel7 = new JPanel();
 		JPanel panel8 = new JPanel();
+		JPanel panel9 = new JPanel();
+		
 		
 		JComboBox combobox = new JComboBox();
 		JLabel label1 = new JLabel("¿Desea alguna actividad?");
@@ -47,11 +49,12 @@ public class VentanaActividades extends JFrame{
 		panel1.setLayout(new GridLayout(2,1));
 		panel2.setLayout(new GridLayout(2,1));
 		panel3.setLayout(new GridLayout(2,1));
+		
 		panel4.setLayout(new FlowLayout());
 		panel5.setLayout(new FlowLayout());
 		panel6.setLayout(new FlowLayout());
 		panel7.setLayout(new FlowLayout());
-		panel8.setLayout(new GridLayout(2,1));
+		
 		
 		add(panelPrincipal);
 		panelPrincipal.add(panelIzquierdo);
@@ -65,7 +68,7 @@ public class VentanaActividades extends JFrame{
 		panelMedio.add(panel5);
 		panelMedio.add(panel6);
 		panelMedio.add(panel7);
-		panelMedio.add(panel8);
+		
 
 		
 		panel1.add(label1);
