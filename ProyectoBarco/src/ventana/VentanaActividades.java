@@ -29,7 +29,7 @@ public class VentanaActividades extends JFrame{
 		
 		
 		JComboBox combobox = new JComboBox();
-		JLabel label1 = new JLabel("¿Desea alguna actividad?");
+		JLabel label1 = new JLabel("¿Desea alguna actividad? ");
 		JLabel label2 = new JLabel("Cantidad de Personas");
 		JLabel label3 = new JLabel("Tarifa");
 		JButton boton1 = new JButton("Aceptar");
