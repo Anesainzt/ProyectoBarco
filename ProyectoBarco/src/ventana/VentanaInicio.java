@@ -1,19 +1,31 @@
 package ventana;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.*;
+
+import javax.imageio.*;
 import javax.swing.*;
 
 public class VentanaInicio extends JFrame {
 	
+	protected Container cp;
 	protected JPanel panel, panelIzqda, panelDcha, panel1, panel2, panel3, panel4;
 	protected JLabel label1, labelUsuario, labelContrasenya;
 	protected JTextField textoUsuario, textoContrasenya;
 	protected JButton botonLogin, botonRegistro;
 	
-	public VentanaInicio() {
+	public VentanaInicio() throws IOException {
+		
+		cp = this.getContentPane();
+		this.setTitle("Inicio");
+		
 		//panelPrincipal
 		panel = new JPanel();
 		panel.setLayout(new GridLayout(1,2)); //1 fila 2 columnas
+		
 		
 		//panelIzqda
 		panelIzqda = new JPanel();
@@ -23,6 +35,7 @@ public class VentanaInicio extends JFrame {
 		panel1.setLayout(new GridLayout(2,1));
 		
 		label1 = new JLabel("Login");
+		label1.setFont(new Font("Times New Roman", Font.LAYOUT_NO_LIMIT_CONTEXT, 24));
 		
 		//panel2
 		panel2 = new JPanel();
@@ -43,14 +56,25 @@ public class VentanaInicio extends JFrame {
 		
 		botonLogin = new JButton("Login");
 		botonRegistro = new JButton("Registrarme");
+		botonRegistro.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				new VentanaRegistro();
+				
+			}
+		});
 		
 		//panelDcha
 		panelDcha = new JPanel();
 		
+		BufferedImage image = ImageIO.read(new File("images/yate.jpg"));
+		JLabel label = new JLabel(new ImageIcon(image));
+		 
 		
 		
 		
-		add(panel);
+		cp.add(panel);
 		panel.add(panelIzqda);
 		panel.add(panelDcha); 
 		
@@ -58,6 +82,8 @@ public class VentanaInicio extends JFrame {
 		panelIzqda.add(panel2);
 		panelIzqda.add(panel3);
 		panelIzqda.add(panel4);
+		
+		panelDcha.add(label);
 		
 		panel1.add(label1);
 		
@@ -76,7 +102,7 @@ public class VentanaInicio extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		new VentanaInicio();
 
 	}
