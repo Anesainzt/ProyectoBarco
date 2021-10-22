@@ -1,6 +1,9 @@
+package ventana;
 import javax.swing.*;
 
 import com.toedter.calendar.JCalendar;
+
+import Clases.Usuario;
 
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -29,7 +32,7 @@ public class Calendario extends JFrame{
 	static  String fechaInc;
 	static Logger logger = Logger.getLogger(Calendario.class.getName());
 	
-	public Calendario(Cliente cliente, int precioHab, String type) {
+	public Calendario(Usuario usuario) {
 		
 		setLayout(new GridLayout(2, 1));
 		
@@ -41,17 +44,17 @@ public class Calendario extends JFrame{
 		fechaFin = new JButton("Fecha Fin");
 		bd = new BD();
 		//IMPEDIMOS QUE SE PUEDAN COMPRAR BILLETES ANTERIORES AL DIA DE HOY
-		hoy = calendario.getDate();
-		calendario.setMinSelectableDate(hoy);
+		/*hoy = calendario.getDate();
+		calendario.setMinSelectableDate(hoy);*/
 		
 		
 		//PRIMERO SELECCIONAS UN DIA, Y CLICAS EL BOTON FECHA INICIO PARA GUARDAR ESA FECHA COMO EL DIA DE ENTRADA
 		fechaInicio.addActionListener(new ActionListener(){
 
-		     @Override
+//		     @Override
 		     public void actionPerformed(ActionEvent e) {
-		    	 String year = Integer.toString(calendario.getCalendar().get(java.util.Calendar.YEAR));
-		    	 String mes = Integer.toString(calendario.getCalendar().get(java.util.Calendar.MONTH) + 1);
+//		    	 String year = Integer.toString(calendario.getCalendar().get(java.util.Calendar.YEAR));
+/*		    	 String mes = Integer.toString(calendario.getCalendar().get(java.util.Calendar.MONTH) + 1);
 		    	 String dia = Integer.toString(calendario.getCalendar().get(java.util.Calendar.DATE));
 		    	 fecha.setText(dia + "-" + mes + "-" + year);
 		    	 if (Integer.parseInt(mes) < 10 && Integer.parseInt(dia) < 10) {
@@ -68,7 +71,7 @@ public class Calendario extends JFrame{
 		    	 pfecha.remove(fechaInicio);
 		    	 setVisible(true);
 		    	 
-		    	 d1 = calendario.getDate();
+		    	 //d1 = calendario.getDate();
 		    	 
 		    	 //CREAMOS LA RESTRICCION DE NO PODER VOLVER A ESCOGER LA FECHA INICIO PARA LA FECHA FINAL
 		    	 int minYear = Integer.parseInt(year);
@@ -79,7 +82,8 @@ public class Calendario extends JFrame{
 		    	 //SE RESTA 1 AL MES PORQUE EMPIEZA A CONTAR DESDE 0 Y ANTES LE HEMOS SUMADO 1 PARA ESCRIBIR BIEN LA FECHA
 		    	 Date minNoche = new Date(Date.UTC(minYear-1900, minMes-1, minDia +1, 0, 0, 0));
 		    	 
-		    	 calendario.setMinSelectableDate(minNoche);
+		    	 //calendario.setMinSelectableDate(minNoche);
+*/
 		     }
 		});
 		
@@ -88,42 +92,20 @@ public class Calendario extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String year = Integer.toString(calendario.getCalendar().get(java.util.Calendar.YEAR));
+				/*String year = Integer.toString(calendario.getCalendar().get(java.util.Calendar.YEAR));
 				String mes = Integer.toString(calendario.getCalendar().get(java.util.Calendar.MONTH) + 1);
 				String dia = Integer.toString(calendario.getCalendar().get(java.util.Calendar.DATE));
 				fecha.setText(dia + "-" + mes + "-" + year);
 				String fechaEndBD = year + "-" + mes + "-" + dia;
-				d2 = calendario.getDate();
-				
-				
-				//CON LAS FECHAS DE ENTRADA Y SALIDA, CALCULAMOS LA DIFERENCIA PARA SABER LOS DIAS TOTALES DE ESTANCIA EN EL HOTEL
-				Date startDate1 = d1;
-		        Date endDate1 = d2;
-		        long diff = endDate1.getTime() - startDate1.getTime();
-		        
-		        //ESCRIBIMOS LAS FECHAS ENN UN FICHERO
-		        bd.escribirFichero("fechas", new SimpleDateFormat("yyyy-MM-dd").format(startDate1) + ";" + new SimpleDateFormat("yyyy-MM-dd").format(endDate1));
-		       
-				//EL DINERO DE LA VARIABLE ANTERIOR LA CONVERTIMOS A INT PARA PODER TRABAJAR CON ELLA
-				String pago = Long.toString((diff / (1000L*60L*60L*24L)));
-				//ESCRIBIMOS LOS DATOS EN UN FICHERO
-				bd.escribirFichero("datosFactura.txt", ";" + pago);
-				
-				//LA VARIABLE STRING PAGO ANTERIOR LA CONVIERTES A INT Y LA MULTIPLICAS POR EL PAGO POR NOCHE DE HABITACION
-				//Y YA TENEMOS LO QUE PAGA POR LA HABITACION TOTAL DE TODOS LOS DIAS
-				int pagoHabitacion = (Integer.parseInt(pago)*precioHab);
-				
-				//LE MOSTRAMOS UNA VENTANA INFORMATIVA PARA QUE SEPA EL DINERO QUE GASTARA POR ESOS DIAS DE LA HABITACION
-				JOptionPane.showMessageDialog(null, "PAGO HABITACION: " + pago + " DIAS " + " = " + pagoHabitacion + "�");
+				//d2 = calendario.getDate();
 				
 				bd.connect();
 				//GUARDAMOS LOS DIAS QUE HA RESERVADO EN LA BASE DE DATOS
-				bd.calendario(type, dia, mes , year, fechaInc);
-				
-				//A CONTINUACION LE LLEVAMOS A LA VENTANA SELECCION HABITACION PARA QUE ELIGA EL NUMERO DE HABITACION EN LA QUE SE ALOJARA ESOS DIAS
+				//bd.calendario(type, dia, mes , year, fechaInc);
 				
 				
-		        dispose();		       
+				
+		        dispose();*/		       
 			}
 		});
 		
@@ -139,14 +121,14 @@ public class Calendario extends JFrame{
 		calendario.setForeground(Color.BLACK);
 		 
 		// Cambiar color de letra del dia domingo
-		calendario.setSundayForeground(Color.RED);
+		/*calendario.setSundayForeground(Color.RED);
 		 
 		// Cambiar color de letra de semana
 		calendario.setWeekdayForeground(Color.BLUE);
 		
 		// No mostramos la semana del a�o que es
 		calendario.setWeekOfYearVisible(false);
-		
+		*/
 		add(calendario);
 					
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -157,4 +139,9 @@ public class Calendario extends JFrame{
 		
 		
 	}
+	public static void main(String[] args) {
+		new Calendario(null);
+	}
+	
+	
 }

@@ -11,6 +11,8 @@ import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JCalendar;
 
+import Clases.Usuario;
+
 public class BD extends JFrame{
 	private Connection conn = null;
 	private static Logger logger = Logger.getLogger(BD.class.getName());
@@ -52,14 +54,14 @@ public class BD extends JFrame{
 	}
 	
 	//REGISTRAR EN LA BD UN CLIENTE NUEVO
-	public void registro(Cliente nuevo) {
+	public void registro(Usuario unuevo) {
 		try {			
-			PreparedStatement pstmt = conn.prepareStatement("UPDATE cliente SET nombre = ?, apellido = ?, dni = ?, tarjeta = ? WHERE usuario = '"+ nuevo.getLogin() +"' AND contraseya = '"+ nuevo.getPassword() +"';");
+			PreparedStatement pstmt = conn.prepareStatement("UPDATE cliente SET nombre = ?, apellido = ?, dni = ?, tarjeta = ? WHERE usuario = '"+ unuevo.getLogin() +"' AND contraseya = '"+ unuevo.getPassword() +"';");
 			
-			pstmt.setString(1, nuevo.getNombre());
-			pstmt.setString(2, nuevo.getApellido());
-			pstmt.setString(3, nuevo.getDni());
-			pstmt.setString(4, nuevo.getTarjeta());
+			pstmt.setString(1, unuevo.getNombre());
+			pstmt.setString(2, unuevo.getApellido());
+			pstmt.setString(3, unuevo.getDni());
+			pstmt.setString(4, unuevo.getTarjeta());
 			pstmt.executeUpdate();
 			conn.close();
 		} catch (SQLException e2) {
@@ -94,11 +96,11 @@ public class BD extends JFrame{
 	
 	
 	//OBTENEMOS LOS DATOS DEL CLIENTE
-	public Cliente cliente(String usu, String password) {
-		Cliente cl = new Cliente();
+	public Usuario cliente(String usuarioo, String password) {
+		Usuario cl = new Usuario();
 		try(Statement stmt = (Statement) conn.createStatement()) {
 			//SELECIONAR A QUE CLIENTE CORRESPONDE EL USUARIO Y CONTRASE�A ESCRITOS
-			ResultSet cliente = stmt.executeQuery("SELECT nombre, apellido, dni, contraseya, usuario FROM cliente WHERE (usuario = '" + usu + "' AND contraseya = '"+ password +"');");
+			ResultSet cliente = stmt.executeQuery("SELECT nombre, apellido, dni, contraseya, usuario FROM cliente WHERE (usuario = '" + usuarioo + "' AND contraseya = '"+ password +"');");
 			while(cliente.next()) {
 				String nombreBD = cliente.getString("nombre");
 				String apellidoBD = cliente.getString("apellido");
@@ -121,7 +123,7 @@ public class BD extends JFrame{
 	}
 	
 	//MIRAR EN LA BD CUALES HAN SIDO SUS RESERVAS ANTERIORES
-	public void historial(Cliente cliente, DefaultTableModel modelo) {
+	public void historial(Usuario cliente, DefaultTableModel modelo) {
 		try(Statement stmt = (Statement) conn.createStatement()) {	
 			
 			Integer numFilas = 0 ;
@@ -156,7 +158,7 @@ public class BD extends JFrame{
 	}
 	
 	//MIRA QUE DIAS SE QUEDA EL CLIENTE EN EL BARCO Y SOLO DEJA COGER LA ACTIVIDAD DENTRO DE LAS FECHAS
-	public void servicio(String fechaEntrada, String fechaSalida, String tipo, String numero, Cliente cliente) {
+	public void servicio(String fechaEntrada, String fechaSalida, String tipo, String numero, Usuario cliente) {
 		try(Statement stmt = (Statement) conn.createStatement()) {	
 			int res2 = stmt.executeUpdate("INSERT INTO historialregistros VALUES('"+ fechaEntrada +"', '"+ fechaSalida +"', '"+ tipo +"', "+ Integer.parseInt(numero) +", '"+ cliente.getLogin() +"', 1);");
 		} catch (SQLException e2) {
@@ -186,7 +188,7 @@ public class BD extends JFrame{
 	
 	
 	//EN EL CASO DE QUE RESERVES UNA ACTIVIDAD INTRODUCIR EN LA TABLA CLASES LOS DATOS
-	public void eleccionClaseDeporte(Cliente cliente, String fecha, String tipo) {
+	public void eleccionClaseDeporte(Usuario cliente, String fecha, String tipo) {
 		
 		try {
 			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO clases VALUES(?, ?, ?);");
