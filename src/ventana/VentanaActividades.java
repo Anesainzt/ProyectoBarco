@@ -13,21 +13,9 @@ import javax.swing.JTextField;
 
 public class VentanaActividades extends JFrame{
 
+	
 	public VentanaActividades() {
-		JPanel panelPrincipal = new JPanel();
-		JPanel panelIzquierdo = new JPanel();
-		JPanel panelMedio = new JPanel();
-		JPanel panelDerecho = new JPanel();
-		JPanel panel1 = new JPanel();
-		JPanel panel2 = new JPanel();
-		JPanel panel3 = new JPanel();
-		JPanel panel4 = new JPanel();
-		JPanel panel5 = new JPanel();
-		JPanel panel6 = new JPanel();
-		JPanel panel7 = new JPanel();
-		
-		
-		
+
 		JComboBox<String> combobox = new JComboBox();
 		JLabel label1 = new JLabel("¿Desea alguna actividad? ");
 		JLabel label2 = new JLabel("Cantidad de Personas");
