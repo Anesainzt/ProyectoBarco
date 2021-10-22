@@ -3,12 +3,7 @@ package ventana;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -30,44 +25,31 @@ public class VentanaActividades extends JFrame{
 		JPanel panel5 = new JPanel();
 		JPanel panel6 = new JPanel();
 		JPanel panel7 = new JPanel();
-		JPanel panel8 = new JPanel();
-		JPanel panel9 = new JPanel();
 		
 		
 		
-		
+		JComboBox<String> combobox = new JComboBox();
 		JLabel label1 = new JLabel("¿Desea alguna actividad? ");
 		JLabel label2 = new JLabel("Cantidad de Personas");
-		JLabel label3 = new JLabel("Horario");
+		JLabel label3 = new JLabel("Tarifa");
 		JButton boton1 = new JButton("Aceptar");
 		JButton boton2 = new JButton("No quiero nada");
-		JButton boton3 = new JButton("Elegir cantidad de personas");
-		JTextField texto = new JTextField("",10);
-		texto.setText("yyyy/mm/dd");
-		JComboBox<String> combobox = new JComboBox();
+		JTextField txt1 = new JTextField("",2);
+		JTextField txt2 = new JTextField("",10);
+		txt2.setText("yyyy/mm/dd");
 		
 		combobox.addItem("Surf");
 		combobox.addItem("Ski Acuático");
 		combobox.addItem("Buceo");
 		
-		JComboBox<String> combobox2 = new JComboBox();
-		
-		combobox2.addItem("10:00");
-		combobox2.addItem("13:00");
-		combobox2.addItem("15:00");
-		combobox2.addItem("17:00");
-		combobox2.addItem("19:00");
-		
-		
-		
 		panelPrincipal.setLayout(new GridLayout(1,3));
 		panelIzquierdo.setLayout(new GridLayout(4,1));
-		panelMedio.setLayout(new GridLayout(6,1));
-		panelDerecho.setLayout(new FlowLayout());
+		panelMedio.setLayout(new GridLayout(4,1));
 		panel1.setLayout(new GridLayout(2,1));
 		panel2.setLayout(new GridLayout(2,1));
 		panel3.setLayout(new GridLayout(2,1));
 		
+		panel4.setLayout(new FlowLayout());
 		panel5.setLayout(new FlowLayout());
 		panel6.setLayout(new FlowLayout());
 		panel7.setLayout(new FlowLayout());
@@ -85,23 +67,18 @@ public class VentanaActividades extends JFrame{
 		panelMedio.add(panel5);
 		panelMedio.add(panel6);
 		panelMedio.add(panel7);
-		panelMedio.add(panel8);
 		
-		panelDerecho.add(panel9);
-		
-	
+
 		
 		panel1.add(label1);
 		panel2.add(combobox);
-		panel3.add(texto);
+		panel3.add(txt2);
 		panel4.add(boton1);
 		panel4.add(boton2);
 		
 		panel5.add(label2);
-		panel6.add(boton3);
+		panel6.add(txt1);
 		panel7.add(label3);
-		panel8.add(combobox2);
-		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(700, 450);
@@ -110,7 +87,7 @@ public class VentanaActividades extends JFrame{
 		
 		
 	}
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		new VentanaActividades();
 	}
