@@ -1,4 +1,5 @@
 package ventana;
+
 import javax.swing.*;
 
 import com.toedter.calendar.JCalendar;
@@ -25,7 +26,6 @@ public class Calendario extends JFrame{
 	Date hoy;
 	JPanel p;
 	JPanel pfecha;
-	
 	BD bd;
 	
 	

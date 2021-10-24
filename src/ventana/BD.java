@@ -1,12 +1,12 @@
 package ventana;
 
-import java.awt.Color;
+
+
 import java.io.*;
 import java.sql.*;
-import java.util.*;
 import java.util.logging.Logger;
 
-import javax.swing.*;
+import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JCalendar;
@@ -56,12 +56,13 @@ public class BD extends JFrame{
 	//REGISTRAR EN LA BD UN CLIENTE NUEVO
 	public void registro(Usuario unuevo) {
 		try {			
-			PreparedStatement pstmt = conn.prepareStatement("UPDATE cliente SET nombre = ?, apellido = ?, dni = ?, tarjeta = ? WHERE usuario = '"+ unuevo.getLogin() +"' AND contraseya = '"+ unuevo.getPassword() +"';");
+			PreparedStatement pstmt = conn.prepareStatement("UPDATE usuario SET nombre = ?, apellido = ?, dni = ?, tarjeta = ? WHERE login = '"+ unuevo.getLogin() +"' AND contraseya = '"+ unuevo.getContraseña() +"';");
 			
 			pstmt.setString(1, unuevo.getNombre());
 			pstmt.setString(2, unuevo.getApellido());
 			pstmt.setString(3, unuevo.getDni());
 			pstmt.setString(4, unuevo.getTarjeta());
+			//...
 			pstmt.executeUpdate();
 			conn.close();
 		} catch (SQLException e2) {
@@ -96,23 +97,25 @@ public class BD extends JFrame{
 	
 	
 	//OBTENEMOS LOS DATOS DEL CLIENTE
-	public Usuario cliente(String usuarioo, String password) {
+	public Usuario usuario(String u, String contraseña) {
 		Usuario cl = new Usuario();
 		try(Statement stmt = (Statement) conn.createStatement()) {
-			//SELECIONAR A QUE CLIENTE CORRESPONDE EL USUARIO Y CONTRASE�A ESCRITOS
-			ResultSet cliente = stmt.executeQuery("SELECT nombre, apellido, dni, contraseya, usuario FROM cliente WHERE (usuario = '" + usuarioo + "' AND contraseya = '"+ password +"');");
-			while(cliente.next()) {
-				String nombreBD = cliente.getString("nombre");
-				String apellidoBD = cliente.getString("apellido");
-				String dniBD = cliente.getString("dni");
-				String contraseya = cliente.getString("contraseya");
-				String usuario = cliente.getString("usuario");
+			//SELECIONAR A QUE CLIENTE CORRESPONDE EL USUARIO Y CONTRASEñA ESCRITOS
+			ResultSet usuario = stmt.executeQuery("SELECT nombre, apellido, dni, login, contraseya FROM usuario WHERE (login = '" + u + "' AND contraseya = '"+ contraseña +"');");
+			while(usuario.next()) {
+				String nombreBD = usuario.getString("nombre");
+				String apellidoBD = usuario.getString("apellido");
+				String dniBD = usuario.getString("dni");
+				String usuarioBD = usuario.getString("login");
+				String contraseya = usuario.getString("contraseya");
+				
 				
 				cl.setNombre(nombreBD);
 				cl.setApellido(apellidoBD);
 				cl.setDni(dniBD);
-				cl.setPassword(contraseya);
-				cl.setLogin(usuario);
+				cl.setLogin(usuarioBD);
+				cl.setContraseña(contraseya);
+				
 				
 			}
 			
@@ -123,11 +126,11 @@ public class BD extends JFrame{
 	}
 	
 	//MIRAR EN LA BD CUALES HAN SIDO SUS RESERVAS ANTERIORES
-	public void historial(Usuario cliente, DefaultTableModel modelo) {
+	public void historial(Usuario usuario, DefaultTableModel modelo) {
 		try(Statement stmt = (Statement) conn.createStatement()) {	
 			
 			Integer numFilas = 0 ;
-			ResultSet res1 = stmt.executeQuery("SELECT COUNT(usuario) numero FROM historialregistros WHERE usuario = '"+ cliente.getLogin() +"'");
+			ResultSet res1 = stmt.executeQuery("SELECT COUNT(usuario) numero FROM historialregistros WHERE login = '"+ usuario.getLogin() +"'");
 			
 			while (res1.next()) {
 				numFilas = res1.getInt("numero");
@@ -137,15 +140,14 @@ public class BD extends JFrame{
 			
 			
 			int i = 0;
-			ResultSet res2 = stmt.executeQuery("SELECT fechaEntrada, fechaSalida, tipo FROM historialregistros WHERE usuario = '"+ cliente.getLogin() +"'");
+			ResultSet res2 = stmt.executeQuery("SELECT fechaEntrada, fechaSalida, tipo FROM historialregistros WHERE login = '"+ usuario.getLogin() +"'");
 			while(res2.next()) {
 				
 				String fila = res2.getString("fechaEntrada");
 				tabla[0] = fila;
 				fila = res2.getString("fechaSalida");
 				tabla[1] = fila;
-				fila = res2.getString("tipo");
-				tabla[2] = fila;
+				
 				modelo.addRow(tabla);
 				if (i != numFilas) {
 					i = i + 1;
@@ -158,44 +160,25 @@ public class BD extends JFrame{
 	}
 	
 	//MIRA QUE DIAS SE QUEDA EL CLIENTE EN EL BARCO Y SOLO DEJA COGER LA ACTIVIDAD DENTRO DE LAS FECHAS
-	public void servicio(String fechaEntrada, String fechaSalida, String tipo, String numero, Usuario cliente) {
+	public void reservaActividad(String fechaEntrada, String fechaSalida, String tipo, String numero, Usuario usuario) {
 		try(Statement stmt = (Statement) conn.createStatement()) {	
-			int res2 = stmt.executeUpdate("INSERT INTO historialregistros VALUES('"+ fechaEntrada +"', '"+ fechaSalida +"', '"+ tipo +"', "+ Integer.parseInt(numero) +", '"+ cliente.getLogin() +"', 1);");
+			int res2 = stmt.executeUpdate("INSERT INTO historialregistros VALUES('"+ fechaEntrada +"', '"+ fechaSalida +"', "+ Integer.parseInt(numero) +", '"+ usuario.getLogin() +"', 1);");
 		} catch (SQLException e2) {
-			e2.printStackTrace();;
+			e2.printStackTrace();
 		}
 	}
 	
-	//MUESTRA CUANDO SE HA HECHO LA RESERVA
-	public String getHoraReserva(String fichero) {
-		
-    	String linea = null;
-		Scanner sc1 = null;
-		String hora = "";
-		try {
-			sc1 = new Scanner(new FileInputStream(fichero));
-
-			while(sc1.hasNext()) {
-				linea = sc1.nextLine();
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		return linea;
-	}
 	
 	
-	
-	
-	//EN EL CASO DE QUE RESERVES UNA ACTIVIDAD INTRODUCIR EN LA TABLA CLASES LOS DATOS
-	public void eleccionClaseDeporte(Usuario cliente, String fecha, String tipo) {
+	//EN EL CASO DE QUE RESERVES UNA ACTIVIDAD INTRODUCIR EN LA TABLA ACTIVIDAD LOS DATOS
+	public void actividad(Usuario usuario, String fecha, String tipo) {
 		
 		try {
-			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO clases VALUES(?, ?, ?);");
+			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO actividades VALUES(?, ?, ?);");
 			
 			pstmt.setString(1, fecha);
 			pstmt.setString(2, tipo);
-			pstmt.setString(3, cliente.getLogin());
+			pstmt.setString(3, usuario.getLogin());
 
 			pstmt.execute();
 		} catch (Exception e) {
@@ -204,8 +187,8 @@ public class BD extends JFrame{
 		
 	}
 	
-	//MIRAR QUE ACTIVIDADES ESTÁN RESEVADAS PARA HOY
-	public void clasesHoy(DefaultTableModel modelo2) {
+	//MIRAR QUE ACTIVIDADES ESTÁN RESEVADAS PARA HOY PARA EL ADMIN
+	public void actividadesHoy(DefaultTableModel modelo2) {
 	
 		JCalendar calendario = new JCalendar();
 		String year = Integer.toString(calendario.getCalendar().get(java.util.Calendar.YEAR));
@@ -226,10 +209,10 @@ public class BD extends JFrame{
 			
 			String [] tabla = new String[2];
 			
-			ResultSet res = stmt.executeQuery("SELECT usuario, tipo FROM clases WHERE fechaClase = '"+ hoy +"'");
+			ResultSet res = stmt.executeQuery("SELECT login, tipo FROM actividades WHERE fechaActividad = '"+ hoy +"'");
 			while (res.next()) {
 				
-				String fila =  res.getString("usuario");
+				String fila =  res.getString("login");
 				tabla[0] = fila;
 				fila = res.getString("tipo");
 				tabla[1] = fila;
