@@ -19,14 +19,16 @@ public class VentanaGaleria extends JFrame{
 		this.setTitle("Galería de fotos");
         this.setSize(1000, 600);
 
-		int numFotos = 4; // calculará el número de fotos que haya en la bd
+		int numFotos = 6; // calculará el número de fotos que haya en la bd
         
         panelPrincipal = new JPanel(new GridLayout(numFotos/2, 2));
         panelPrincipal.setSize(1000, 2000);
         
         for (int i = 1; i <= numFotos; i++) {
-            BufferedImage image = ImageIO.read(new File("images/barco" +i+ ".jpg"));
+            BufferedImage bufferedImage = ImageIO.read(new File("images/barco" +i+ ".jpg"));
+            Image image = bufferedImage.getScaledInstance(400, 200, Image.SCALE_DEFAULT);
 		    JLabel label = new JLabel(new ImageIcon(image));
+            //label.setSize(450, 250);
             panelPrincipal.add(label);
         }
 
