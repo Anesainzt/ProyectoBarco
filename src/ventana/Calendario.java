@@ -7,6 +7,7 @@ import com.toedter.calendar.JCalendar;
 import Clases.Usuario;
 
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,15 +18,16 @@ import java.util.logging.Logger;
 
 public class Calendario extends JFrame{
 	
+	Container cp;
 	JCalendar calendario;
 	JTextField fecha;
 	JButton fechaInicio;
 	JButton fechaFin;
+	JLabel info;
 	Date d1;
 	Date d2;
 	Date hoy;
-	JPanel p;
-	JPanel pfecha;
+	JPanel p, p1, p2, p11, p111;
 	BD bd;
 	
 	
@@ -34,14 +36,30 @@ public class Calendario extends JFrame{
 	
 	public Calendario(Usuario usuario) {
 		
-		setLayout(new GridLayout(2, 1));
+		cp = this.getContentPane();
 		
 		p = new JPanel();
-		pfecha = new JPanel();
-		calendario = new JCalendar();
+		p.setLayout(new GridLayout(2,1));//fila, columna
+		
+		//Panel de arriba
+		p1 = new JPanel();
+		p1.setLayout(new GridLayout(2,1));
+		
+		//Dentro del panel de arriba Arriba
+		p11 = new JPanel();
+		p11.setLayout(new GridLayout(1,2));
+		info = new JLabel("Fecha de viaje:");
 		fecha=new JTextField(30);
+		
+		//Dentro del panel de arriba Abajo
+		p111 = new JPanel();
 		fechaInicio = new JButton("Fecha Inicio");
 		fechaFin = new JButton("Fecha Fin");
+		
+
+		//Panel de abajo
+		p2 = new JPanel();
+		calendario = new JCalendar();
 		bd = new BD();
 		//IMPEDIMOS QUE SE PUEDAN COMPRAR BILLETES ANTERIORES AL DIA DE HOY
 		hoy = calendario.getDate();
@@ -109,19 +127,25 @@ public class Calendario extends JFrame{
 			}
 		});
 		
-		pfecha.add(new JLabel("Fecha Seleccionada"));
-		pfecha.add(fecha);
-		pfecha.add(fechaInicio);
+		cp.add(p);
 		
-		p.add(pfecha);
-		p.add(calendario);
-		add(p);
+		p.add(p1);
+		p.add(p2);
+		
+		p1.add(p11);
+		p1.add(p111);
+		
+		p11.add(info);
+		p11.add(fecha);
+		
+		p111.add(fechaInicio);
+		
+		p2.add(calendario);
+		
+		
 		
 		// Cambiar color de letra del numero de d�a 
 		calendario.setForeground(Color.BLACK);
-		 
-		// Cambiar color de letra del dia domingo
-		calendario.setSundayForeground(Color.RED);
 		 
 		// Cambiar color de letra de semana
 		calendario.setWeekdayForeground(Color.BLUE);
@@ -129,11 +153,11 @@ public class Calendario extends JFrame{
 		// No mostramos la semana del a�o que es
 		calendario.setWeekOfYearVisible(false);
 		
-		add(calendario);
-					
+		
+		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Calendario");
-		setSize(400, 600);
+		setSize(300, 400);
 		setVisible(true);
 		
 		
