@@ -71,8 +71,8 @@ public class Calendario extends JFrame{
 
 //		     @Override
 		     public void actionPerformed(ActionEvent e) {
-//		    	 String year = Integer.toString(calendario.getCalendar().get(java.util.Calendar.YEAR));
-/*		    	 String mes = Integer.toString(calendario.getCalendar().get(java.util.Calendar.MONTH) + 1);
+		    	 String year = Integer.toString(calendario.getCalendar().get(java.util.Calendar.YEAR));
+		    	 String mes = Integer.toString(calendario.getCalendar().get(java.util.Calendar.MONTH) + 1);
 		    	 String dia = Integer.toString(calendario.getCalendar().get(java.util.Calendar.DATE));
 		    	 fecha.setText(dia + "-" + mes + "-" + year);
 		    	 if (Integer.parseInt(mes) < 10 && Integer.parseInt(dia) < 10) {
@@ -85,11 +85,11 @@ public class Calendario extends JFrame{
 					 fechaInc = year + "-" + mes + "-" + dia;
 		    	 }
 		    	 
-		    	 pfecha.add(fechaFin);
-		    	 pfecha.remove(fechaInicio);
+		    	 p111.add(fechaFin);
+		    	 p111.remove(fechaInicio);
 		    	 setVisible(true);
 		    	 
-		    	 //d1 = calendario.getDate();
+		    	 d1 = calendario.getDate();
 		    	 
 		    	 //CREAMOS LA RESTRICCION DE NO PODER VOLVER A ESCOGER LA FECHA INICIO PARA LA FECHA FINAL
 		    	 int minYear = Integer.parseInt(year);
@@ -100,8 +100,7 @@ public class Calendario extends JFrame{
 		    	 //SE RESTA 1 AL MES PORQUE EMPIEZA A CONTAR DESDE 0 Y ANTES LE HEMOS SUMADO 1 PARA ESCRIBIR BIEN LA FECHA
 		    	 Date minNoche = new Date(Date.UTC(minYear-1900, minMes-1, minDia +1, 0, 0, 0));
 		    	 
-		    	 //calendario.setMinSelectableDate(minNoche);
-*/
+		    	 calendario.setMinSelectableDate(minNoche);
 		     }
 		});
 		
@@ -110,20 +109,19 @@ public class Calendario extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				/*String year = Integer.toString(calendario.getCalendar().get(java.util.Calendar.YEAR));
+				String year = Integer.toString(calendario.getCalendar().get(java.util.Calendar.YEAR));
 				String mes = Integer.toString(calendario.getCalendar().get(java.util.Calendar.MONTH) + 1);
 				String dia = Integer.toString(calendario.getCalendar().get(java.util.Calendar.DATE));
 				fecha.setText(dia + "-" + mes + "-" + year);
 				String fechaEndBD = year + "-" + mes + "-" + dia;
-				//d2 = calendario.getDate();
+				d2 = calendario.getDate();
 				
-				bd.connect();
+				//bd.connect();
 				//GUARDAMOS LOS DIAS QUE HA RESERVADO EN LA BASE DE DATOS
 				//bd.calendario(type, dia, mes , year, fechaInc);
 				
 				
-				
-		        dispose();*/		       
+		        dispose();	       
 			}
 		});
 		
