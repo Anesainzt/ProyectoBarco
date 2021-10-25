@@ -44,8 +44,8 @@ public class Calendario extends JFrame{
 		fechaFin = new JButton("Fecha Fin");
 		bd = new BD();
 		//IMPEDIMOS QUE SE PUEDAN COMPRAR BILLETES ANTERIORES AL DIA DE HOY
-		/*hoy = calendario.getDate();
-		calendario.setMinSelectableDate(hoy);*/
+		hoy = calendario.getDate();
+		calendario.setMinSelectableDate(hoy);
 		
 		
 		//PRIMERO SELECCIONAS UN DIA, Y CLICAS EL BOTON FECHA INICIO PARA GUARDAR ESA FECHA COMO EL DIA DE ENTRADA
@@ -121,19 +121,19 @@ public class Calendario extends JFrame{
 		calendario.setForeground(Color.BLACK);
 		 
 		// Cambiar color de letra del dia domingo
-		/*calendario.setSundayForeground(Color.RED);
+		calendario.setSundayForeground(Color.RED);
 		 
 		// Cambiar color de letra de semana
 		calendario.setWeekdayForeground(Color.BLUE);
 		
 		// No mostramos la semana del a�o que es
 		calendario.setWeekOfYearVisible(false);
-		*/
+		
 		add(calendario);
 					
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Calendario");
-		setSize(800, 600);
+		setSize(400, 600);
 		setVisible(true);
 		
 		
