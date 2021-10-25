@@ -10,8 +10,9 @@ import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
 
 public class VentanaViaje extends JFrame {
 	
+	Container cp;
 	JLabel viaje;
-	JPanel p1, p2;
+	JPanel pPrinc,p1, p2;
 	JRadioButton idaVuelta, soloIda, viajesProgramados;//Programados desde la fecha y la hora de hoy
 	JComboBox origen, destino;
 	JLabel lblNewLabel1, lblNewLabel2, lblNewLabel3;
@@ -19,6 +20,12 @@ public class VentanaViaje extends JFrame {
 	
 	public VentanaViaje() {
 				
+		cp = this.getContentPane();
+		
+		//panelPrincp
+		pPrinc = new JPanel();
+		pPrinc.setLayout(new GridLayout(1,2));
+		
 		//Panel de la izquierda
 		p1 = new JPanel();
 		p1.setLayout(new GridLayout(4, 1));
@@ -75,6 +82,10 @@ public class VentanaViaje extends JFrame {
 			}
 		});
 		
+		cp.add(pPrinc);
+		
+		pPrinc.add(p1);
+		pPrinc.add(p2);
 		
 		p1.add(viaje);
 		p1.add(idaVuelta);
