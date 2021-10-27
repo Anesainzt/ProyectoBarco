@@ -55,7 +55,8 @@ public class VentanaActividades extends JFrame{
 		JButton boton3 = new JButton("Elegir cantidad de personas");
 		JTextField txt2 = new JTextField("",10);
 		
-		BufferedImage imagenBarco = ImageIO.read(new File("images/yate2.jpg"));
+		BufferedImage bufferedImage = ImageIO.read(new File("images/yate2.jpg"));
+		Image imagenBarco = bufferedImage.getScaledInstance(400, 200, Image.SCALE_DEFAULT);
 		JLabel label4 = new JLabel(new ImageIcon(imagenBarco));
 		
 		txt2.setText("yyyy/mm/dd");
