@@ -8,6 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class VentanaPersonas extends JFrame{
 	public VentanaPersonas(){
@@ -29,6 +32,19 @@ public class VentanaPersonas extends JFrame{
 		JTextField txt1 = new JTextField("", 10);
 		JTextField txt2 = new JTextField("", 10);
 		JButton boton1 = new JButton("Aceptar");
+		
+		boton1.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					new VentanaActividades();
+					setVisible(false);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		
 		panelPrincipal.setLayout(new GridLayout(1,2));
 		panelSecundario.setLayout(new GridLayout(4,1));

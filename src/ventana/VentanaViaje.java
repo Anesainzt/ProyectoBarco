@@ -83,7 +83,7 @@ public class VentanaViaje extends JFrame {
 		personas.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//new CantidadPersonas();
+				new VentanaPersonas();
 			}
 		});
 		
@@ -163,19 +163,19 @@ public class VentanaViaje extends JFrame {
 		p2.add(personas);
 		personas.setVisible(false);
 		
-		desactivarBotones();
+		//desactivarBotones();
 		setTitle("Billetes");
 		pack();
 		setSize(700,450);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 	}
-	private void desactivarBotones() {
+	/*private void desactivarBotones() {
 		personas.setEnabled(false);
 	}
 	private void activarBotones() {
 		personas.setEnabled(true);
-	}
+	}*/
 	
 	
 	public static void main(String[] args) {
