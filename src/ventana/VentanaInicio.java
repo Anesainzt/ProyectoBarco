@@ -69,7 +69,8 @@ public class VentanaInicio extends JFrame {
 		//panelDcha
 		panelDcha = new JPanel();
 		
-		BufferedImage image = ImageIO.read(new File("images/yate.jpg"));
+		BufferedImage bufferedImage = ImageIO.read(new File("images/yate.jpg"));
+		Image image = bufferedImage.getScaledInstance(600, 400, Image.SCALE_DEFAULT);
 		JLabel label = new JLabel(new ImageIcon(image));
 		 
 		
