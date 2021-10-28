@@ -8,7 +8,8 @@ import java.io.*;
 
 import javax.imageio.*;
 import javax.swing.*;
-
+import java.io.IOException;
+import Clases.Usuario;
 
 public class VentanaRegistro extends JFrame {
 
@@ -73,7 +74,6 @@ public class VentanaRegistro extends JFrame {
 		panel9 = new JPanel();
 		label6 = new JLabel("Email");
 		
-
 		//panel10
 		panel10 = new JPanel();
 		texto4 = new JTextField();
@@ -94,10 +94,9 @@ public class VentanaRegistro extends JFrame {
 		
 		//panel14
 		panel14 = new JPanel();
-		texto6 = new JTextField();
+		texto6 = new JPasswordField();
 		texto6.setPreferredSize(new Dimension (200, 25));
-
-	
+		
 		//panel15
 		panel15 = new JPanel();
 		label9 = new JLabel("Nº cuenta");
@@ -110,6 +109,8 @@ public class VentanaRegistro extends JFrame {
 		//panel17
 		panel17 = new JPanel();
 		botonRegistro = new JButton("Registrarme");
+		
+		
 
 		cp.add(panel);
 		panel.add(panelIzqda);
@@ -153,7 +154,25 @@ public class VentanaRegistro extends JFrame {
 		panel16.add(texto7);
 		panel17.add(botonRegistro);
 
-
+		botonRegistro.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+					String dni = texto1.getText();
+					String nombre = texto2.getText();
+					String apellido = texto3.getText();
+					String email = texto4.getText();
+					String usuario = texto5.getText();
+					String contrasenya = texto6.getText();
+					String nCuenta = texto7.getText();
+					
+					//añadir el usuario a la BD
+					//bd.regristrarUsuario(dni,nombre,..);
+					
+					// prueba
+					Usuario usuario1 = new Usuario(nombre, apellido, dni, nCuenta, usuario, contrasenya);
+					System.out.println(usuario);
+			}
+		});
 
 		setVisible(true);
 		pack();
@@ -162,7 +181,7 @@ public class VentanaRegistro extends JFrame {
 
 	}
 
-
+	
 
 	public static void main(String[] args) {
 		new VentanaRegistro();
