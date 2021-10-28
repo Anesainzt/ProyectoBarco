@@ -5,8 +5,13 @@ import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.*;
+import java.util.logging.Logger;
+
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
+
+import com.toedter.calendar.JCalendar;
 
 public class VentanaViaje extends JFrame {
 	
@@ -15,11 +20,17 @@ public class VentanaViaje extends JFrame {
 	JPanel pPrinc,p1, p2, p22, p11;
 	JRadioButton idaVuelta, soloIda, viajesProgramados;//Programados desde la fecha y la hora de hoy
 	JComboBox origen, destino;
-	JLabel calendarioIV, calendarioSI, calendarioVP;
 	DefaultListModel<String> lista;
 	JList<String> listaViajes;
 	JScrollPane scrollListaViajes;
 	JButton personas;
+	
+	JCalendar calendario;
+	JButton fechaInicio, fechaFin;
+	Date d1, d2, hoy;
+	JPanel cPanel;
+	String fechaInc;
+	Logger logger = Logger.getLogger(Calendario.class.getName());
 	
 	
 	public VentanaViaje() {
@@ -45,7 +56,7 @@ public class VentanaViaje extends JFrame {
 		
 		//Panel de la derecha
 		p2 = new JPanel();
-		p2.setLayout(new GridLayout(6, 1));
+		p2.setLayout(new GridLayout(5, 1));
 		
 		//Panel de la derecha con panel arriba 
 		p22 = new JPanel();
@@ -68,18 +79,79 @@ public class VentanaViaje extends JFrame {
 		destino.addItem("Lisboa");
 		destino.addItem("Valencia");
 		
-		calendarioIV = new JLabel("Calendario1");
-		calendarioSI = new JLabel("Calendario2");
-		calendarioVP = new JLabel("Calendario3");
+		//Panel del calendario
+		cPanel = new JPanel();
+		cPanel.setLayout(new GridLayout(2,1));//fila, columna
+		fechaInicio = new JButton("Fecha Inicio");
+		fechaFin = new JButton("Fecha Fin");
+		calendario = new JCalendar();
+		//bd = new BD();
+		//IMPEDIMOS QUE SE PUEDAN COMPRAR BILLETES ANTERIORES AL DIA DE HOY
+		hoy = calendario.getDate();
+		calendario.setMinSelectableDate(hoy);
+		
+		fechaInicio.addActionListener(new ActionListener(){
+
+//		     @Override
+		     public void actionPerformed(ActionEvent e) {
+		    	 String year = Integer.toString(calendario.getCalendar().get(java.util.Calendar.YEAR));
+		    	 String mes = Integer.toString(calendario.getCalendar().get(java.util.Calendar.MONTH) + 1);
+		    	 String dia = Integer.toString(calendario.getCalendar().get(java.util.Calendar.DATE));
+		    	 if (Integer.parseInt(mes) < 10 && Integer.parseInt(dia) < 10) {
+		    		 fechaInc = year + "-0" + mes + "-0" + dia;
+		    	 } else if (Integer.parseInt(mes) < 10 && Integer.parseInt(dia) >= 10) {
+					 fechaInc = year + "-0" + mes + "-" + dia;
+		    	 } else if (Integer.parseInt(mes) >= 10 && Integer.parseInt(dia) < 10) {
+					 fechaInc = year + "-" + mes + "-0" + dia;
+		    	 } else {
+					 fechaInc = year + "-" + mes + "-" + dia;
+		    	 }
+		    	 
+		    	 cPanel.add(fechaFin);
+		    	 cPanel.remove(fechaInicio);
+		    	 setVisible(true);
+		    	 
+		    	 d1 = calendario.getDate();
+		    	 
+		    	 //CREAMOS LA RESTRICCION DE NO PODER VOLVER A ESCOGER LA FECHA INICIO PARA LA FECHA FINAL
+		    	 int minYear = Integer.parseInt(year);
+		    	 int minMes = Integer.parseInt(mes);
+		    	 int minDia = Integer.parseInt(dia);
+		    	 
+		    	 Date minNoche = new Date(Date.UTC(minYear-1900, minMes-1, minDia +1, 0, 0, 0));
+		    	 
+		    	 calendario.setMinSelectableDate(minNoche);
+		     }
+		});
+		
+		//A CONTINUACION SELECCIONAS OTRA FECHA PARA SELECCIONAR EL DIA DE LA VUELTA
+		fechaFin.addActionListener(new ActionListener(){
+					
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String year = Integer.toString(calendario.getCalendar().get(java.util.Calendar.YEAR));
+				String mes = Integer.toString(calendario.getCalendar().get(java.util.Calendar.MONTH) + 1);
+				String dia = Integer.toString(calendario.getCalendar().get(java.util.Calendar.DATE));
+				String fechaEndBD = year + "-" + mes + "-" + dia;
+				d2 = calendario.getDate();
+						
+				//bd.connect();
+				//GUARDAMOS LOS DIAS QUE HA RESERVADO EN LA BASE DE DATOS
+				//bd.calendario(type, dia, mes , year, fechaInc);
+						
+				 dispose();	       
+			}
+		});
 		
 		lista = new DefaultListModel<>();
 		listaViajes =  new JList<String>(lista);
 		scrollListaViajes = new JScrollPane(listaViajes);
 		lista.addElement("1");
+		lista.addElement("2");
+		lista.addElement("3");
 		
 		
 		personas = new JButton("¿Cuantas personas?");
-		
 		personas.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -100,9 +172,8 @@ public class VentanaViaje extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				origen.setVisible(true);
 				destino.setVisible(true);
-				calendarioIV.setVisible(true);
-				calendarioSI.setVisible(false);
-				calendarioVP.setVisible(false);
+				fechaInicio.setVisible(true);
+				calendario.setVisible(true);
 				scrollListaViajes.setVisible(false);
 				personas.setVisible(true);
 			}
@@ -113,9 +184,8 @@ public class VentanaViaje extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				origen.setVisible(true);
 				destino.setVisible(true);
-				calendarioIV.setVisible(false);
-				calendarioSI.setVisible(true);
-				calendarioVP.setVisible(false);	
+				fechaInicio.setVisible(true);
+				calendario.setVisible(true);
 				scrollListaViajes.setVisible(false);
 				personas.setVisible(true);
 				
@@ -127,9 +197,8 @@ public class VentanaViaje extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				origen.setVisible(true);
 				destino.setVisible(true);
-				calendarioIV.setVisible(false);
-				calendarioSI.setVisible(false);
-				calendarioVP.setVisible(true);	
+				fechaInicio.setVisible(true);
+				calendario.setVisible(true);
 				scrollListaViajes.setVisible(true);
 				personas.setVisible(true);
 			}
@@ -151,12 +220,12 @@ public class VentanaViaje extends JFrame {
 		p22.add(destino);
 		destino.setVisible(false);
 		
-		p2.add(calendarioIV);
-		calendarioIV.setVisible(false);
-		p2.add(calendarioSI);
-		calendarioSI.setVisible(false);
-		p2.add(calendarioVP);
-		calendarioVP.setVisible(false);
+		p2.add(cPanel);
+		cPanel.add(fechaInicio);
+		cPanel.add(calendario);
+		fechaInicio.setVisible(false);
+		calendario.setVisible(false);
+		
 		p2.add(scrollListaViajes);
 		scrollListaViajes.setVisible(false);
 		
@@ -170,12 +239,12 @@ public class VentanaViaje extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 	}
-	/*private void desactivarBotones() {
+	private void desactivarBotones() {
 		personas.setEnabled(false);
 	}
 	private void activarBotones() {
 		personas.setEnabled(true);
-	}*/
+	}
 	
 	
 	public static void main(String[] args) {
