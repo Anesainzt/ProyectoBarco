@@ -4,7 +4,7 @@ import java.io.*;
 import java.sql.*;
 import java.util.logging.Logger;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JCalendar;
@@ -12,6 +12,10 @@ import com.toedter.calendar.JCalendar;
 import Clases.Usuario;
 
 public class BD extends JFrame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Connection conn = null;
 	private static Logger logger = Logger.getLogger(BD.class.getName());
 	
@@ -35,7 +39,7 @@ public class BD extends JFrame{
 	public void connect() {
 		try {
 			Class.forName("org.sqlite.JDBC");
-			conn = DriverManager.getConnection("jdbc:sqlite:hotelJava.db");
+			conn = DriverManager.getConnection("jdbc:sqlite:dataBase.db");
 		} catch (ClassNotFoundException e) {
 			logger.warning("Error cargando el driver de la BD");
 		} catch (SQLException e) {
@@ -67,6 +71,46 @@ public class BD extends JFrame{
 			logger.warning(e2.getMessage());
 		} 	
 	}
+	//MÉTODO para comprobar login --> miramos si COINDIDE el login && password
+		public boolean comprobarLogin(String login, String contrasenya) {
+
+			//LAS BD SE EMPIEZAN SIEMPRE CON TRYCATCH
+			try {
+				ResultSet rs;
+
+				//preparamos una sentencia donde la bd selecciona la FILA q tenga AMBOS VALORES q le hemos pasado por parámetro
+				String consulta = "SELECT * FROM usuario WHERE login=? AND contrasenya=?;";
+
+				PreparedStatement ps = conn.prepareStatement(consulta);
+				ps.setString(1, login);
+				ps.setString(2, contrasenya);
+
+				rs = ps.executeQuery();
+				while(rs.next()) {
+					if(rs.getString("login").equals(login) && rs.getString("contrasenya").equals(contrasenya)) {
+
+						//LLAMADA A LOGGER
+						logger.warning("El login se ha realizado correctamente.");
+
+						return true;
+					}	
+				}
+				JOptionPane.showMessageDialog(null, "¡Contraseña o usuario incorrectos!", "Error", JOptionPane.ERROR_MESSAGE);
+
+				ps.close();
+				return false;
+
+
+			} catch (Exception e) {
+
+				//logger --> por si falla
+				logger.warning("Ha habido un error al hacer el login. " + e.getMessage());
+				e.printStackTrace();
+
+				return false; //si no funciona pues devuelve false xd
+			}
+		}
+	
 	
 	public void ponerAlDiaBD() {
 		

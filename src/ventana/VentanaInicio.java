@@ -9,16 +9,21 @@ import java.io.*;
 import javax.imageio.*;
 import javax.swing.*;
 
+import Clases.Usuario;
+import ventana.BD;
+
 public class VentanaInicio extends JFrame {
 	
 	protected Container cp;
 	protected JPanel panel, panelIzqda, panelDcha, panel1, panel2, panel3, panel4;
 	protected JLabel label1, labelUsuario, labelContrasenya;
-	protected JTextField textoUsuario;
-	protected JPasswordField textoContrasenya;
+	protected JTextField textoUsuario,textoContrasenya;
+	//protected JPasswordField textoContrasenya;
 	protected JButton botonLogin, botonRegistro;
 	
 	public VentanaInicio() throws IOException {
+		BD bd = new BD();
+		bd.connect();
 		
 		cp = this.getContentPane();
 		this.setTitle("Inicio");
@@ -49,13 +54,29 @@ public class VentanaInicio extends JFrame {
 		panel3.setLayout(new GridLayout(2,1));
 		
 		labelContrasenya = new JLabel("Introduzca su contraseña:");
-		textoContrasenya = new JPasswordField();
-		
+		//textoContrasenya = new JPasswordField();
+		textoContrasenya = new JTextField();
 		//panel4
 		panel4 = new JPanel();
 		panel4.setLayout(new FlowLayout());
 		
 		botonLogin = new JButton("Login");
+		botonLogin.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if(bd.comprobarLogin(textoUsuario.getText(), textoContrasenya.getText())) {
+					try {
+						new VentanaViaje();
+						dispose();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					
+				}
+				
+			}
+		});
 		botonRegistro = new JButton("Registrarme");
 		botonRegistro.addActionListener(new ActionListener() {
 			
