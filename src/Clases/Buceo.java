@@ -4,8 +4,8 @@ public class Buceo extends Actividad {
 	
 	protected int cantBonbonas;
 
-	public Buceo(String codigo, String nombre, int aforo, String instructor, String ubicacion, int cantBonbonas) {
-		super(codigo, nombre, aforo, instructor, ubicacion);
+	public Buceo(String codigo, String nombre, int aforo, String instructor, String ubicacion, String descripcion, String imagen, int cantBonbonas) {
+		super(codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen);
 		this.cantBonbonas = cantBonbonas;
 	}
 	
