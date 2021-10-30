@@ -10,7 +10,7 @@ import javax.imageio.*;
 import javax.swing.*;
 
 import Clases.Usuario;
-import ventana.BD;
+import BD.BD;
 
 public class VentanaInicio extends JFrame {
 	

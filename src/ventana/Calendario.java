@@ -6,6 +6,8 @@ import com.toedter.calendar.JCalendar;
 
 import Clases.Usuario;
 
+import BD.BD;
+
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridLayout;
