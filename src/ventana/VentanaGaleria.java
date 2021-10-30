@@ -34,8 +34,6 @@ public class VentanaGaleria extends JFrame{
             JButton boton = new JButton(new ImageIcon(image));
             JLabel label = new JLabel("hola"); //bd.getActividades
             //boton.setPreferredSize(new Dimension(200, 100));
-			
-			//b.setSize(TAMANYO_BOTON);
 
             panelPrincipal.add(boton);
             panelPrincipal.add(label);
@@ -44,7 +42,12 @@ public class VentanaGaleria extends JFrame{
 				
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					VentanaGaleriaActividades v = new VentanaGaleriaActividades();
+					try {
+                        new VentanaGaleriaActividades();
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
 				}
 			});
         }
