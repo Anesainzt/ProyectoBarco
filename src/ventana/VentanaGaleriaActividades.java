@@ -33,6 +33,7 @@ public class VentanaGaleriaActividades extends JFrame{
         JLabel labelInstructor = new JLabel("Instructor: " +instructor);
         JLabel labelUbicacion = new JLabel("Ubicación");
         JLabel labelDescripcion = new JLabel("Descripción");
+        JLabel labelCantidadMaterial= new JLabel("Cantidad material");
 
         JButton botonAtras = new JButton("Atrás");
 
@@ -46,9 +47,24 @@ public class VentanaGaleriaActividades extends JFrame{
         panelPrincipal.add(labelInstructor);
         panelPrincipal.add(labelUbicacion);
         panelPrincipal.add(labelDescripcion);
+        panelPrincipal.add(labelCantidadMaterial);
         panelPrincipal.add(botonAtras);
-        panelPrincipal.add(labelImagen);
 
+        botonAtras.addActionListener(new ActionListener() {
+				
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                try {
+                    new VentanaGaleria();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        panelPrincipal.add(labelImagen);
+        
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
         this.add(panelPrincipal);
