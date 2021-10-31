@@ -8,6 +8,9 @@ import java.io.*;
 
 import javax.imageio.*;
 import javax.swing.*;
+
+import BD.BD;
+
 import java.io.IOException;
 import Clases.Usuario;
 
@@ -21,6 +24,9 @@ public class VentanaRegistro extends JFrame {
 	protected JButton botonRegistro;
 
 	public VentanaRegistro() {
+		BD bd = new BD();
+		bd.connect();
+		
 		//ContentPane
 		cp = this.getContentPane();
 		this.setTitle("Registro");
@@ -94,7 +100,7 @@ public class VentanaRegistro extends JFrame {
 		
 		//panel14
 		panel14 = new JPanel();
-		texto6 = new JPasswordField();
+		texto6 = new JTextField();
 		texto6.setPreferredSize(new Dimension (200, 25));
 		
 		//panel15
@@ -156,21 +162,28 @@ public class VentanaRegistro extends JFrame {
 
 		botonRegistro.addActionListener(new ActionListener(){
 			@Override
-			public void actionPerformed(ActionEvent e) {
-					String dni = texto1.getText();
-					String nombre = texto2.getText();
-					String apellido = texto3.getText();
-					String email = texto4.getText();
-					String usuario = texto5.getText();
-					String contrasenya = texto6.getText();
-					String nCuenta = texto7.getText();
+			public void actionPerformed(ActionEvent arg0) {
+				String dni = texto1.getText();
+				String nombre = texto2.getText();
+				String apellido = texto3.getText();
+				String email = texto4.getText();
+				String login = texto5.getText();
+				String contrasenya = texto6.getText();
+				String tarjeta = texto7.getText();
+				
+				Usuario usuario = new Usuario(nombre, apellido, dni, tarjeta, login, contrasenya, email);
 					
-					//añadir el usuario a la BD
-					//bd.regristrarUsuario(dni,nombre,..);
+				if(bd.existeUsuario(usuario) == false) {
+					bd.registrarUsuario(usuario);
 					
-					// prueba
-					Usuario usuario1 = new Usuario(nombre, apellido, dni, nCuenta, usuario, contrasenya);
-					System.out.println(usuario);
+					try {
+						new VentanaViaje();
+						dispose();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				
 			}
 		});
 

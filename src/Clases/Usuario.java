@@ -8,17 +8,19 @@ public class Usuario{
 	protected static String dni;
 	protected static String tarjeta;
 	protected static String login;
-	protected static String contraseña;
+	protected static String contrasenya;
+	protected static String email;
 
 	
-	public Usuario(String nombre, String apellido, String dni, String tarjeta, String login, String contraseña) {
+	public Usuario(String nombre, String apellido, String dni, String tarjeta, String login, String contrasenya, String email) {
 		
 		Usuario.nombre = nombre;
 		Usuario.apellido = apellido;
 		Usuario.dni = dni;
 		Usuario.tarjeta = tarjeta;
 		Usuario.login = login;
-		Usuario.contraseña = contraseña;
+		Usuario.contrasenya = contrasenya;
+		Usuario.email = email;
 		
 	}
 
@@ -30,8 +32,8 @@ public class Usuario{
 		Usuario.dni = "";
 		Usuario.tarjeta = "";
 		Usuario.login = "";
-		Usuario.contraseña = "";
-		
+		Usuario.contrasenya = "";
+		Usuario.email = "";
 	}
 	
 
@@ -76,12 +78,24 @@ public class Usuario{
 		Usuario.login = login;
 	}
 	
-	public static String getContraseña() {
-		return contraseña;
+	public static String getContrasenya() {
+		return contrasenya;
 	}
 	
-	public void setContraseña(String contraseña) {
-		Usuario.contraseña = contraseña;
+	public void setContrasenya(String contrasenya) {
+		Usuario.contrasenya = contrasenya;
 	}
+
+
+	public static String getEmail() {
+		return email;
+	}
+
+
+	public static void setEmail(String email) {
+		Usuario.email = email;
+	}
+	
+	
 	
 }

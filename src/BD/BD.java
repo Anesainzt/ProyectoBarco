@@ -39,7 +39,7 @@ public class BD extends JFrame{
 	public void connect() {
 		try {
 			Class.forName("org.sqlite.JDBC");
-			conn = DriverManager.getConnection("jdbc:sqlite:dataBase.db");
+			conn = DriverManager.getConnection("jdbc:sqlite:database.db");
 		} catch (ClassNotFoundException e) {
 			logger.warning("Error cargando el driver de la BD");
 		} catch (SQLException e) {
@@ -55,23 +55,57 @@ public class BD extends JFrame{
 		}
 	}
 	
-	//REGISTRAR EN LA BD UN CLIENTE NUEVO
-	public void registro(Usuario unuevo) {
-		try {			
-			PreparedStatement pstmt = conn.prepareStatement("UPDATE usuario SET nombre = ?, apellido = ?, dni = ?, tarjeta = ? WHERE login = '"+ unuevo.getLogin() +"' AND contraseya = '"+ unuevo.getContraseña() +"';");
+	//MÉTODO EXISTEUSUARIO 
+	public boolean existeUsuario(Usuario usuario) {
+		try {
+			ResultSet rs;
+			 
+			//preparamos una sentencia donde la bd selecciona la FILA q tenga AMBOS VALORES q le hemos pasado por parámetro
+			String consulta = "SELECT * FROM usuario WHERE login=? AND contrasenya=?;";
 			
-			pstmt.setString(1, unuevo.getNombre());
-			pstmt.setString(2, unuevo.getApellido());
-			pstmt.setString(3, unuevo.getDni());
-			pstmt.setString(4, unuevo.getTarjeta());
-			//...
-			pstmt.executeUpdate();
-			conn.close();
-		} catch (SQLException e2) {
-			logger.warning(e2.getMessage());
-		} 	
+			PreparedStatement ps = conn.prepareStatement(consulta);
+			ps.setString(1, usuario.getLogin());
+			ps.setString(2, usuario.getContrasenya());
+			
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				if(rs.getString("login").equals(usuario.getLogin()) && rs.getString("contrasenya").equals(usuario.getContrasenya())) {
+					JOptionPane.showMessageDialog(null, "¡Ya existe este usuario! ", "Error", JOptionPane.ERROR_MESSAGE);
+					return true;
+				}	
+			}
+			
+			ps.close();
+			return false;
+			
+			
+		} catch (Exception e) {
+			//logger
+			logger.warning("No se ha podido comprobar si existe el usuario.");
+			return false; //si no funciona pues devuelve false
+		}	
 	}
-	//MÉTODO para comprobar login --> miramos si COINDIDE el login && password
+	
+	//REGISTRAR EN LA BD UN CLIENTE NUEVO
+		public void registrarUsuario(Usuario nuevoUsuario) {
+			try {			
+				PreparedStatement ps = conn.prepareStatement("UPDATE usuario SET nombre = ?, apellido = ?, dni = ?, tarjeta = ?, email = ?  WHERE login = '"+ nuevoUsuario.getLogin() +"' AND contrasenya = '"+ nuevoUsuario.getContrasenya() +"';");
+				
+				ps.setString(1, nuevoUsuario.getNombre());
+				ps.setString(2, nuevoUsuario.getApellido());
+				ps.setString(3, nuevoUsuario.getDni());
+				ps.setString(4, nuevoUsuario.getTarjeta());
+				ps.setString(5, nuevoUsuario.getLogin());
+				ps.setString(6, nuevoUsuario.getContrasenya());
+				ps.setString(7, nuevoUsuario.getEmail());
+				
+				ps.executeUpdate();
+				conn.close();
+			} catch (SQLException e2) {
+				logger.warning(e2.getMessage());
+			} 	
+		}
+		//MÉTODO para comprobar login --> miramos si COINDIDE el login && password
 		public boolean comprobarLogin(String login, String contrasenya) {
 
 			//LAS BD SE EMPIEZAN SIEMPRE CON TRYCATCH
@@ -156,7 +190,7 @@ public class BD extends JFrame{
 				cl.setApellido(apellidoBD);
 				cl.setDni(dniBD);
 				cl.setLogin(usuarioBD);
-				cl.setContraseña(contraseya);
+				cl.setContrasenya(contraseya);
 				
 				
 			}
