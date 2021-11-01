@@ -156,6 +156,7 @@ public class VentanaViaje extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new VentanaPersonas();
+				dispose();
 			}
 		});
 		

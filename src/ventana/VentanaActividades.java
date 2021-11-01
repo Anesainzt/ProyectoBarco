@@ -45,12 +45,11 @@ public class VentanaActividades extends JFrame{
 		JPanel panel8 = new JPanel();
 		
 		
-		
 		JComboBox<String> combobox = new JComboBox();
 		JLabel label1 = new JLabel("¿Desea alguna actividad? ");
 		JLabel label2 = new JLabel("Cantidad de Personas");
 		JLabel label3 = new JLabel("Tarifa");
-		JButton boton1 = new JButton("Aceptar");
+		JButton boton1 = new JButton("Aceptar");//QUITAR Y CUANDO ESCOJA ELEGIR CANTIDAD DE PERSONAS QUE APAREZCA ESA VENTANA Y DESPUES DE SELECIONAR LAS PERSONAS IR A LA VENTANA QUE ESTÁ CREANDO ANDREA
 		JButton boton2 = new JButton("No quiero nada");
 		JButton boton3 = new JButton("Elegir cantidad de personas");
 		JTextField txt2 = new JTextField("",10);
@@ -59,7 +58,7 @@ public class VentanaActividades extends JFrame{
 		Image imagenBarco = bufferedImage.getScaledInstance(400, 200, Image.SCALE_DEFAULT);
 		JLabel label4 = new JLabel(new ImageIcon(imagenBarco));
 		
-		txt2.setText("yyyy/mm/dd");
+		txt2.setText("yyyy/mm/dd");//cambiar
 		
 		combobox.addItem("Surf");
 		combobox.addItem("Ski Acuático");

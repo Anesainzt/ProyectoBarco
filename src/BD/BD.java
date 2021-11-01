@@ -9,6 +9,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JCalendar;
 
+import Clases.Actividad;
 import Clases.Usuario;
 
 public class BD extends JFrame{
@@ -34,6 +35,7 @@ public class BD extends JFrame{
 		    }
 		}
 	}
+	
 	
 	//CONECTA Y DESCONECTAR LA BD
 	public void connect() {
@@ -124,7 +126,7 @@ public class BD extends JFrame{
 					if(rs.getString("login").equals(login) && rs.getString("contrasenya").equals(contrasenya)) {
 
 						//LLAMADA A LOGGER
-						logger.warning("El login se ha realizado correctamente.");
+						logger.info("El login se ha realizado correctamente.");
 
 						return true;
 					}	
@@ -133,17 +135,29 @@ public class BD extends JFrame{
 
 				ps.close();
 				return false;
-
-
 			} catch (Exception e) {
 
 				//logger --> por si falla
 				logger.warning("Ha habido un error al hacer el login. " + e.getMessage());
 				e.printStackTrace();
-
 				return false; //si no funciona pues devuelve false xd
 			}
 		}
+		
+	public void registrarCantidad(int cantidadNiyos, int cantidadAdultos) {
+		
+		try {
+
+			PreparedStatement ps = conn.prepareStatement("INSERT INTO cantidadpersonas VALUES('"+ Usuario.getDni()+ "', '"+ cantidadNiyos+ "', '"+ cantidadAdultos+ "')");
+			
+			ps.executeUpdate();
+		
+			conn.close();
+		} catch (SQLException e2) {
+			logger.warning(e2.getMessage());
+		}
+		
+	}
 	
 	
 	public void ponerAlDiaBD() {
@@ -192,7 +206,6 @@ public class BD extends JFrame{
 				cl.setLogin(usuarioBD);
 				cl.setContrasenya(contraseya);
 				
-				
 			}
 			
 		} catch (SQLException e2) {
@@ -236,31 +249,27 @@ public class BD extends JFrame{
 	}
 	
 	//MIRA QUE DIAS SE QUEDA EL CLIENTE EN EL BARCO Y SOLO DEJA COGER LA ACTIVIDAD DENTRO DE LAS FECHAS
-	public void reservaActividad(String fechaEntrada, String fechaSalida, String tipo, String numero, Usuario usuario) {
+	public void reservaActividad(String fecha, Actividad tipo, Usuario usuario) {
 		try(Statement stmt = (Statement) conn.createStatement()) {	
-			int res2 = stmt.executeUpdate("INSERT INTO historialregistros VALUES('"+ fechaEntrada +"', '"+ fechaSalida +"', "+ Integer.parseInt(numero) +", '"+ usuario.getLogin() +"', 1);");
+			int res2 = stmt.executeUpdate("INSERT INTO registroActividad VALUES('"+tipo.getNombre() +"' ,  '"+ fecha +"', '"+ usuario.getDni() +"'");
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
 	}
 	
-	
-	
 	//EN EL CASO DE QUE RESERVES UNA ACTIVIDAD INTRODUCIR EN LA TABLA ACTIVIDAD LOS DATOS
-	public void actividad(Usuario usuario, String fecha, String tipo) {
+	public void actividad(int precio, Actividad tipo) {
 		
 		try {
-			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO actividades VALUES(?, ?, ?);");
+			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO actividades VALUES(?, ?);");
 			
-			pstmt.setString(1, fecha);
-			pstmt.setString(2, tipo);
-			pstmt.setString(3, usuario.getLogin());
+			pstmt.setString(1, tipo.getNombre());
+			pstmt.setInt(2, precio);
 
 			pstmt.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
 	
 	//MIRAR QUE ACTIVIDADES ESTÁN RESEVADAS PARA HOY PARA EL ADMIN

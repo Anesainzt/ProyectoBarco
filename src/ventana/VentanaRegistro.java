@@ -24,8 +24,6 @@ public class VentanaRegistro extends JFrame {
 	protected JButton botonRegistro;
 
 	public VentanaRegistro() {
-		BD bd = new BD();
-		bd.connect();
 		
 		//ContentPane
 		cp = this.getContentPane();
@@ -161,8 +159,11 @@ public class VentanaRegistro extends JFrame {
 		panel17.add(botonRegistro);
 
 		botonRegistro.addActionListener(new ActionListener(){
+			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				BD bd = new BD();
+				bd.connect();
 				String dni = texto1.getText();
 				String nombre = texto2.getText();
 				String apellido = texto3.getText();
@@ -183,6 +184,8 @@ public class VentanaRegistro extends JFrame {
 						e.printStackTrace();
 					}
 				}
+				
+				bd.disconnect();
 				
 			}
 		});

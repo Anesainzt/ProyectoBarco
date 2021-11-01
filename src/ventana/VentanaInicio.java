@@ -22,12 +22,10 @@ public class VentanaInicio extends JFrame {
 	protected JButton botonLogin, botonRegistro;
 	
 	public VentanaInicio() throws IOException {
-		BD bd = new BD();
-		bd.connect();
 		
 		cp = this.getContentPane();
 		this.setTitle("Inicio");
-		
+
 		//panelPrincipal
 		panel = new JPanel();
 		panel.setLayout(new GridLayout(1,2)); //1 fila 2 columnas
@@ -65,6 +63,8 @@ public class VentanaInicio extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				BD bd = new BD();
+				bd.connect();
 				if(bd.comprobarLogin(textoUsuario.getText(), textoContrasenya.getText())) {
 					try {
 						new VentanaViaje();
@@ -73,10 +73,13 @@ public class VentanaInicio extends JFrame {
 						e.printStackTrace();
 					}
 					
+					bd.disconnect();
+					
 				}
 				
 			}
 		});
+		
 		botonRegistro = new JButton("Registrarme");
 		botonRegistro.addActionListener(new ActionListener() {
 			

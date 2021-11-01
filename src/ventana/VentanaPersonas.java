@@ -8,6 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import BD.BD;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -36,13 +39,18 @@ public class VentanaPersonas extends JFrame{
 		boton1.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try {
-					new VentanaActividades();
-					setVisible(false);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				BD bd = new BD();
+				bd.connect();
+				//if() {
+					try {
+						new VentanaActividades();
+						setVisible(false);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				//}
+				bd.disconnect();
 			}
 		});
 		
