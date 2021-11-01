@@ -45,7 +45,7 @@ public class VentanaViaje extends JFrame {
 		p1 = new JPanel();
 		p1.setLayout(new GridLayout(5, 1));
 		
-		viaje = new JLabel("Tu viaje empieza aquí");
+		viaje = new JLabel("TU VIAJE EMPIEZA AQUÍ");
 		idaVuelta = new JRadioButton("Ida y Vuelta");
 		soloIda = new JRadioButton("Solo ida");
 		viajesProgramados = new JRadioButton("Viajes Largos programados");

@@ -73,6 +73,5 @@ public class VentanaGaleriaActividades extends JFrame{
 
 	public static void main(String[] args) throws IOException {
 		new VentanaGaleriaActividades();
-
 	}
 }

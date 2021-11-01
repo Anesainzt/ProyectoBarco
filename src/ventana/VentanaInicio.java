@@ -40,8 +40,8 @@ public class VentanaInicio extends JFrame {
 		panel1 = new JPanel();
 		panel1.setLayout(new GridLayout(2,1));
 		
-		label1 = new JLabel("Login");
-		label1.setFont(new Font("Times New Roman", Font.LAYOUT_NO_LIMIT_CONTEXT, 24));
+		//label1 = new JLabel("Login");
+		//label1.setFont(new Font("Times New Roman", Font.LAYOUT_NO_LIMIT_CONTEXT, 24));
 		
 		//panel2
 		panel2 = new JPanel();
@@ -55,12 +55,12 @@ public class VentanaInicio extends JFrame {
 		
 		labelContrasenya = new JLabel("Introduzca su contraseña:");
 		//textoContrasenya = new JPasswordField();
-		textoContrasenya = new JTextField();
+		textoContrasenya = new JPasswordField();
 		//panel4
 		panel4 = new JPanel();
 		panel4.setLayout(new FlowLayout());
 		
-		botonLogin = new JButton("Login");
+		botonLogin = new JButton("Iniciar sesión");
 		botonLogin.addActionListener(new ActionListener() {
 			
 			@Override
@@ -108,7 +108,7 @@ public class VentanaInicio extends JFrame {
 		
 		panelDcha.add(label);
 		
-		panel1.add(label1);
+		//panel1.add(label1);
 		
 		panel2.add(labelUsuario);
 		panel2.add(textoUsuario);
