@@ -3,6 +3,8 @@ package ventana;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VentanaPago extends JFrame{
 
@@ -15,13 +17,14 @@ public class VentanaPago extends JFrame{
 
         cp = this.getContentPane();
         this.setTitle("Pago");
-        this.setSize(1000, 600);
+        this.setSize(500, 200);
 
         panelPrincipal = new JPanel(new BorderLayout());
-        panelPrincipal.setSize(1000, 600);
+        panelPrincipal.setSize(500, 200);
 
         panelDerecha = new JPanel(new GridLayout(6, 1));
         panelIzquierda = new JPanel(new GridLayout(3, 1));
+        //panelIzquierda.setSize(150, 50);
 
         JLabel labelTicket = new JLabel("Ticket");
         labelTicket.setFont(new Font("Serif", Font.PLAIN, 30));
@@ -31,14 +34,10 @@ public class VentanaPago extends JFrame{
         JLabel labelCuenta = new JLabel("numCuenta");
         JLabel labelContraseña1 = new JLabel("Introduzca la contraseña: ");
         JTextField textContraseña1 = new JPasswordField();
+        //textContraseña1.setPreferredSize(new Dimension (200, 25));
         JLabel labelContraseña2 = new JLabel("Vuelva a introducir la contraseña: ");
         JTextField textContraseña2 = new JPasswordField();
         JButton botonAceptar = new JButton("Aceptar");
-
-
-        //textContraseña2.setPreferredSize(new Dimension (200, 25));
-        //textContraseña2.setPreferredSize(new Dimension (200, 25));
-        //labelContraseña1.setSize(10, 20);
 
         panelIzquierda.add(labelTicket);
         panelIzquierda.add(labelPrueba);
@@ -51,6 +50,19 @@ public class VentanaPago extends JFrame{
         panelDerecha.add(textContraseña2);
         panelDerecha.add(botonAceptar);
 
+        botonAceptar.addActionListener(new ActionListener() {
+				
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                try {
+                    new VentanaTicket();
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        });
+
         panelPrincipal.add(panelDerecha, BorderLayout.EAST);
         panelPrincipal.add(panelIzquierda, BorderLayout.WEST);
 
@@ -58,7 +70,7 @@ public class VentanaPago extends JFrame{
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
-        this.pack();
+        //this.pack();
     }
 
     public static void main(String[] args) throws IOException {

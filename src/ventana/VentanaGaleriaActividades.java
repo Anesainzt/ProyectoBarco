@@ -15,7 +15,7 @@ public class VentanaGaleriaActividades extends JFrame{
     private JPanel panelPrincipal;
 
     //prueba
-    private String nombre = "Surf";
+    private String nombre = "SURF";
     private String instructor = "Manolo";
 
     public VentanaGaleriaActividades() throws IOException {
@@ -28,6 +28,7 @@ public class VentanaGaleriaActividades extends JFrame{
         panelPrincipal.setSize(1000, 600);
 
         JLabel labelNombre = new JLabel(nombre);
+        labelNombre.setFont(new Font("Serif", Font.PLAIN, 55));
         JLabel labelCodigo = new JLabel("Código");
         JLabel labelAforo = new JLabel("Aforo");
         JLabel labelInstructor = new JLabel("Instructor: " +instructor);

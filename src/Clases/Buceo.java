@@ -2,29 +2,29 @@ package Clases;
 
 public class Buceo extends Actividad {
 	
-	protected int cantBonbonas;
+	protected int cantBombonas;
 
-	public Buceo(String codigo, String nombre, int aforo, String instructor, String ubicacion, String descripcion, String imagen, int cantBonbonas) {
+	public Buceo(String codigo, String nombre, int aforo, String instructor, String ubicacion, String descripcion, String imagen, int cantBombonas) {
 		super(codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen);
-		this.cantBonbonas = cantBonbonas;
+		this.cantBombonas = cantBombonas;
 	}
 	
 	public Buceo() {
 		super();
-		this.cantBonbonas = 0;
+		this.cantBombonas = 0;
 	}
 
-	public int getCantBonbonas() {
-		return cantBonbonas;
+	public int getCantBombonas() {
+		return cantBombonas;
 	}
 
-	public void setCantBonbonas(int cantBonbonas) {
-		this.cantBonbonas = cantBonbonas;
+	public void setCantBombonas(int cantBombonas) {
+		this.cantBombonas = cantBombonas;
 	}
 
 	@Override
 	public String toString() {
-		return "Buceo [cantBonbonas=" + cantBonbonas + "]";
+		return "Buceo [cantBombonas=" + cantBombonas + "]";
 	}
 	
 	
