@@ -3,6 +3,7 @@ package BD;
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.swing.*;
@@ -11,6 +12,9 @@ import javax.swing.table.DefaultTableModel;
 import com.toedter.calendar.JCalendar;
 
 import Clases.Actividad;
+import Clases.Buceo;
+import Clases.Ski;
+import Clases.Surf;
 import Clases.Usuario;
 
 public class BD extends JFrame{
@@ -372,7 +376,57 @@ public class BD extends JFrame{
 
 	}
 
+	public List<Buceo> getListaBuceo(){
 
+		List<Buceo> listaBuceo = new ArrayList<Buceo>();
 
+		try(Statement stmt = (Statement) conn.createStatement()) {
+			
+			ResultSet buceo = stmt.executeQuery("SELECT * FROM buceo;");
+			while(buceo.next()) {
+				Buceo actividad = new Buceo(buceo.getString("codigo"), buceo.getString("nombre"), buceo.getInt("aforo"), buceo.getString("instructor"), buceo.getString("ubicacion"), buceo.getString("descripcion"), buceo.getString("imagen"), buceo.getInt("cantTablas"));
+				listaBuceo.add(actividad);
 
+			}	
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listaBuceo;
+	}
+	
+	public List<Ski> getListaSki(){
+
+		List<Ski> listaSki = new ArrayList<Ski>();
+
+		try(Statement stmt = (Statement) conn.createStatement()) {
+			
+			ResultSet ski = stmt.executeQuery("SELECT * FROM ski;");
+			while(ski.next()) {
+				Ski actividad = new Ski(ski.getString("codigo"), ski.getString("nombre"), ski.getInt("aforo"), ski.getString("instructor"), ski.getString("ubicacion"), ski.getString("descripcion"), ski.getString("imagen"), ski.getInt("cantSkis"));
+				listaSki.add(actividad);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listaSki;
+	}
+
+	public List<Surf> getListaSurf(){
+
+		List<Surf> listaSurf = new ArrayList<Surf>();
+
+		try(Statement stmt = (Statement) conn.createStatement()) {
+
+			ResultSet surf = stmt.executeQuery("SELECT * FROM surf;");
+			while(surf.next()) {
+				Surf actividad = new Surf(surf.getString("codigo"), surf.getString("nombre"), surf.getInt("aforo"), surf.getString("instructor"), surf.getString("ubicacion"), surf.getString("descripcion"), surf.getString("imagen"), surf.getInt("cantTablas"));
+				listaSurf.add(actividad);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listaSurf;
+	}
 }
