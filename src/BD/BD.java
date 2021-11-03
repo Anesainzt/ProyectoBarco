@@ -14,9 +14,7 @@ import Clases.Actividad;
 import Clases.Usuario;
 
 public class BD extends JFrame{
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private Connection conn = null;
 	private static Logger logger = Logger.getLogger(BD.class.getName());
