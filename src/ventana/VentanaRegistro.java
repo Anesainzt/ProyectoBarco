@@ -19,7 +19,7 @@ public class VentanaRegistro extends JFrame {
 	protected Container cp;
 	protected JPanel panel,panelIzqda,panelDcha,panel1,panel2,panel3,panel4,panel5,panel6,panel7,panel8,panel9,panel10,panel11,panel12,panel13,
 	panel14,panel15,panel16,panel17;
-	protected JLabel label1, label2,label3,label4,label5,label6,label7,label8,label9;
+	protected JLabel label1,iconoCv,label3,label4,label5,label6,label7,label8,label9,icono1,icono2,icono3,icono4,icono5,icono6,icono7,icono8;
 	protected JTextField texto1,texto2,texto3,texto4,texto5,texto6,texto7;
 	protected JButton botonRegistro;
 
@@ -42,10 +42,20 @@ public class VentanaRegistro extends JFrame {
 
 		//panel1
 		panel1 = new JPanel();
-		label1 = new JLabel("REGISTRO");
+		panel1.setLayout(new GridLayout(1,8));
+		icono1 = new JLabel(new ImageIcon("images/r.png"));
+		icono2 = new JLabel(new ImageIcon("images/e.png"));
+		icono3 = new JLabel(new ImageIcon("images/g.png"));
+		icono4 = new JLabel(new ImageIcon("images/i.png"));
+		icono5 = new JLabel(new ImageIcon("images/s.png"));
+		icono6 = new JLabel(new ImageIcon("images/t.png"));
+		icono7 = new JLabel(new ImageIcon("images/r.png"));
+		icono8 = new JLabel(new ImageIcon("images/o.png"));
+		
+		
 		//panel2
 		panel2 = new JPanel();
-		label2 = new JLabel("Introduzca sus datos para poder registrarse:");
+		iconoCv= new JLabel(new ImageIcon("images/cv.png"));
 
 		//panel3
 		panel3 = new JPanel();	
@@ -140,8 +150,16 @@ public class VentanaRegistro extends JFrame {
 
 
 
-		panel1.add(label1);
-		panel2.add(label2);
+		panel1.add(icono1);
+		panel1.add(icono2);
+		panel1.add(icono3);
+		panel1.add(icono4);
+		panel1.add(icono5);
+		panel1.add(icono6);
+		panel1.add(icono7);
+		panel1.add(icono8);
+		
+		panel2.add(iconoCv);
 		panel3.add(label3);
 		panel4.add(texto1);
 		panel5.add(label4);

@@ -59,7 +59,6 @@ public class VentanaInicio extends JFrame {
 		panel3.setLayout(new GridLayout(2,1));
 		
 		labelContrasenya = new JLabel("Introduzca su contraseña:");
-		//textoContrasenya = new JPasswordField();
 		textoContrasenya = new JPasswordField();
 		//panel4
 		panel4 = new JPanel();

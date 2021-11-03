@@ -14,7 +14,7 @@ public class VentanaPerfil extends JFrame {
 	protected JPanel panel,panelLabel,panelDni,panelNombre,panelApellido,panelEmail,panelUsuario,panelContrasenya,panelNcuenta,panelBotones;
 	protected JTextField textoDni,textoNombre,textoApellido,textoEmail,textoUsuario,textoContrasenya,textoNcuenta;
 	protected JLabel label;
-	protected JButton botonEditar,botonAceptar;
+	protected JButton botonEditar,botonAceptar,botonBorrar;
 
 	public VentanaPerfil(Usuario uActual) {
 
@@ -81,8 +81,9 @@ public class VentanaPerfil extends JFrame {
 		
 		//panelBotones
 		panelBotones = new JPanel();
-		panelBotones.setLayout(new GridLayout(1,2));
+		panelBotones.setLayout(new GridLayout(1,3));
 		
+		//botón EDITAR perfil
 		botonEditar = new JButton("Editar");
 		botonEditar.addActionListener(new ActionListener() {
 			
@@ -98,7 +99,20 @@ public class VentanaPerfil extends JFrame {
 				
 			}
 		});
+		
+		//botón ACEPTAR
 		botonAceptar = new JButton("Aceptar");
+		
+		//botón BORRAR perfil
+		botonBorrar = new JButton("Borrar perfil");
+		botonBorrar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+			}
+		});
 	
 		
 
