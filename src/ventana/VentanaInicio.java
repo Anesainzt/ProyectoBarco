@@ -20,8 +20,11 @@ public class VentanaInicio extends JFrame {
 	protected JTextField textoUsuario,textoContrasenya;
 	//protected JPasswordField textoContrasenya;
 	protected JButton botonLogin, botonRegistro;
+	protected BD bd = new BD();
 	
 	public VentanaInicio() throws IOException {
+		//crear usuarioActual
+		Usuario uActual = new Usuario();
 		
 		cp = this.getContentPane();
 		this.setTitle("Inicio");
@@ -47,6 +50,7 @@ public class VentanaInicio extends JFrame {
 		
 		labelUsuario = new JLabel("Introduzca su usuario:");
 		textoUsuario = new JTextField();
+		
 		//panel3
 		panel3 = new JPanel();
 		panel3.setLayout(new GridLayout(2,1));
@@ -63,11 +67,12 @@ public class VentanaInicio extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				BD bd = new BD();
 				bd.connect();
 				if(bd.comprobarLogin(textoUsuario.getText(), textoContrasenya.getText())) {
 					try {
-						new VentanaViaje();
+						uActual.setLogin(textoUsuario.getText());
+						
+						new VentanaViaje(bd.getuActual());
 						dispose();
 					} catch (Exception e) {
 						e.printStackTrace();

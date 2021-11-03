@@ -175,10 +175,10 @@ public class VentanaRegistro extends JFrame {
 				Usuario usuario = new Usuario(nombre, apellido, dni, tarjeta, login, contrasenya, email);
 					
 				if(bd.existeUsuario(usuario) == false) {
-					bd.registrarUsuario(usuario);
+					bd.crearUsuario(texto5, texto6, texto2, texto3, texto1, texto7, texto4);
 					
 					try {
-						new VentanaViaje();
+						new VentanaViaje(usuario);
 						dispose();
 					} catch (Exception e) {
 						e.printStackTrace();

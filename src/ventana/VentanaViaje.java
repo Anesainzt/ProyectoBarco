@@ -13,6 +13,8 @@ import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
 
 import com.toedter.calendar.JCalendar;
 
+import Clases.Usuario;
+
 public class VentanaViaje extends JFrame {
 	
 	Container cp;
@@ -24,6 +26,9 @@ public class VentanaViaje extends JFrame {
 	JList<String> listaViajes;
 	JScrollPane scrollListaViajes;
 	JButton personas;
+	JMenuBar menuBar;
+	JMenu menu;
+	JMenuItem itemPerfil;
 	
 	JCalendar calendario;
 	JButton fechaInicio, fechaFin;
@@ -33,13 +38,26 @@ public class VentanaViaje extends JFrame {
 	Logger logger = Logger.getLogger(Calendario.class.getName());
 	
 	
-	public VentanaViaje() {
+	public VentanaViaje(Usuario uActual) {
 				
 		cp = this.getContentPane();
 		
 		//panelPrincp
 		pPrinc = new JPanel();
 		pPrinc.setLayout(new GridLayout(1,2));
+		
+		//menú
+		menuBar = new JMenuBar();
+		menu = new JMenu("Más opciones");
+		itemPerfil = new JMenuItem("Mi perfil");
+		itemPerfil.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				new VentanaPerfil(uActual);
+				
+			}
+		});
 		
 		//Panel de la izquierda
 		p1 = new JPanel();
@@ -210,6 +228,10 @@ public class VentanaViaje extends JFrame {
 		pPrinc.add(p1);
 		pPrinc.add(p2);
 		
+		setJMenuBar(menuBar);
+		menuBar.add(menu);
+		menu.add(itemPerfil);
+		
 		p1.add(viaje);
 		p1.add(idaVuelta);
 		p1.add(soloIda);
@@ -249,7 +271,8 @@ public class VentanaViaje extends JFrame {
 	
 	
 	public static void main(String[] args) {
-		new VentanaViaje();
+		Usuario u = new Usuario();
+		new VentanaViaje(u);
 	}
 	
 

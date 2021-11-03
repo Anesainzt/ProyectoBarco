@@ -2,6 +2,7 @@ package BD;
 
 import java.io.*;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import javax.swing.*;
@@ -19,6 +20,7 @@ public class BD extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private Connection conn = null;
 	private static Logger logger = Logger.getLogger(BD.class.getName());
+	private static Usuario uActual = new Usuario();
 	
 	//METODO PARA ESCRIBIR EN LOS FICHEROS
 	public void escribirFichero(String fichero, String texto) {
@@ -57,6 +59,15 @@ public class BD extends JFrame{
 		}
 	}
 	
+	
+	//MÉTODO DEVOVLER USUARIO
+	public Usuario devolverUsuario(Usuario uActual) {
+		ResultSet rs;
+		String consulta = "SELECT * FROM usuario WHERE login = " + uActual.getLogin();
+		
+		return uActual;
+	}
+	
 	//MÉTODO EXISTEUSUARIO 
 	public boolean existeUsuario(Usuario usuario) {
 		try {
@@ -71,6 +82,7 @@ public class BD extends JFrame{
 			
 			rs = ps.executeQuery();
 			while(rs.next()) {
+				System.out.println("jodejd");
 				if(rs.getString("login").equals(usuario.getLogin()) && rs.getString("contrasenya").equals(usuario.getContrasenya())) {
 					JOptionPane.showMessageDialog(null, "¡Ya existe este usuario! ", "Error", JOptionPane.ERROR_MESSAGE);
 					return true;
@@ -87,26 +99,57 @@ public class BD extends JFrame{
 			return false; //si no funciona pues devuelve false
 		}	
 	}
-	
+	public Usuario devolverUsuarioActual() {
+		
+		
+		return null;
+	}
 	//REGISTRAR EN LA BD UN CLIENTE NUEVO
-		public void registrarUsuario(Usuario nuevoUsuario) {
-			try {			
-				PreparedStatement ps = conn.prepareStatement("UPDATE usuario SET nombre = ?, apellido = ?, dni = ?, tarjeta = ?, email = ?  WHERE login = '"+ nuevoUsuario.getLogin() +"' AND contrasenya = '"+ nuevoUsuario.getContrasenya() +"';");
-				
-				ps.setString(1, nuevoUsuario.getNombre());
-				ps.setString(2, nuevoUsuario.getApellido());
-				ps.setString(3, nuevoUsuario.getDni());
-				ps.setString(4, nuevoUsuario.getTarjeta());
-				ps.setString(5, nuevoUsuario.getLogin());
-				ps.setString(6, nuevoUsuario.getContrasenya());
-				ps.setString(7, nuevoUsuario.getEmail());
-				
-				ps.executeUpdate();
-				conn.close();
-			} catch (SQLException e2) {
-				logger.warning(e2.getMessage());
-			} 	
-		}
+	
+	public void crearUsuario(JTextField loginText, JTextField contrasenyaText, JTextField nombreText, JTextField apellidoText, JTextField dniText, JTextField tarjetaText, JTextField emailText) {
+
+		try {
+			Connection conn = DriverManager.getConnection("jdbc:sqlite:database.db");
+			Statement stmt = (Statement) conn.createStatement();
+
+			ResultSet rs = stmt.executeQuery("Select * from usuario");
+
+			ArrayList<String> usuariosBD = new ArrayList<>();
+
+			while(rs.next()) {
+				String loginBD = rs.getString("login");
+				String contrasenyaBD = rs.getString("contrasenya");
+				usuariosBD.add(loginBD);
+			}
+
+			if (!usuariosBD.contains(loginText.getText())) {																	// ('login', 'contr')
+				String instruccion = "INSERT INTO usuario (login, contrasenya, nombre, apellido, dni, tarjeta, email) VALUES ('" + loginText.getText()  + "','" + contrasenyaText.getText() + "','" + nombreText.getText()  + "','" + apellidoText.getText()  + "','" + dniText.getText()  + "','" + tarjetaText.getText()  + "','" + emailText.getText() + "');";
+				JOptionPane.showMessageDialog(null, "Usuario creado con exito");
+				int rs2 = stmt.executeUpdate(instruccion);
+				uActual = new Usuario(nombreText.getText(), apellidoText.getText(), dniText.getText(), tarjetaText.getText(), loginText.getText(), contrasenyaText.getText(), emailText.getText());
+			} else {
+				JOptionPane.showMessageDialog(null, "Este usuario ya existe");
+			}
+			
+			
+		} catch (SQLException e) {
+			System.out.println("Se ha ejecutado el metodo de crear usuario a pesar del error");
+			e.printStackTrace();
+		}	
+
+	} 
+	
+	
+		public static Usuario getuActual() {
+		return uActual;
+	}
+
+
+	public static void setuActual(Usuario uActual) {
+		BD.uActual = uActual;
+	}
+
+
 		//MÉTODO para comprobar login --> miramos si COINDIDE el login && password
 		public boolean comprobarLogin(String login, String contrasenya) {
 
@@ -127,6 +170,15 @@ public class BD extends JFrame{
 
 						//LLAMADA A LOGGER
 						logger.info("El login se ha realizado correctamente.");
+						String nombre = rs.getString("nombre");
+						String apellido = rs.getString("apellido");
+						String dni = rs.getString("dni");
+						String tarjeta = rs.getString("tarjeta");
+						String log = rs.getString("login");
+						String contr = rs.getString("contrasenya");
+						String email = rs.getString("email");
+						
+						uActual = new Usuario(nombre, apellido, dni, tarjeta, log, contr, email);
 
 						return true;
 					}	

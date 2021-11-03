@@ -1,7 +1,12 @@
 package ventana;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
+
+import Clases.Usuario;
 
 public class VentanaPerfil extends JFrame {
 
@@ -11,7 +16,7 @@ public class VentanaPerfil extends JFrame {
 	protected JLabel label;
 	protected JButton botonEditar,botonAceptar;
 
-	public VentanaPerfil() {
+	public VentanaPerfil(Usuario uActual) {
 
 		cp = this.getContentPane();
 		this.setTitle("Mi Perfil");
@@ -27,42 +32,71 @@ public class VentanaPerfil extends JFrame {
 		panelDni = new JPanel();
 		textoDni = new JTextField();
 		textoDni.setPreferredSize(new Dimension (200, 25));
+		textoDni.setText(uActual.getDni());
+		textoDni.setEnabled(false);
+	
 		
 		//panelNombre
 		panelNombre = new JPanel();
 		textoNombre = new JTextField();
 		textoNombre.setPreferredSize(new Dimension (200, 25));
+		textoNombre.setText(uActual.getNombre());
+		textoNombre.setEnabled(false);
 		
 		//panelApellido
 		panelApellido = new JPanel();
 		textoApellido = new JTextField();
 		textoApellido.setPreferredSize(new Dimension (200, 25));
+		textoApellido.setText(uActual.getApellido());
+		textoApellido.setEnabled(false);
 		
 		//panelEmail
 		panelEmail = new JPanel();
 		textoEmail = new JTextField();
 		textoEmail.setPreferredSize(new Dimension (200, 25));
+		textoEmail.setText(uActual.getEmail());
+		textoEmail.setEnabled(false);
 		
 		//panelUsuario
 		panelUsuario = new JPanel();
 		textoUsuario = new JTextField();
 		textoUsuario.setPreferredSize(new Dimension (200, 25));
+		textoUsuario.setText(uActual.getLogin());
+		textoUsuario.setEnabled(false);
 		
 		//panelContrasenya --> visible al usuario asiq textfield normal
 		panelContrasenya = new JPanel();
 		textoContrasenya = new JTextField();
 		textoContrasenya.setPreferredSize(new Dimension (200, 25));
+		textoContrasenya.setText(uActual.getContrasenya());
+		textoContrasenya.setEnabled(false);
 		
 		//panelNCuenta
 		panelNcuenta = new JPanel();
 		textoNcuenta = new JTextField();
 		textoNcuenta.setPreferredSize(new Dimension (200, 25));
+		textoNcuenta.setText(uActual.getTarjeta());
+		textoNcuenta.setEnabled(false);
 		
 		//panelBotones
 		panelBotones = new JPanel();
 		panelBotones.setLayout(new GridLayout(1,2));
 		
 		botonEditar = new JButton("Editar");
+		botonEditar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				textoDni.setEnabled(true);
+				textoNombre.setEnabled(true);
+				textoApellido.setEnabled(true);
+				textoEmail.setEnabled(true);
+				textoUsuario.setEnabled(true);
+				textoContrasenya.setEnabled(true);
+				textoNcuenta.setEnabled(true);
+				
+			}
+		});
 		botonAceptar = new JButton("Aceptar");
 	
 		
@@ -95,10 +129,4 @@ public class VentanaPerfil extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 	}
-
-	public static void main(String[] args) {
-		new VentanaPerfil();
-
-	}
-
 }
