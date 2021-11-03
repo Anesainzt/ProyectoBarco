@@ -39,10 +39,13 @@ public class VentanaInicio extends JFrame {
 		panelIzqda.setLayout(new GridLayout(4,1));
 		//panel1
 		panel1 = new JPanel();
-		panel1.setLayout(new GridLayout(2,1));
-		
-		//label1 = new JLabel("Login");
-		//label1.setFont(new Font("Times New Roman", Font.LAYOUT_NO_LIMIT_CONTEXT, 24));
+		panel1.setLayout(new GridLayout(1,1));
+		panel1.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0)); //TOC
+
+		label1 = new JLabel(new ImageIcon("images/velero.png"));
+
+		panel1.setBackground(Color.WHITE);
+		panel1.add(label1);
 		
 		//panel2
 		panel2 = new JPanel();
@@ -116,7 +119,7 @@ public class VentanaInicio extends JFrame {
 		
 		panelDcha.add(label);
 		
-		//panel1.add(label1);
+		panel1.add(label1);
 		
 		panel2.add(labelUsuario);
 		panel2.add(textoUsuario);

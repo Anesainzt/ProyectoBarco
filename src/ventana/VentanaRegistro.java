@@ -192,7 +192,7 @@ public class VentanaRegistro extends JFrame {
 
 		setVisible(true);
 		pack();
-		setSize(700,450);
+		setSize(550, 450);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 	}

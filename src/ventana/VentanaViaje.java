@@ -1,10 +1,12 @@
 package ventana;
 
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -28,7 +30,7 @@ public class VentanaViaje extends JFrame {
 	JButton personas;
 	JMenuBar menuBar;
 	JMenu menu;
-	JMenuItem itemPerfil;
+	JMenuItem itemPerfil, itemGaleria;
 	
 	JCalendar calendario;
 	JButton fechaInicio, fechaFin;
@@ -49,12 +51,30 @@ public class VentanaViaje extends JFrame {
 		//menú
 		menuBar = new JMenuBar();
 		menu = new JMenu("Más opciones");
-		itemPerfil = new JMenuItem("Mi perfil");
+	
+		itemPerfil = new JMenuItem("Mi perfil", new ImageIcon("images/perfil.png"));
+		itemPerfil.setBackground(Color.WHITE);
 		itemPerfil.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				new VentanaPerfil(uActual);
+				
+			}
+		});
+		
+		itemGaleria = new JMenuItem("Galería", new ImageIcon("images/galeria.png"));
+		itemGaleria.setBackground(Color.WHITE);
+		itemGaleria.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					new VentanaGaleria();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 			}
 		});
@@ -231,6 +251,7 @@ public class VentanaViaje extends JFrame {
 		setJMenuBar(menuBar);
 		menuBar.add(menu);
 		menu.add(itemPerfil);
+		menu.add(itemGaleria);
 		
 		p1.add(viaje);
 		p1.add(idaVuelta);
@@ -267,13 +288,6 @@ public class VentanaViaje extends JFrame {
 	}
 	private void activarBotones() {
 		personas.setEnabled(true);
-	}
-	
-	
-	public static void main(String[] args) {
-		Usuario u = new Usuario();
-		new VentanaViaje(u);
-	}
-	
+	}	
 
 }

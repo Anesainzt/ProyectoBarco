@@ -26,7 +26,8 @@ public class VentanaPerfil extends JFrame {
 		
 		//panelLabel
 		panelLabel = new JPanel();
-		label = new JLabel("A continuación puede ver su información personal:");
+		label = new JLabel();
+		label.setIcon(new ImageIcon("images/BETH.png"));
 		
 		//panelDni
 		panelDni = new JPanel();
