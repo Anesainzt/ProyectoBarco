@@ -2,13 +2,14 @@ package Clases;
 
 public abstract class Actividad {
 	
-	protected String codigo;
-	protected String nombre;
-	protected int aforo;
-	protected String instructor; //nombre del instructor/a
-	protected String ubicacion;
-	protected String descripcion;
-	protected String imagen;
+	//QUITAR ABSTRACT?? ->Si no es abstracta se pone static y se podria hacer junit (Abstract != Herencia)
+	protected static String codigo;
+	protected static String nombre;
+	protected static int aforo;
+	protected static String instructor; //nombre del instructor/a
+	protected static String ubicacion;
+	protected static String descripcion; 
+	protected static String imagen; //Porque hay un String de imagen?
 	
 	public Actividad(String codigo, String nombre, int aforo, String instructor, String ubicacion, String descripcion, String imagen) {
 		super();
@@ -32,7 +33,7 @@ public abstract class Actividad {
 		this.imagen = "";
 	}
 
-	public String getCodigo() {
+	public static String getCodigo() {
 		return codigo;
 	}
 
@@ -40,7 +41,7 @@ public abstract class Actividad {
 		this.codigo = codigo;
 	}
 
-	public String getNombre() {
+	public static String getNombre() {
 		return nombre;
 	}
 
@@ -48,7 +49,7 @@ public abstract class Actividad {
 		this.nombre = nombre;
 	}
 
-	public int getAforo() {
+	public static int getAforo() {
 		return aforo;
 	}
 
@@ -56,7 +57,7 @@ public abstract class Actividad {
 		this.aforo = aforo;
 	}
 
-	public String getInstructor() {
+	public static String getInstructor() {
 		return instructor;
 	}
 
@@ -64,7 +65,7 @@ public abstract class Actividad {
 		this.instructor = instructor;
 	}
 
-	public String getUbicacion() {
+	public static String getUbicacion() {
 		return ubicacion;
 	}
 
@@ -72,7 +73,7 @@ public abstract class Actividad {
 		this.ubicacion = ubicacion;
 	}
 
-	public String getDescripcion() {
+	public static String getDescripcion() {
 		return descripcion;
 	}
 
@@ -80,7 +81,7 @@ public abstract class Actividad {
 		this.descripcion = descripcion;
 	}
 
-	public String getImagen() {
+	public static String getImagen() {
 		return imagen;
 	}
 
@@ -93,4 +94,5 @@ public abstract class Actividad {
 		return "Actividad [codigo=" + codigo + ", nombre=" + nombre + ", aforo=" + aforo + ", instructor=" + instructor
 				+ ", ubicacion=" + ubicacion + ", descripcion=" + descripcion + ", imagen=" + imagen + "]";
 	}
+	
 }

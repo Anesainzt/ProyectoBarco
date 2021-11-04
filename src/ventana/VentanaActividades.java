@@ -58,7 +58,7 @@ public class VentanaActividades extends JFrame{
 		Image imagenBarco = bufferedImage.getScaledInstance(400, 200, Image.SCALE_DEFAULT);
 		JLabel label4 = new JLabel(new ImageIcon(imagenBarco));
 		
-		txt2.setText("yyyy/mm/dd");//cambiar
+		txt2.setText("yyyy/mm/dd");//cambiar por calendario
 		
 		combobox.addItem("Surf");
 		combobox.addItem("Ski Acuático");

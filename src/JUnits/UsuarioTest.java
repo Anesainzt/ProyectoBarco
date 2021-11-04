@@ -7,23 +7,26 @@ import org.junit.jupiter.api.Test;
 import Clases.Usuario;
 
 class UsuarioTest {
-	Usuario u1 = new Usuario("Mikel","Mingo","79223791S","xxxxx","mikelmingo","123456789", "mikelmingo@gopendeusto.es");
+	
+	Usuario u1 = new Usuario("Mikel","Mingo","79223791S","xxxx xxxx xxxx xxxx","mikelmingo","123456789", "mikelmingo@opendeusto.es");
+	Usuario u2 = new Usuario();
 	@Test
-	public void testNombre() {
+	public void getNombre() {
 		
 		assertEquals("Mikel", u1.getNombre());
-		
 	}
+	
+	
 	@Test
 	public void testDni() {
-		
+
 		assertEquals("79223791S", u1.getDni());
 		
 	}
 	@Test
 	public void testTarjeta() {
 		
-		assertEquals("xxxxx", u1.getTarjeta());
+		assertEquals("xxxx xxxx xxxx xxxx", u1.getTarjeta());
 		
 	}
 	
@@ -49,7 +52,7 @@ class UsuarioTest {
 	@Test
 	public void testemail() {
 		
-		assertEquals("mikelmigo@opendeusto.es", u1.getEmail());
+		assertEquals("mikelmingo@opendeusto.es", u1.getEmail());
 		
 	}
 	

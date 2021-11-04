@@ -2,19 +2,17 @@ package Clases;
 
 public class Buceo extends Actividad {
 	
-	protected int cantBombonas;
+	protected static int cantBombonas;
 
 	public Buceo(String codigo, String nombre, int aforo, String instructor, String ubicacion, String descripcion, String imagen, int cantBombonas) {
-		super(codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen);
 		this.cantBombonas = cantBombonas;
 	}
 	
 	public Buceo() {
-		super();
 		this.cantBombonas = 0;
 	}
 
-	public int getCantBombonas() {
+	public static int getCantBombonas() {
 		return cantBombonas;
 	}
 

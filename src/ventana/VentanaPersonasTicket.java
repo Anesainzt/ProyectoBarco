@@ -13,6 +13,8 @@ import BD.BD;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 public class VentanaPersonasTicket extends JFrame{
@@ -33,7 +35,36 @@ public class VentanaPersonasTicket extends JFrame{
 		JLabel label5 = new JLabel("(<18)");
 		
 		JTextField txt1 = new JTextField("", 10);
+		txt1.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				
+				 int key = e.getKeyChar();
+
+				    boolean numeros = key >= 48 && key <= 57;
+				        
+				    if (!numeros)
+				    {
+				        e.consume();
+				    }
+			}
+		});
 		JTextField txt2 = new JTextField("", 10);
+		txt2.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				
+				 int key = e.getKeyChar();
+
+				    boolean numeros = key >= 48 && key <= 57;
+				        
+				    if (!numeros)
+				    {
+				        e.consume();
+				    }
+			}
+		});
+		
 		JButton boton1 = new JButton("Aceptar");
 		
 		boton1.addActionListener(new ActionListener(){

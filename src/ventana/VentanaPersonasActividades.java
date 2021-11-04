@@ -44,7 +44,7 @@ public class VentanaPersonasActividades extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				BD bd = new BD();
 				bd.connect();
-				//if() {
+
 					
 						
 						
@@ -76,11 +76,10 @@ public class VentanaPersonasActividades extends JFrame{
 							
 							}
 						
-						
 					
 						
 					
-				//}
+				
 				bd.disconnect();
 			}
 		});

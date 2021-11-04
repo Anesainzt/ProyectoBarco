@@ -4,7 +4,11 @@ import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -22,10 +26,11 @@ public class BD extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private Connection conn = null;
 	private static Logger logger = Logger.getLogger(BD.class.getName());
+	private static Logger log = Logger.getLogger(BD.class.getName());
 	private static Usuario uActual = new Usuario();
 
 	//METODO PARA ESCRIBIR EN LOS FICHEROS
-	public void escribirFichero(String fichero, String texto) {
+	/*public void escribirFichero(String fichero, String texto) {
 		PrintWriter pw = null;
 		try {
 			pw = new PrintWriter(new BufferedWriter(new FileWriter(fichero, true)));
@@ -39,7 +44,7 @@ public class BD extends JFrame{
 			}
 		}
 	}
-
+	*/
 	//CONECTA Y DESCONECTAR LA BD
 	public void connect() {
 		try {
@@ -185,7 +190,21 @@ public class BD extends JFrame{
 				if(rs.getString("login").equals(login) && rs.getString("contrasenya").equals(contrasenya)) {
 
 					//LLAMADA A LOGGER
-					logger.info("El login se ha realizado correctamente.");
+					//PODEMOS HACER CON LOS ERRORES DE LA BASE DE DATOS QUE SE ALMACENEN AUNQUE NO VA A HABER NINGUN ERROR SUPONGO
+					try {
+						Handler handler = new FileHandler("AccesoBD.csv");
+						handler.setFormatter(new SimpleFormatter());
+						log.addHandler(handler);
+						
+						//INTENTAR QUE SE VEA EL USUARIO QUE HA ACCEDIDO A LA APLICACIÓN
+						log.log(Level.INFO, "Accede a la aplicación el usuario: ", Usuario.getLogin());
+					} catch (SecurityException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					String nombre = rs.getString("nombre");
 					String apellido = rs.getString("apellido");
 					String dni = rs.getString("dni");
@@ -212,6 +231,7 @@ public class BD extends JFrame{
 		}
 	}
 
+	//En vez de en la BD hacer un hashmap en la ventana de cantidadPersonasBillete y cantidadPersonasActividad
 	public void registrarCantidad(int cantidadNiyos, int cantidadAdultos) {
 
 		try {
@@ -326,6 +346,7 @@ public class BD extends JFrame{
 	}
 
 	//EN EL CASO DE QUE RESERVES UNA ACTIVIDAD INTRODUCIR EN LA TABLA ACTIVIDAD LOS DATOS
+	//FALTA HACER QUE EL ADMIN PUEDA BORRAR O AÑADIR ACTIVIDADES Y MODIFICAR SU PRECIO
 	public void actividad(int precio, Actividad tipo) {
 
 		try {
@@ -377,6 +398,8 @@ public class BD extends JFrame{
 		}
 
 	}
+	
+	//CREO QUE NO HACE FALTA UNA TABLA POR ACTIVIDAD FINALIDAD?
 
 	public List<Buceo> getListaBuceo(){
 
