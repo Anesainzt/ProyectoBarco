@@ -15,8 +15,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-public class VentanaPersonas extends JFrame{
-	public VentanaPersonas(){
+public class VentanaPersonasTicket extends JFrame{
+	public VentanaPersonasTicket(){
 		JPanel panelPrincipal = new JPanel();
 		JPanel panelSecundario = new JPanel();
 		
@@ -91,7 +91,7 @@ public class VentanaPersonas extends JFrame{
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		new VentanaPersonas();
+		new VentanaPersonasTicket();
 	}
 
 }

@@ -227,7 +227,7 @@ public class VentanaViaje extends JFrame {
 		personas.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new VentanaPersonas();
+				new VentanaPersonasTicket();
 				dispose();
 			}
 		});

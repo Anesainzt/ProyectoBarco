@@ -49,9 +49,9 @@ public class VentanaActividades extends JFrame{
 		JLabel label1 = new JLabel("¿Desea alguna actividad? ");
 		JLabel label2 = new JLabel("Cantidad de Personas");
 		JLabel label3 = new JLabel("Tarifa");
-		JButton boton1 = new JButton("Aceptar");//QUITAR Y CUANDO ESCOJA ELEGIR CANTIDAD DE PERSONAS QUE APAREZCA ESA VENTANA Y DESPUES DE SELECIONAR LAS PERSONAS IR A LA VENTANA QUE ESTÁ CREANDO ANDREA
-		JButton boton2 = new JButton("No quiero nada");
-		JButton boton3 = new JButton("Elegir cantidad de personas");
+		//QUITAR Y CUANDO ESCOJA ELEGIR CANTIDAD DE PERSONAS QUE APAREZCA ESA VENTANA Y DESPUES DE SELECIONAR LAS PERSONAS IR A LA VENTANA QUE ESTÁ CREANDO ANDREA
+		JButton boton1 = new JButton("No quiero nada");
+		JButton boton2 = new JButton("Elegir cantidad de personas");
 		JTextField txt2 = new JTextField("",10);
 		
 		BufferedImage bufferedImage = ImageIO.read(new File("images/yate2.jpg"));
@@ -100,20 +100,30 @@ public class VentanaActividades extends JFrame{
 		panel4.add(boton2);
 		
 		panel5.add(label2);
-		panel6.add(boton3);
+		panel6.add(boton2);
 		panel7.add(label3);
 		
 		panel8.add(label4);
 		
-		boton3.addActionListener(new ActionListener() {
+		boton1.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-			new VentanaPersonas();	
+				dispose();
+				new VentanaPago();
 			}
 		});
 		
+		boton2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+			new VentanaPersonasTicket();	
+			}
+		});
+	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Ventana Actividades");
 		pack();
@@ -126,5 +136,4 @@ public class VentanaActividades extends JFrame{
 		new VentanaActividades();
 	}
 }
-
 
