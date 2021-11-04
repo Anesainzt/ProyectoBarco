@@ -3,10 +3,12 @@ package ventana;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.*;
 
 import Clases.Usuario;
+import BD.BD;
 
 public class VentanaPerfil extends JFrame {
 
@@ -15,9 +17,10 @@ public class VentanaPerfil extends JFrame {
 	protected JTextField textoDni,textoNombre,textoApellido,textoEmail,textoUsuario,textoContrasenya,textoNcuenta;
 	protected JLabel label;
 	protected JButton botonEditar,botonAceptar,botonBorrar;
+	protected BD bd = new BD();
 
 	public VentanaPerfil(Usuario uActual) {
-
+		
 		cp = this.getContentPane();
 		this.setTitle("Mi Perfil");
 		//panelPrincip
@@ -109,7 +112,23 @@ public class VentanaPerfil extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
+				try {
+					textoDni.setText("");
+					textoNombre.setText("");
+					textoApellido.setText("");
+					textoEmail.setText("");
+					textoUsuario.setText("");
+					textoContrasenya.setText("");
+					textoNcuenta.setText("");
+					
+					bd.borrarUsuario(uActual);
+					
+					JOptionPane.showConfirmDialog(null, "¡Su perfil ha sido eliminado con éxito!");
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "No se ha podido borrar su perfil");
+				}
 				
 			}
 		});
@@ -137,6 +156,7 @@ public class VentanaPerfil extends JFrame {
 		panelNcuenta.add(textoNcuenta);
 		panelBotones.add(botonEditar);
 		panelBotones.add(botonAceptar);
+		panelBotones.add(botonBorrar);
 		
 		setVisible(true);
 		pack();

@@ -30,7 +30,7 @@ public class VentanaViaje extends JFrame {
 	JButton personas;
 	JMenuBar menuBar;
 	JMenu menu;
-	JMenuItem itemPerfil, itemGaleria;
+	JMenuItem itemPerfil, itemGaleria, itemSesion, itemSalir;
 	
 	JCalendar calendario;
 	JButton fechaInicio, fechaFin;
@@ -78,6 +78,40 @@ public class VentanaViaje extends JFrame {
 				
 			}
 		});
+		
+		itemSesion = new JMenuItem("Cerrar Sesión", new ImageIcon("images/sesion.png"));
+		itemSesion.setBackground(Color.WHITE);
+		itemSesion.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					JOptionPane.showMessageDialog(null, "¡Hasta pronto!");
+					new VentanaInicio();
+					dispose();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+			}
+		});
+		
+		itemSalir = new JMenuItem("Salir", new ImageIcon("images/salir.png"));
+		itemSalir.setBackground(Color.WHITE);
+		itemSalir.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					JOptionPane.showMessageDialog(null, "¡Nos vemos pronto!");
+					dispose();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+			}
+		});
+		
 		
 		//Panel de la izquierda
 		p1 = new JPanel();
@@ -252,6 +286,8 @@ public class VentanaViaje extends JFrame {
 		menuBar.add(menu);
 		menu.add(itemPerfil);
 		menu.add(itemGaleria);
+		menu.add(itemSesion);
+		menu.add(itemSalir);
 		
 		p1.add(viaje);
 		p1.add(idaVuelta);

@@ -101,25 +101,18 @@ public class BD extends JFrame{
 		}	
 	}
 
-	/*
-	public Usuario devolverUsuarioActual() {
-
-
-		return null;
-	}*/
-
-	//MÉTODO BORRAR USUARIO --> NO TERMINA2
+	
+	//MÉTODO BORRAR USUARIO
 	public void borrarUsuario(Usuario uActual) throws SQLException {
 		Connection conn = DriverManager.getConnection("jdbc:sqlite:database.db");
 		Statement stmt = (Statement) conn.createStatement();
 
-		//ResultSet rs = stmt.executeQuery("Select * from usuario");
-		String sql = "Delete from usuario where login = " + uActual.getLogin();
+		String borrar = "DELETE FROM usuario where login='" + uActual.getLogin() + "';";
+		int rs = stmt.executeUpdate(borrar); //update --> borrar o editar, query --> añadir o consultar
 	}
 
 
-	//REGISTRAR EN LA BD UN CLIENTE NUEVO
-
+	//MÉTODO CREAR USUARIO
 	public void crearUsuario(JTextField loginText, JTextField contrasenyaText, JTextField nombreText, JTextField apellidoText, JTextField dniText, JTextField tarjetaText, JTextField emailText) {
 
 		try {
@@ -142,7 +135,7 @@ public class BD extends JFrame{
 				int rs2 = stmt.executeUpdate(instruccion);
 				uActual = new Usuario(nombreText.getText(), apellidoText.getText(), dniText.getText(), tarjetaText.getText(), loginText.getText(), contrasenyaText.getText(), emailText.getText());
 			} else {
-				JOptionPane.showMessageDialog(null, "Este usuario ya existe");
+				JOptionPane.showMessageDialog(null, "¡Este usuario ya existe!");
 			}
 
 
@@ -163,6 +156,15 @@ public class BD extends JFrame{
 		BD.uActual = uActual;
 	}
 
+	//MÉTODO EDITAR USUARIO --> SIN TERMINAR
+	public void editarUsuario(Usuario uActual) throws SQLException {
+		Connection conn = DriverManager.getConnection("jdbc:sqlite:database.db");
+		
+		Statement stmt = (Statement) conn.createStatement();
+		
+		
+		
+	}
 
 	//MÉTODO para comprobar login --> miramos si COINDIDE el login && password
 	public boolean comprobarLogin(String login, String contrasenya) {
