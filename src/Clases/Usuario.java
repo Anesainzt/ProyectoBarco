@@ -3,6 +3,7 @@ package Clases;
 
 
 public class Usuario{
+	
 	protected static String nombre;
 	protected static String apellido;
 	protected static String dni;
@@ -14,76 +15,86 @@ public class Usuario{
 	
 	public Usuario(String nombre, String apellido, String dni, String tarjeta, String login, String contrasenya, String email) {
 		
-		Usuario.nombre = nombre;
-		Usuario.apellido = apellido;
-		Usuario.dni = dni;
-		Usuario.tarjeta = tarjeta;
-		Usuario.login = login;
-		Usuario.contrasenya = contrasenya;
-		Usuario.email = email;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.dni = dni;
+		this.tarjeta = tarjeta;
+		this.login = login;
+		this.contrasenya = contrasenya;
+		this.email = email;
 		
 	}
 
 
 	public Usuario() {
 		
-		Usuario.nombre = "";
-		Usuario.apellido = "";
-		Usuario.dni = "";
-		Usuario.tarjeta = "";
-		Usuario.login = "";
-		Usuario.contrasenya = "";
-		Usuario.email = "";
+		this.nombre = "";
+		this.apellido = "";
+		this.dni = "";
+		this.tarjeta = "";
+		this.login = "";
+		this.contrasenya = "";
+		this.email = "";
 	}
-	
+
 
 	public static String getNombre() {
 		return nombre;
 	}
 
+
 	public void setNombre(String nombre) {
-		Usuario.nombre = nombre;
+		this.nombre = nombre;
 	}
+
 
 	public static String getApellido() {
 		return apellido;
 	}
 
+
 	public void setApellido(String apellido) {
-		Usuario.apellido = apellido;
+		this.apellido = apellido;
 	}
-	
+
+
 	public static String getDni() {
 		return dni;
 	}
-	
+
+
 	public void setDni(String dni) {
-		Usuario.dni = dni;
-	
+		this.dni = dni;
 	}
-	
+
+
 	public static String getTarjeta() {
 		return tarjeta;
 	}
-	
+
+
 	public void setTarjeta(String tarjeta) {
-		Usuario.tarjeta = tarjeta;
+		this.tarjeta = tarjeta;
 	}
-	
+
+
 	public static String getLogin() {
 		return login;
 	}
-	
+
+
 	public void setLogin(String login) {
-		Usuario.login = login;
+		this.login = login;
 	}
-	
+
+
 	public static String getContrasenya() {
 		return contrasenya;
 	}
-	
+
+
 	public void setContrasenya(String contrasenya) {
-		Usuario.contrasenya = contrasenya;
+		this.contrasenya = contrasenya;
 	}
 
 
@@ -92,9 +103,10 @@ public class Usuario{
 	}
 
 
-	public static void setEmail(String email) {
-		Usuario.email = email;
+	public void setEmail(String email) {
+		this.email = email;
 	}
+	
 	
 	
 	

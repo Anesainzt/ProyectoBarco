@@ -20,6 +20,7 @@ public class Buceo extends Actividad {
 		this.cantBombonas = cantBombonas;
 	}
 
+	//SIRVE PARA ALGO?
 	@Override
 	public String toString() {
 		return "Buceo [cantBombonas=" + cantBombonas + "]";
