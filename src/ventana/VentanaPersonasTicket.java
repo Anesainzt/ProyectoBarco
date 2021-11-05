@@ -6,7 +6,6 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -14,18 +13,11 @@ import BD.BD;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 public class VentanaPersonasTicket extends JFrame{
-	
-	public static boolean esNumerico(String str) { 
-		  try {
-		    Double.parseDouble(str);
-		    return true;
-		  } catch(NumberFormatException e){
-		    return false;
-		  }
-		}
 	public VentanaPersonasTicket(){
 		JPanel panelPrincipal = new JPanel();
 		JPanel panelSecundario = new JPanel();
@@ -43,7 +35,36 @@ public class VentanaPersonasTicket extends JFrame{
 		JLabel label5 = new JLabel("(<18)");
 		
 		JTextField txt1 = new JTextField("", 10);
+		txt1.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				
+				 int key = e.getKeyChar();
+
+				    boolean numeros = key >= 48 && key <= 57;
+				        
+				    if (!numeros)
+				    {
+				        e.consume();
+				    }
+			}
+		});
 		JTextField txt2 = new JTextField("", 10);
+		txt2.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				
+				 int key = e.getKeyChar();
+
+				    boolean numeros = key >= 48 && key <= 57;
+				        
+				    if (!numeros)
+				    {
+				        e.consume();
+				    }
+			}
+		});
+		
 		JButton boton1 = new JButton("Aceptar");
 		
 		boton1.addActionListener(new ActionListener(){
@@ -51,27 +72,15 @@ public class VentanaPersonasTicket extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				BD bd = new BD();
 				bd.connect();
-				String string1= txt1.getText();
-				String string2 = txt1.getText();
-
-				if (esNumerico(string1) || esNumerico(string2)) {
-					dispose();
+				//if() {
 					try {
 						new VentanaActividades();
+						setVisible(false);
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-				}
-				else {
-					JOptionPane.showMessageDialog( null, "Introduce un valor numérico");
-					
-					txt1.setText(null);
-					txt2.setText(null);
-					
-				}
-				
-				
+				//}
 				bd.disconnect();
 			}
 		});
