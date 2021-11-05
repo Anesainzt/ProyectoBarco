@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.text.BadLocationException;
@@ -18,6 +19,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class VentanaPersonasActividades extends JFrame{
+	
+	public static boolean esNumerico(String str) { 
+		  try {
+		    Double.parseDouble(str);
+		    return true;
+		  } catch(NumberFormatException e){
+		    return false;
+		  }
+		}
 	public VentanaPersonasActividades(){
 		JPanel panelPrincipal = new JPanel();
 		JPanel panelSecundario = new JPanel();
@@ -26,7 +36,6 @@ public class VentanaPersonasActividades extends JFrame{
 		JPanel panel2 = new JPanel();
 		JPanel panel3 = new JPanel();
 		JPanel panel4 = new JPanel();
-		JPanel panel5 = new JPanel();
 		
 		
 		JLabel label1 = new JLabel("Cantidad de Personas");
@@ -34,51 +43,38 @@ public class VentanaPersonasActividades extends JFrame{
 		JLabel label3 = new JLabel("Niño:");
 		JLabel label4 = new JLabel("(>=18)");
 		JLabel label5 = new JLabel("(<18)");
-		JLabel label6 = new JLabel("Introduzca un numero");
 		JTextField txt1 = new JTextField("", 10);
 		JTextField txt2 = new JTextField("", 10);
 		JButton boton1 = new JButton("Aceptar");
+		
+		
+		
+		
 		
 		boton1.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				BD bd = new BD();
 				bd.connect();
+				String string1= txt1.getText();
+				String string2 = txt1.getText();
 
+				if (esNumerico(string1) || esNumerico(string2)) {
+					dispose();
+					try {
+						new VentanaActividades();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+				else {
+					JOptionPane.showMessageDialog( null, "Introduce un valor numérico");
 					
-						
-						
-						
-					
-						String palabra = txt1.getText();
-						for (int i = 0; i < palabra.length(); i++) {
-							try {
-								if (!txt1.getText(i,1).matches("[0-9]")) {
-									
-									label6.setVisible(true);
-									break;
-								}
-								else {
-									dispose();
-									try {
-										new VentanaActividades();
-									} catch (IOException e1) {
-										// TODO Auto-generated catch block
-										e1.printStackTrace();
-									}
-									
-								}
-								
-							} catch (BadLocationException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-							
-							}
-						
-					
-						
-					
+					txt1.setText(null);
+					txt2.setText(null);
+				}
+				
 				
 				bd.disconnect();
 			}
@@ -90,7 +86,6 @@ public class VentanaPersonasActividades extends JFrame{
 		panel2.setLayout(new FlowLayout());
 		panel3.setLayout(new FlowLayout());
 		panel4.setLayout(new FlowLayout());
-		panel5.setLayout(new FlowLayout());
 		
 		add(panelPrincipal);
 		panelPrincipal.add(panelSecundario);
@@ -99,7 +94,6 @@ public class VentanaPersonasActividades extends JFrame{
 		panelSecundario.add(panel2);
 		panelSecundario.add(panel3);
 		panelSecundario.add(panel4);
-		panelSecundario.add(panel5);
 		panel1.add(label1);
 		
 		panel2.add(label2);
@@ -112,8 +106,6 @@ public class VentanaPersonasActividades extends JFrame{
 		
 		panel4.add(boton1);
 		
-		panel5.add(label6);
-		label6.setVisible(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Ventana Cantidad de Personas");
 		pack();

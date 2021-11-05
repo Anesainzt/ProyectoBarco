@@ -16,6 +16,15 @@ import Clases.Usuario;
 
 public class VentanaRegistro extends JFrame {
 
+	public static boolean esNumerico(String str) { 
+		  try {
+		    Double.parseDouble(str);
+		    return true;
+		  } catch(NumberFormatException e){
+		    return false;
+		  }
+		}
+	
 	protected Container cp;
 	protected JPanel panel,panelIzqda,panelDcha,panel1,panel2,panel3,panel4,panel5,panel6,panel7,panel8,panel9,panel10,panel11,panel12,panel13,
 	panel14,panel15,panel16,panel17;
@@ -191,7 +200,17 @@ public class VentanaRegistro extends JFrame {
 				String tarjeta = texto7.getText();
 				
 				Usuario usuario = new Usuario(nombre, apellido, dni, tarjeta, login, contrasenya, email);
+				if (!esNumerico(tarjeta)|| tarjeta.length() !=16) {
+					JOptionPane.showMessageDialog( null, "Introduce un número de tarjeta válido");
 					
+					texto1.setText(null);
+					texto2.setText(null);
+					texto3.setText(null);
+					texto4.setText(null);
+					texto5.setText(null);
+					texto6.setText(null);
+					texto7.setText(null);
+				}	
 				if(bd.existeUsuario(usuario) == false) {
 					bd.crearUsuario(texto5, texto6, texto2, texto3, texto1, texto7, texto4);
 					
