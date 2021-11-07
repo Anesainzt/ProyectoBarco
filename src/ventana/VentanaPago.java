@@ -18,8 +18,6 @@ public class VentanaPago extends JFrame{
 
     private JPanel panelAbajo;
 
-    
-
     public VentanaPago() {
 
         cp = this.getContentPane();

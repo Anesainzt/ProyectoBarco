@@ -398,20 +398,36 @@ public class BD extends JFrame{
 		}
 
 	}
-	
-	//CREO QUE NO HACE FALTA UNA TABLA POR ACTIVIDAD FINALIDAD?
+
+	// public List<Actividad> getListaActividades(){
+	// 	List<Actividad> listaActividades = new ArrayList();
+
+	// 	try(Statement stmt = (Statement) conn.createStatement()){
+			
+	// 		ResultSet actividad = stmt.executeQuery("SELECT * FROM actividad;");
+			
+	// 		while(actividad.next()){
+			
+	// 			Actividad actividad1 = new Actividad(actividad.getString("codigo"), actividad.getString("nombre"), actividad.getInt("aforo"), actividad.getString("instructor"), actividad.getString("ubicacion"), actividad.getString("descripcion"), actividad.getString("imagen"));
+	// 			listaActividades.add(actividad1);
+	// 		}
+	// 	} catch (Exception e) {
+	// 		//TODO: handle exception
+	// 	}
+	// }
 
 	public List<Buceo> getListaBuceo(){
 
 		List<Buceo> listaBuceo = new ArrayList<Buceo>();
 
 		try(Statement stmt = (Statement) conn.createStatement()) {
-			
-			ResultSet buceo = stmt.executeQuery("SELECT * FROM buceo;");
-			while(buceo.next()) {
-				Buceo actividad = new Buceo(buceo.getString("codigo"), buceo.getString("nombre"), buceo.getInt("aforo"), buceo.getString("instructor"), buceo.getString("ubicacion"), buceo.getString("descripcion"), buceo.getString("imagen"), buceo.getInt("cantTablas"));
-				listaBuceo.add(actividad);
 
+			ResultSet buceo = stmt.executeQuery("SELECT * FROM actividad WHERE nombre = Buceo;");
+			
+			while(buceo.next()) {
+				
+				Buceo actividad = new Buceo(buceo.getString("codigo"), buceo.getString("nombre"), buceo.getInt("aforo"), buceo.getString("instructor"), buceo.getString("ubicacion"), buceo.getString("descripcion"), buceo.getString("imagen"), buceo.getInt("cantMaterial"));
+				listaBuceo.add(actividad);
 			}	
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -425,11 +441,12 @@ public class BD extends JFrame{
 
 		try(Statement stmt = (Statement) conn.createStatement()) {
 			
-			ResultSet ski = stmt.executeQuery("SELECT * FROM ski;");
+			ResultSet ski = stmt.executeQuery("SELECT * FROM actividad WHERE nombre = Ski;");
+			
 			while(ski.next()) {
-				Ski actividad = new Ski(ski.getString("codigo"), ski.getString("nombre"), ski.getInt("aforo"), ski.getString("instructor"), ski.getString("ubicacion"), ski.getString("descripcion"), ski.getString("imagen"), ski.getInt("cantSkis"));
+				
+				Ski actividad = new Ski(ski.getString("codigo"), ski.getString("nombre"), ski.getInt("aforo"), ski.getString("instructor"), ski.getString("ubicacion"), ski.getString("descripcion"), ski.getString("imagen"), ski.getInt("cantMaterial"));
 				listaSki.add(actividad);
-
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -443,11 +460,12 @@ public class BD extends JFrame{
 
 		try(Statement stmt = (Statement) conn.createStatement()) {
 
-			ResultSet surf = stmt.executeQuery("SELECT * FROM surf;");
+			ResultSet surf = stmt.executeQuery("SELECT * FROM actividad WHERE nombre = Surf;");
+			
 			while(surf.next()) {
-				Surf actividad = new Surf(surf.getString("codigo"), surf.getString("nombre"), surf.getInt("aforo"), surf.getString("instructor"), surf.getString("ubicacion"), surf.getString("descripcion"), surf.getString("imagen"), surf.getInt("cantTablas"));
+				
+				Surf actividad = new Surf(surf.getString("codigo"), surf.getString("nombre"), surf.getInt("aforo"), surf.getString("instructor"), surf.getString("ubicacion"), surf.getString("descripcion"), surf.getString("imagen"), surf.getInt("cantMaterial"));
 				listaSurf.add(actividad);
-
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
