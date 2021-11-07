@@ -9,46 +9,81 @@ import java.awt.event.ActionEvent;
 public class VentanaPago extends JFrame{
 
     private Container cp;
+
     private JPanel panelPrincipal;
-    private JPanel panelDerecha;
-    private JPanel panelIzquierda;
+
+    private JPanel panelArriba;
+    private JPanel panelArribaIzquierda;
+    private JPanel panelArribaDerecha;
+
+    private JPanel panelAbajo;
+
+    
 
     public VentanaPago() {
 
         cp = this.getContentPane();
         this.setTitle("Pago");
-        this.setSize(500, 200);
+        this.setSize(850, 250);
 
         panelPrincipal = new JPanel(new BorderLayout());
         panelPrincipal.setSize(500, 200);
 
-        panelDerecha = new JPanel(new GridLayout(6, 1));
-        panelIzquierda = new JPanel(new GridLayout(3, 1));
-        //panelIzquierda.setSize(150, 50);
+        panelArriba = new JPanel(new GridLayout(1, 2));
+        panelArribaIzquierda = new JPanel(new BorderLayout());
 
         JLabel labelTicket = new JLabel("Ticket");
         labelTicket.setFont(new Font("Serif", Font.PLAIN, 30));
         JLabel labelPrueba = new JLabel("Prueba");
-        JButton botonCancelar = new JButton("Cancelar");
 
-        JLabel labelCuenta = new JLabel("numCuenta");
-        JLabel labelContraseña1 = new JLabel("Introduzca la contraseña: ");
+        panelArribaDerecha = new JPanel(new GridLayout(3, 2));
+        
+        JLabel labelCuenta = new JLabel("Numero de cuenta:");
+        JLabel labelNumeroCuenta = new JLabel();
+        JLabel labelContraseña1 = new JLabel("Introduzca la contraseña:");
+        
         JTextField textContraseña1 = new JPasswordField();
-        //textContraseña1.setPreferredSize(new Dimension (200, 25));
-        JLabel labelContraseña2 = new JLabel("Vuelva a introducir la contraseña: ");
+        JPanel panelTextoContraseña1 = new JPanel();
+        textContraseña1.setPreferredSize(new Dimension(150, 25));
+        panelTextoContraseña1.add(textContraseña1);
+       
+        JLabel labelContraseña2 = new JLabel("Vuelva a introducir la contraseña:");
+    
+        JPanel panelTextoContraseña2 = new JPanel(); 
         JTextField textContraseña2 = new JPasswordField();
+        textContraseña2.setPreferredSize(new Dimension(150, 25));
+        panelTextoContraseña2.add(textContraseña2);
+
+        panelAbajo = new JPanel(new GridLayout(1, 2));
+
+        JPanel panelBotonAceptar = new JPanel();
         JButton botonAceptar = new JButton("Aceptar");
+        botonAceptar.setPreferredSize(new Dimension(150, 25));
+        panelBotonAceptar.add(botonAceptar);
+        
+        JPanel panelBotonCancelar = new JPanel();
+        JButton botonCancelar = new JButton("Cancelar");
+        botonCancelar.setPreferredSize(new Dimension(150, 25));
+        panelBotonCancelar.add(botonCancelar);
 
-        panelIzquierda.add(labelTicket);
-        panelIzquierda.add(labelPrueba);
-        panelIzquierda.add(botonCancelar);
+        panelPrincipal.add(panelArriba, BorderLayout.CENTER);
+        panelPrincipal.add(panelAbajo, BorderLayout.SOUTH);
 
-        panelDerecha.add(labelCuenta);
-        panelDerecha.add(labelContraseña1);
-        panelDerecha.add(textContraseña1);
-        panelDerecha.add(labelContraseña2);
-        panelDerecha.add(textContraseña2);
-        panelDerecha.add(botonAceptar);
+        panelArriba.add(panelArribaIzquierda);
+        panelArriba.add(panelArribaDerecha);
+
+        panelArribaIzquierda.add(labelTicket, BorderLayout.NORTH);
+        panelArribaIzquierda.add(labelPrueba, BorderLayout.CENTER);
+    
+        panelArribaDerecha.add(labelCuenta);
+        panelArribaDerecha.add(labelNumeroCuenta);
+        panelArribaDerecha.add(labelContraseña1);
+        panelArribaDerecha.add(panelTextoContraseña1);
+        panelArribaDerecha.add(labelContraseña2);
+        panelArribaDerecha.add(panelTextoContraseña2);
+
+        panelAbajo.add(panelBotonCancelar);
+        panelAbajo.add(panelBotonAceptar);
 
         botonAceptar.addActionListener(new ActionListener() {
 				
@@ -62,9 +97,6 @@ public class VentanaPago extends JFrame{
                 }
             }
         });
-
-        panelPrincipal.add(panelDerecha, BorderLayout.EAST);
-        panelPrincipal.add(panelIzquierda, BorderLayout.WEST);
 
         cp.add(panelPrincipal);
 
