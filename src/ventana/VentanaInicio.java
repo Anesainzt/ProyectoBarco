@@ -16,7 +16,7 @@ public class VentanaInicio extends JFrame {
 	
 	protected Container cp;
 	protected JPanel panel, panelIzqda, panelDcha, panel1, panel2, panel3, panel4;
-	protected JLabel label1, labelUsuario, labelContrasenya;
+	protected JLabel labelWelcome,labelUsuario,labelContrasenya;
 	protected JTextField textoUsuario,textoContrasenya;
 	//protected JPasswordField textoContrasenya;
 	protected JButton botonLogin, botonRegistro;
@@ -39,27 +39,33 @@ public class VentanaInicio extends JFrame {
 		panelIzqda.setLayout(new GridLayout(4,1));
 		//panel1
 		panel1 = new JPanel();
-		panel1.setLayout(new GridLayout(1,1));
+		panel1.setLayout(new GridLayout(1,11));
 		panel1.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0)); //TOC
 
-		label1 = new JLabel(new ImageIcon("images/velero.png"));
-
-		panel1.setBackground(Color.WHITE);
-		panel1.add(label1);
+		labelWelcome = new JLabel(new ImageIcon("images/welcome.png"));
+		
+		panel1.setBackground(Color.white);
 		
 		//panel2
 		panel2 = new JPanel();
-		panel2.setLayout(new GridLayout(2,1));
+		panel2.setLayout(new FlowLayout());
 		
-		labelUsuario = new JLabel("Introduzca su usuario:");
+		labelUsuario = new JLabel("Usuario:");
 		textoUsuario = new JTextField();
+		textoUsuario.setPreferredSize(new Dimension(200, 25));
+		
+		panel2.setBackground(Color.white);
 		
 		//panel3
 		panel3 = new JPanel();
-		panel3.setLayout(new GridLayout(2,1));
+		panel3.setLayout(new FlowLayout());
 		
-		labelContrasenya = new JLabel("Introduzca su contraseña:");
+		labelContrasenya = new JLabel("Contraseña:");
 		textoContrasenya = new JPasswordField();
+		textoContrasenya.setPreferredSize(new Dimension(200, 25));
+		
+		panel3.setBackground(Color.white);
+		
 		//panel4
 		panel4 = new JPanel();
 		panel4.setLayout(new FlowLayout());
@@ -97,6 +103,8 @@ public class VentanaInicio extends JFrame {
 			}
 		});
 		
+		panel4.setBackground(Color.white);
+		
 		//panelDcha
 		panelDcha = new JPanel();
 		
@@ -118,7 +126,7 @@ public class VentanaInicio extends JFrame {
 		
 		panelDcha.add(label);
 		
-		panel1.add(label1);
+		panel1.add(labelWelcome);	
 		
 		panel2.add(labelUsuario);
 		panel2.add(textoUsuario);
@@ -131,7 +139,7 @@ public class VentanaInicio extends JFrame {
 		
 		setVisible(true);
 		pack();
-		setSize(700,450);
+		setSize(600,350);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
