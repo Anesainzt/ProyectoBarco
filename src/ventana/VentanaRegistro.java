@@ -234,11 +234,4 @@ public class VentanaRegistro extends JFrame {
 
 	}
 
-	
-
-	public static void main(String[] args) {
-		new VentanaRegistro();
-
-	}
-
 }

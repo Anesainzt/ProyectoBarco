@@ -13,7 +13,7 @@ import BD.BD;
 public class VentanaPerfil extends JFrame {
 
 	protected Container cp;
-	protected JPanel panel,panelLabel,panelDni,panelNombre,panelApellido,panelEmail,panelUsuario,panelContrasenya,panelNcuenta,panelBotones;
+	protected JPanel panel,panelLabel,panelDni,panelNombre,panelApellido,panelEmail,panelUsuario,panelContrasenya,panelNcuenta,panelBotones,panelEditar,panelAceptar,panelBorrar;
 	protected JTextField textoDni,textoNombre,textoApellido,textoEmail,textoUsuario,textoContrasenya,textoNcuenta;
 	protected JLabel label;
 	protected JButton botonEditar,botonAceptar,botonBorrar;
@@ -86,7 +86,9 @@ public class VentanaPerfil extends JFrame {
 		panelBotones = new JPanel();
 		panelBotones.setLayout(new GridLayout(1,3));
 		
-		//botón EDITAR perfil
+		//panel EDITAR perfil
+		panelEditar = new JPanel();
+		panelEditar.setLayout(new FlowLayout());
 		botonEditar = new JButton("Editar");
 		botonEditar.addActionListener(new ActionListener() {
 			
@@ -103,10 +105,49 @@ public class VentanaPerfil extends JFrame {
 			}
 		});
 		
-		//botón ACEPTAR
+		//panel ACEPTAR
+		panelAceptar = new JPanel();
+		panelAceptar.setLayout(new FlowLayout());
 		botonAceptar = new JButton("Aceptar");
+		botonAceptar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				BD bd = new BD();
+				bd.connect();
+				
+				String nombre = textoNombre.getText();
+				String apellido = textoApellido.getText();
+				String dni = textoDni.getText();
+				String tarjeta = textoNcuenta.getText();
+				String login = textoUsuario.getText();
+				String contrasenya = textoContrasenya.getText();
+				String email = textoEmail.getText();
+				
+				Usuario u = new Usuario(nombre, apellido, dni, tarjeta, login, contrasenya, email);
+				//llamar al método
+				try {
+					bd.editarUsuario(u);
+					textoNombre.setText(u.getNombre()); 
+					textoApellido.setText(u.getApellido());
+					textoDni.setText(u.getDni());
+					textoNcuenta.setText(u.getTarjeta());
+					textoUsuario.setText(u.getLogin());
+					textoContrasenya.setText(u.getContrasenya());
+					textoEmail.setText(u.getEmail());
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
 		
-		//botón BORRAR perfil
+		
+		//panel BORRAR perfil
+		panelBorrar = new JPanel();
+		panelBorrar.setLayout(new FlowLayout());
 		botonBorrar = new JButton("Borrar perfil");
 		botonBorrar.addActionListener(new ActionListener() {
 			
@@ -154,9 +195,13 @@ public class VentanaPerfil extends JFrame {
 		panelUsuario.add(textoUsuario);
 		panelContrasenya.add(textoContrasenya);
 		panelNcuenta.add(textoNcuenta);
-		panelBotones.add(botonEditar);
-		panelBotones.add(botonAceptar);
-		panelBotones.add(botonBorrar);
+		panelBotones.add(panelEditar);
+		panelBotones.add(panelAceptar);
+		panelBotones.add(panelBorrar);
+		
+		panelEditar.add(botonEditar);
+		panelAceptar.add(botonAceptar);
+		panelBorrar.add(botonBorrar);
 		
 		setVisible(true);
 		pack();

@@ -73,7 +73,7 @@ public class BD extends JFrame{
 
 		return uActual;
 	}
-
+/*
 	//MÉTODO EXISTEUSUARIO 
 	public boolean existeUsuario(Usuario usuario) {
 		try {
@@ -88,7 +88,6 @@ public class BD extends JFrame{
 
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				System.out.println("jodejd");
 				if(rs.getString("login").equals(usuario.getLogin()) && rs.getString("contrasenya").equals(usuario.getContrasenya())) {
 					JOptionPane.showMessageDialog(null, "¡Ya existe este usuario! ", "Error", JOptionPane.ERROR_MESSAGE);
 					return true;
@@ -105,6 +104,38 @@ public class BD extends JFrame{
 			return false; //si no funciona pues devuelve false
 		}	
 	}
+	*/
+	
+	//MÉTODO EXISTEUSUARIO 
+	public boolean existeUsuario(Usuario usuario) {
+		try {
+			ResultSet rs;
+
+			//preparamos una sentencia donde la bd selecciona la FILA q tenga AMBOS VALORES q le hemos pasado por parámetro
+			String consulta = "SELECT * FROM usuario WHERE login=? AND contrasenya=?;";
+
+			PreparedStatement ps = conn.prepareStatement(consulta);
+			ps.setString(1, usuario.getLogin());
+			ps.setString(2, usuario.getContrasenya());
+
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				if(rs.getString("login").equals(usuario.getLogin()) && rs.getString("contrasenya").equals(usuario.getContrasenya())) {
+					JOptionPane.showMessageDialog(null, "¡Ya existe este usuario! ", "Error", JOptionPane.ERROR_MESSAGE);
+					return true;
+				}	
+			}
+
+			ps.close();
+			return false;
+
+
+		} catch (Exception e) {
+			//logger
+			logger.warning("No se ha podido comprobar si existe el usuario.");
+			return false; //si no funciona pues devuelve false
+		}	
+	} 
 
 	
 	//MÉTODO BORRAR USUARIO
@@ -139,14 +170,17 @@ public class BD extends JFrame{
 				JOptionPane.showMessageDialog(null, "Usuario creado con exito");
 				int rs2 = stmt.executeUpdate(instruccion);
 				uActual = new Usuario(nombreText.getText(), apellidoText.getText(), dniText.getText(), tarjetaText.getText(), loginText.getText(), contrasenyaText.getText(), emailText.getText());
+				logger.warning("Usuario creado con exito");
 			} else {
 				JOptionPane.showMessageDialog(null, "¡Este usuario ya existe!");
+				logger.warning("Usuario ya existe");
 			}
 
 
 		} catch (SQLException e) {
 			System.out.println("Se ha ejecutado el metodo de crear usuario a pesar del error");
 			e.printStackTrace();
+			logger.warning("No se ha creado el usuario");
 		}	
 
 	} 
@@ -164,9 +198,22 @@ public class BD extends JFrame{
 	//MÉTODO EDITAR USUARIO --> SIN TERMINAR
 	public void editarUsuario(Usuario uActual) throws SQLException {
 		Connection conn = DriverManager.getConnection("jdbc:sqlite:database.db");
-		
 		Statement stmt = (Statement) conn.createStatement();
 		
+		ResultSet rs = stmt.executeQuery("SELECT * FROM usuario");
+		
+		try {
+			String instruccion = "INSERT INTO usuario (nombre, apellido, dni, tarjeta, login, contrasenya, email) VALUES ('" + uActual.getNombre() + "'" + uActual.getApellido() + "'" +uActual.getDni() + "'" +uActual.getTarjeta() + "'" +uActual.getLogin() + "'" + uActual.getContrasenya() + "'" +uActual.getEmail() + "');";
+			int rs2 = stmt.executeUpdate(instruccion);
+			
+			uActual = new Usuario(uActual.getNombre(), uActual.getApellido(), uActual.getDni(), uActual.getTarjeta(), uActual.getLogin(), uActual.getContrasenya(), uActual.getEmail());
+			logger.warning("El usuario se ha actualizado");
+		} catch (Exception e) {
+			System.out.println("Se ha ejecutado el metodo de editar usuario a pesar del error");
+			e.printStackTrace();
+			logger.warning("El usuario NO se ha actualizado");
+		}
+
 		
 		
 	}
