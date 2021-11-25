@@ -196,18 +196,21 @@ public class BD extends JFrame{
 	}
 
 	//MÉTODO EDITAR USUARIO --> SIN TERMINAR
-	public void editarUsuario(Usuario uActual) throws SQLException {
+	public void editarUsuario(Usuario usuario) throws SQLException {
 		Connection conn = DriverManager.getConnection("jdbc:sqlite:database.db");
 		Statement stmt = (Statement) conn.createStatement();
 		
 		ResultSet rs = stmt.executeQuery("SELECT * FROM usuario");
 		
 		try {
-			String instruccion = "INSERT INTO usuario (nombre, apellido, dni, tarjeta, login, contrasenya, email) VALUES ('" + uActual.getNombre() + "'" + uActual.getApellido() + "'" +uActual.getDni() + "'" +uActual.getTarjeta() + "'" +uActual.getLogin() + "'" + uActual.getContrasenya() + "'" +uActual.getEmail() + "');";
+			String instruccion = "UPDATE usuario SET nombre = '" + usuario.getNombre() + "', apellido = '" + usuario.getApellido() + "', dni = '" + usuario.getDni() + "', tarjeta = '" + usuario.getTarjeta() + "', login = '" + usuario.getLogin() + "', contrasenya = '" + usuario.getContrasenya() + "', email = '" + usuario.getEmail() + "' WHERE dni = '" + usuario.getDni() + "'";
+			
+			//String instruccion = "UDPATE usuario (nombre, apellido, dni, tarjeta, login, contrasenya, email) VALUES ('" + uActual.getNombre() + "', '" + uActual.getApellido() + "', '" +uActual.getDni() + "', '" +uActual.getTarjeta() + "', '" +uActual.getLogin() + "', '" + uActual.getContrasenya() + "', '" +uActual.getEmail() + "');";
 			int rs2 = stmt.executeUpdate(instruccion);
 			
-			uActual = new Usuario(uActual.getNombre(), uActual.getApellido(), uActual.getDni(), uActual.getTarjeta(), uActual.getLogin(), uActual.getContrasenya(), uActual.getEmail());
+			uActual = new Usuario(usuario.getNombre(), usuario.getApellido(), usuario.getDni(), usuario.getTarjeta(), usuario.getLogin(), usuario.getContrasenya(), usuario.getEmail());
 			logger.warning("El usuario se ha actualizado");
+			JOptionPane.showMessageDialog(null, "¡El usuario se ha actualizado correctamente!");
 		} catch (Exception e) {
 			System.out.println("Se ha ejecutado el metodo de editar usuario a pesar del error");
 			e.printStackTrace();

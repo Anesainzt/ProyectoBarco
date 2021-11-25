@@ -94,7 +94,6 @@ public class VentanaPerfil extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				textoDni.setEnabled(true);
 				textoNombre.setEnabled(true);
 				textoApellido.setEnabled(true);
 				textoEmail.setEnabled(true);

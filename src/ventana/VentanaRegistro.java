@@ -210,7 +210,8 @@ public class VentanaRegistro extends JFrame {
 					texto5.setText(null);
 					texto6.setText(null);
 					texto7.setText(null);
-				}	
+					
+				} else {
 				if(bd.existeUsuario(usuario) == false) {
 					bd.crearUsuario(texto5, texto6, texto2, texto3, texto1, texto7, texto4);
 					
@@ -224,6 +225,7 @@ public class VentanaRegistro extends JFrame {
 				
 				bd.disconnect();
 				
+			}
 			}
 		});
 
