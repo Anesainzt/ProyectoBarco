@@ -2,10 +2,15 @@ package ventana;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import BD.BD;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -14,6 +19,7 @@ public class VentanaGaleria extends JFrame{
 	private Container cp;
     private JPanel panelPrincipal;
     private JScrollPane scroll;
+    static Logger logger = Logger.getLogger(VentanaGaleria.class.getName());
 
     public VentanaGaleria() throws IOException {
         
@@ -46,7 +52,7 @@ public class VentanaGaleria extends JFrame{
                         new VentanaGaleriaActividades();
                     } catch (IOException e) {
                         // TODO Auto-generated catch block
-                        e.printStackTrace();
+                    	logger.log(Level.INFO, "");//METER LA INFO DEL ERROR
                     }
 				}
 			});
@@ -69,7 +75,7 @@ public class VentanaGaleria extends JFrame{
 		   VentanaGaleria frame = new VentanaGaleria();
 		   frame.setVisible(true);
 		  } catch (Exception e) {
-		   e.printStackTrace();
+			  logger.log(Level.INFO, "");//METER LA INFO DEL ERROR
 		  }
 		 }
 		});

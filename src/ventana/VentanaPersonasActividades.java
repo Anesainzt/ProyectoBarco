@@ -17,8 +17,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class VentanaPersonasActividades extends JFrame{
+	
+	static Logger logger = Logger.getLogger(VentanaPersonasActividades.class.getName());
 	
 	public static boolean esNumerico(String str) { 
 		  try {
@@ -65,7 +69,7 @@ public class VentanaPersonasActividades extends JFrame{
 						new VentanaActividades();
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						logger.log(Level.INFO, "");//METER LA INFO DEL ERROR
 					}
 				}
 				else {

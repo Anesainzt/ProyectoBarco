@@ -6,6 +6,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -17,6 +19,8 @@ public class VentanaGaleriaActividades extends JFrame{
     //prueba
     private String nombre = "SURF";
     private String instructor = "Manolo";
+    
+    static Logger logger = Logger.getLogger(VentanaGaleriaActividades.class.getName());
 
     public VentanaGaleriaActividades() throws IOException {
 
@@ -59,7 +63,7 @@ public class VentanaGaleriaActividades extends JFrame{
                     new VentanaGaleria();
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
-                    e.printStackTrace();
+                	logger.log(Level.INFO, "");//METER LA INFO DEL ERROR
                 }
             }
         });

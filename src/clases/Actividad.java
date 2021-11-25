@@ -2,16 +2,17 @@ package clases;
 
 public abstract class Actividad {
 	
-	//QUITAR ABSTRACT?? ->Si no es abstracta se pone static y se podria hacer junit (Abstract != Herencia)
-	protected static String codigo;
-	protected static String nombre;
-	protected static int aforo;
-	protected static String instructor; //nombre del instructor/a
-	protected static String ubicacion;
-	protected static String descripcion; 
-	protected static String imagen; //Porque hay un String de imagen?
+	protected String codigo;
+	protected String nombre;
+	protected int aforo;
+	protected String instructor; //nombre del instructor/a
+	protected String ubicacion;
+	protected String descripcion; 
+	//protected String imagen; //Porque hay un String de imagen?
 	
-	public Actividad(String codigo, String nombre, int aforo, String instructor, String ubicacion, String descripcion, String imagen) {
+	
+	
+	public Actividad(String codigo, String nombre, int aforo, String instructor, String ubicacion, String descripcion) {
 		super();
 		this.codigo = codigo;
 		this.nombre = nombre;
@@ -19,7 +20,7 @@ public abstract class Actividad {
 		this.instructor = instructor;
 		this.ubicacion = ubicacion;
 		this.descripcion = descripcion;
-		this.imagen = imagen;
+		//this.imagen = imagen;
 	}
 	
 	public Actividad() {
@@ -30,10 +31,10 @@ public abstract class Actividad {
 		this.instructor = "";
 		this.ubicacion = "";
 		this.descripcion = "";
-		this.imagen = "";
+		//this.imagen = "";
 	}
 
-	public static String getCodigo() {
+	public String getCodigo() {
 		return codigo;
 	}
 
@@ -41,7 +42,7 @@ public abstract class Actividad {
 		this.codigo = codigo;
 	}
 
-	public static String getNombre() {
+	public String getNombre() {
 		return nombre;
 	}
 
@@ -49,7 +50,7 @@ public abstract class Actividad {
 		this.nombre = nombre;
 	}
 
-	public static int getAforo() {
+	public int getAforo() {
 		return aforo;
 	}
 
@@ -57,7 +58,7 @@ public abstract class Actividad {
 		this.aforo = aforo;
 	}
 
-	public static String getInstructor() {
+	public String getInstructor() {
 		return instructor;
 	}
 
@@ -65,7 +66,7 @@ public abstract class Actividad {
 		this.instructor = instructor;
 	}
 
-	public static String getUbicacion() {
+	public String getUbicacion() {
 		return ubicacion;
 	}
 
@@ -73,7 +74,7 @@ public abstract class Actividad {
 		this.ubicacion = ubicacion;
 	}
 
-	public static String getDescripcion() {
+	public String getDescripcion() {
 		return descripcion;
 	}
 
@@ -81,18 +82,18 @@ public abstract class Actividad {
 		this.descripcion = descripcion;
 	}
 
-	public static String getImagen() {
+	/*public String getImagen() {
 		return imagen;
 	}
 
 	public void setImagen(String imagen) {
 		this.imagen= imagen;
 	}
-
+	 */
 	@Override
 	public String toString() {
 		return "Actividad [codigo=" + codigo + ", nombre=" + nombre + ", aforo=" + aforo + ", instructor=" + instructor
-				+ ", ubicacion=" + ubicacion + ", descripcion=" + descripcion + ", imagen=" + imagen + "]";
+				+ ", ubicacion=" + ubicacion + ", descripcion=" + descripcion + "]";
 	}
 	
 }

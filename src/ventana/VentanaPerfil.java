@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 
@@ -18,6 +20,8 @@ public class VentanaPerfil extends JFrame {
 	protected JLabel label;
 	protected JButton botonEditar,botonAceptar,botonBorrar,botonAtras;
 	protected BD bd = new BD();
+	
+	static Logger logger = Logger.getLogger(VentanaPerfil.class.getName());
 
 	public VentanaPerfil(Usuario uActual) {
 		
@@ -139,7 +143,7 @@ public class VentanaPerfil extends JFrame {
 					
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					logger.log(Level.INFO, "");//METER LA INFO DEL ERROR
 				}
 				
 			}

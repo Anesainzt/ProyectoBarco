@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.imageio.*;
 import javax.swing.*;
@@ -21,6 +23,8 @@ public class VentanaInicio extends JFrame {
 	//protected JPasswordField textoContrasenya;
 	protected JButton botonLogin, botonRegistro;
 	protected BD bd = new BD();
+	
+	static Logger logger = Logger.getLogger(VentanaInicio.class.getName());
 	
 	public VentanaInicio() throws IOException {
 		//crear usuarioActual
@@ -83,7 +87,7 @@ public class VentanaInicio extends JFrame {
 						new VentanaViaje(bd.getuActual());
 						dispose();
 					} catch (Exception e) {
-						e.printStackTrace();
+						logger.log(Level.INFO, "");//METER LA INFO DEL ERROR
 					}
 					
 					bd.disconnect();

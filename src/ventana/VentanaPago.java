@@ -3,6 +3,8 @@ package ventana;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -17,6 +19,8 @@ public class VentanaPago extends JFrame{
     private JPanel panelArribaDerecha;
 
     private JPanel panelAbajo;
+    
+    static Logger logger = Logger.getLogger(VentanaPago.class.getName());
 
     public VentanaPago() {
 
@@ -91,7 +95,7 @@ public class VentanaPago extends JFrame{
                     new VentanaTicket();
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
-                    e.printStackTrace();
+                	logger.log(Level.INFO, "");//METER LA INFO DEL ERROR
                 }
             }
         });

@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.*;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.*;
@@ -37,7 +38,7 @@ public class VentanaViaje extends JFrame {
 	Date d1, d2, hoy;
 	JPanel cPanel;
 	String fechaInc;
-	Logger logger = Logger.getLogger(Calendario.class.getName());
+	Logger logger = Logger.getLogger(VentanaViaje.class.getName());
 	
 	
 	public VentanaViaje(Usuario uActual) {
@@ -73,7 +74,7 @@ public class VentanaViaje extends JFrame {
 					new VentanaGaleria();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					logger.log(Level.INFO, "");//METER LA INFO DEL ERROR
 				}
 				
 			}
@@ -90,7 +91,7 @@ public class VentanaViaje extends JFrame {
 					new VentanaInicio();
 					dispose();
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.log(Level.INFO, "");//METER LA INFO DEL ERROR
 				}
 				
 			}
@@ -106,7 +107,7 @@ public class VentanaViaje extends JFrame {
 					JOptionPane.showMessageDialog(null, "¡Nos vemos pronto!");
 					dispose();
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.log(Level.INFO, "");//METER LA INFO DEL ERROR
 				}
 				
 			}

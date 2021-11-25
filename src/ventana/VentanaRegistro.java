@@ -13,8 +13,12 @@ import BD.BD;
 import clases.Usuario;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class VentanaRegistro extends JFrame {
+	
+	static Logger logger = Logger.getLogger(VentanaRegistro.class.getName());
 
 	public static boolean esNumerico(String str) { 
 		  try {
@@ -166,7 +170,7 @@ public class VentanaRegistro extends JFrame {
 						new VentanaViaje(usuario);
 						dispose();
 					} catch (Exception e) {
-						e.printStackTrace();
+						logger.log(Level.INFO, "");//METER LA INFO DEL ERROR
 					}
 				}
 				
