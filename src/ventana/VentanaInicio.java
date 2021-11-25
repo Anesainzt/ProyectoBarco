@@ -9,8 +9,8 @@ import java.io.*;
 import javax.imageio.*;
 import javax.swing.*;
 
-import Clases.Usuario;
 import BD.BD;
+import clases.Usuario;
 
 public class VentanaInicio extends JFrame {
 	

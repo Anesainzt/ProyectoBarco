@@ -15,11 +15,11 @@ import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JCalendar;
 
-import Clases.Actividad;
-import Clases.Buceo;
-import Clases.Ski;
-import Clases.Surf;
-import Clases.Usuario;
+import clases.Actividad;
+import clases.Buceo;
+import clases.Ski;
+import clases.Surf;
+import clases.Usuario;
 
 public class BD extends JFrame{
 

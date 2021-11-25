@@ -1,9 +1,10 @@
-package JUnits;
+package tests;
 
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
-import Clases.Actividad;
+
+import clases.Actividad;
 
 public class ActividadTest {
 

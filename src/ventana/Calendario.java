@@ -4,9 +4,8 @@ import javax.swing.*;
 
 import com.toedter.calendar.JCalendar;
 
-import Clases.Usuario;
-
 import BD.BD;
+import clases.Usuario;
 
 import java.awt.Color;
 import java.awt.Container;

@@ -10,9 +10,9 @@ import javax.imageio.*;
 import javax.swing.*;
 
 import BD.BD;
+import clases.Usuario;
 
 import java.io.IOException;
-import Clases.Usuario;
 
 public class VentanaRegistro extends JFrame {
 

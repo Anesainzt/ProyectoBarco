@@ -7,8 +7,8 @@ import java.sql.SQLException;
 
 import javax.swing.*;
 
-import Clases.Usuario;
 import BD.BD;
+import clases.Usuario;
 
 public class VentanaPerfil extends JFrame {
 

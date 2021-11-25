@@ -15,7 +15,7 @@ import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
 
 import com.toedter.calendar.JCalendar;
 
-import Clases.Usuario;
+import clases.Usuario;
 
 public class VentanaViaje extends JFrame {
 	
