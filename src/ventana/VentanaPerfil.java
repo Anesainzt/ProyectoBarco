@@ -17,7 +17,7 @@ public class VentanaPerfil extends JFrame {
 	protected Container cp;
 	protected JPanel panel,panelLabel,panelDni,panelNombre,panelApellido,panelEmail,panelUsuario,panelContrasenya,panelNcuenta,panelBotones,panelEditar,panelAceptar,panelBorrar,panelAtras;
 	protected JTextField textoDni,textoNombre,textoApellido,textoEmail,textoUsuario,textoContrasenya,textoNcuenta;
-	protected JLabel label;
+	protected JLabel label,labelDni,labelNombre,labelApellido,labelEmail,labelUsuario,labelContrasenya,labelNcuenta;
 	protected JButton botonEditar,botonAceptar,botonBorrar,botonAtras;
 	protected BD bd = new BD();
 	
@@ -29,7 +29,7 @@ public class VentanaPerfil extends JFrame {
 		this.setTitle("Mi Perfil");
 		//panelPrincip
 		panel = new JPanel();
-		panel.setLayout(new GridLayout(9,1));
+		panel.setLayout(new FlowLayout());
 		
 		//panelLabel
 		panelLabel = new JPanel();
@@ -38,53 +38,73 @@ public class VentanaPerfil extends JFrame {
 		
 		//panelDni
 		panelDni = new JPanel();
+		panelDni.setLayout(new GridLayout(2,1));
 		textoDni = new JTextField();
 		textoDni.setPreferredSize(new Dimension (200, 25));
 		textoDni.setText(uActual.getDni());
 		textoDni.setEnabled(false);
-	
 		
+		labelDni = new JLabel("DNI:");
+
 		//panelNombre
 		panelNombre = new JPanel();
+		panelNombre.setLayout(new GridLayout(2,1));
 		textoNombre = new JTextField();
 		textoNombre.setPreferredSize(new Dimension (200, 25));
 		textoNombre.setText(uActual.getNombre());
 		textoNombre.setEnabled(false);
 		
+		labelNombre = new JLabel("Nombre:");
+		
 		//panelApellido
 		panelApellido = new JPanel();
+		panelApellido.setLayout(new GridLayout(2,1));
 		textoApellido = new JTextField();
 		textoApellido.setPreferredSize(new Dimension (200, 25));
 		textoApellido.setText(uActual.getApellido());
 		textoApellido.setEnabled(false);
 		
+		labelApellido = new JLabel("Apellido:");
+		
 		//panelEmail
 		panelEmail = new JPanel();
+		panelEmail.setLayout(new GridLayout(2,1));
 		textoEmail = new JTextField();
 		textoEmail.setPreferredSize(new Dimension (200, 25));
 		textoEmail.setText(uActual.getEmail());
 		textoEmail.setEnabled(false);
 		
+		labelEmail = new JLabel("Email:");
+		
 		//panelUsuario
 		panelUsuario = new JPanel();
+		panelUsuario.setLayout(new GridLayout(2,1));
 		textoUsuario = new JTextField();
 		textoUsuario.setPreferredSize(new Dimension (200, 25));
 		textoUsuario.setText(uActual.getLogin());
 		textoUsuario.setEnabled(false);
 		
+		labelUsuario = new JLabel("Usuario/Login:");
+		
 		//panelContrasenya --> visible al usuario asiq textfield normal
 		panelContrasenya = new JPanel();
+		panelContrasenya.setLayout(new GridLayout(2,1));
 		textoContrasenya = new JTextField();
 		textoContrasenya.setPreferredSize(new Dimension (200, 25));
 		textoContrasenya.setText(uActual.getContrasenya());
 		textoContrasenya.setEnabled(false);
 		
+		labelContrasenya = new JLabel("Contrasenya:");
+		
 		//panelNCuenta
 		panelNcuenta = new JPanel();
+		panelNcuenta.setLayout(new GridLayout(2,1));
 		textoNcuenta = new JTextField();
 		textoNcuenta.setPreferredSize(new Dimension (200, 25));
 		textoNcuenta.setText(uActual.getTarjeta());
 		textoNcuenta.setEnabled(false);
+		
+		labelNcuenta = new JLabel("Número de cuenta:");
 		
 		//panelBotones
 		panelBotones = new JPanel();
@@ -208,12 +228,19 @@ public class VentanaPerfil extends JFrame {
 		panel.add(panelBotones);
 		
 		panelLabel.add(label);
+		panelDni.add(labelDni);
 		panelDni.add(textoDni);
+		panelNombre.add(labelNombre);
 		panelNombre.add(textoNombre);
+		panelApellido.add(labelApellido);
 		panelApellido.add(textoApellido);
+		panelEmail.add(labelEmail);
 		panelEmail.add(textoEmail);
+		panelUsuario.add(labelUsuario);
 		panelUsuario.add(textoUsuario);
+		panelContrasenya.add(labelContrasenya);
 		panelContrasenya.add(textoContrasenya);
+		panelNcuenta.add(labelNcuenta);
 		panelNcuenta.add(textoNcuenta);
 		panelBotones.add(panelEditar);
 		panelBotones.add(panelAceptar);
@@ -227,7 +254,7 @@ public class VentanaPerfil extends JFrame {
 		
 		setVisible(true);
 		pack();
-		setSize(350,600);
+		setSize(350,500);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 	}
