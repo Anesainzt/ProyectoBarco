@@ -13,10 +13,10 @@ import BD.BD;
 public class VentanaPerfil extends JFrame {
 
 	protected Container cp;
-	protected JPanel panel,panelLabel,panelDni,panelNombre,panelApellido,panelEmail,panelUsuario,panelContrasenya,panelNcuenta,panelBotones,panelEditar,panelAceptar,panelBorrar;
+	protected JPanel panel,panelLabel,panelDni,panelNombre,panelApellido,panelEmail,panelUsuario,panelContrasenya,panelNcuenta,panelBotones,panelEditar,panelAceptar,panelBorrar,panelAtras;
 	protected JTextField textoDni,textoNombre,textoApellido,textoEmail,textoUsuario,textoContrasenya,textoNcuenta;
 	protected JLabel label;
-	protected JButton botonEditar,botonAceptar,botonBorrar;
+	protected JButton botonEditar,botonAceptar,botonBorrar,botonAtras;
 	protected BD bd = new BD();
 
 	public VentanaPerfil(Usuario uActual) {
@@ -84,12 +84,13 @@ public class VentanaPerfil extends JFrame {
 		
 		//panelBotones
 		panelBotones = new JPanel();
-		panelBotones.setLayout(new GridLayout(1,3));
+		panelBotones.setLayout(new GridLayout(2,2));
 		
 		//panel EDITAR perfil
 		panelEditar = new JPanel();
 		panelEditar.setLayout(new FlowLayout());
 		botonEditar = new JButton("Editar");
+		botonEditar.setPreferredSize(new Dimension(85, 25));
 		botonEditar.addActionListener(new ActionListener() {
 			
 			@Override
@@ -108,6 +109,7 @@ public class VentanaPerfil extends JFrame {
 		panelAceptar = new JPanel();
 		panelAceptar.setLayout(new FlowLayout());
 		botonAceptar = new JButton("Aceptar");
+		botonAceptar.setPreferredSize(new Dimension(85, 25));
 		botonAceptar.addActionListener(new ActionListener() {
 			
 			@Override
@@ -147,7 +149,8 @@ public class VentanaPerfil extends JFrame {
 		//panel BORRAR perfil
 		panelBorrar = new JPanel();
 		panelBorrar.setLayout(new FlowLayout());
-		botonBorrar = new JButton("Borrar perfil");
+		botonBorrar = new JButton("Eliminar");
+		botonBorrar.setPreferredSize(new Dimension(85, 25));
 		botonBorrar.addActionListener(new ActionListener() {
 			
 			@Override
@@ -172,6 +175,20 @@ public class VentanaPerfil extends JFrame {
 				
 			}
 		});
+		
+		panelAtras = new JPanel();
+		panelAtras.setLayout(new FlowLayout());
+		botonAtras = new JButton("Volver");
+		botonAtras.setPreferredSize(new Dimension(85, 25));
+		botonAtras.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				
+			}
+		});
+		
 	
 		
 
@@ -197,14 +214,16 @@ public class VentanaPerfil extends JFrame {
 		panelBotones.add(panelEditar);
 		panelBotones.add(panelAceptar);
 		panelBotones.add(panelBorrar);
-		
+		panelBotones.add(panelAtras);
+	
 		panelEditar.add(botonEditar);
 		panelAceptar.add(botonAceptar);
 		panelBorrar.add(botonBorrar);
+		panelAtras.add(botonAtras);
 		
 		setVisible(true);
 		pack();
-		setSize(350,550);
+		setSize(350,600);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 	}
