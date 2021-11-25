@@ -132,6 +132,49 @@ public class VentanaRegistro extends JFrame {
 		//panel17
 		panel17 = new JPanel();
 		botonRegistro = new JButton("Registrarme");
+		botonRegistro.addActionListener(new ActionListener(){
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				BD bd = new BD();
+				bd.connect();
+				String dni = texto1.getText();
+				String nombre = texto2.getText();
+				String apellido = texto3.getText();
+				String email = texto4.getText();
+				String login = texto5.getText();
+				String contrasenya = texto6.getText();
+				String tarjeta = texto7.getText();
+				
+				Usuario usuario = new Usuario(nombre, apellido, dni, tarjeta, login, contrasenya, email);
+				if (!esNumerico(tarjeta)|| tarjeta.length() !=16) {
+					JOptionPane.showMessageDialog( null, "Introduce un número de tarjeta válido");
+					
+					texto1.setText(null);
+					texto2.setText(null);
+					texto3.setText(null);
+					texto4.setText(null);
+					texto5.setText(null);
+					texto6.setText(null);
+					texto7.setText(null);
+					
+				} else {
+				if(bd.compararLogin(usuario) == false) {
+					bd.crearUsuario(texto5, texto6, texto2, texto3, texto1, texto7, texto4);
+					
+					try {
+						new VentanaViaje(usuario);
+						dispose();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				
+				bd.disconnect();
+				
+			}
+			}
+		});
 		
 		
 
@@ -184,50 +227,6 @@ public class VentanaRegistro extends JFrame {
 		panel15.add(label9);
 		panel16.add(texto7);
 		panel17.add(botonRegistro);
-
-		botonRegistro.addActionListener(new ActionListener(){
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				BD bd = new BD();
-				bd.connect();
-				String dni = texto1.getText();
-				String nombre = texto2.getText();
-				String apellido = texto3.getText();
-				String email = texto4.getText();
-				String login = texto5.getText();
-				String contrasenya = texto6.getText();
-				String tarjeta = texto7.getText();
-				
-				Usuario usuario = new Usuario(nombre, apellido, dni, tarjeta, login, contrasenya, email);
-				if (!esNumerico(tarjeta)|| tarjeta.length() !=16) {
-					JOptionPane.showMessageDialog( null, "Introduce un número de tarjeta válido");
-					
-					texto1.setText(null);
-					texto2.setText(null);
-					texto3.setText(null);
-					texto4.setText(null);
-					texto5.setText(null);
-					texto6.setText(null);
-					texto7.setText(null);
-					
-				} else {
-				if(bd.existeUsuario(usuario) == false) {
-					bd.crearUsuario(texto5, texto6, texto2, texto3, texto1, texto7, texto4);
-					
-					try {
-						new VentanaViaje(usuario);
-						dispose();
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-				
-				bd.disconnect();
-				
-			}
-			}
-		});
 
 		setVisible(true);
 		pack();

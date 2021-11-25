@@ -44,7 +44,7 @@ public class BD extends JFrame{
 			}
 		}
 	}
-	*/
+	 */
 	//CONECTA Y DESCONECTAR LA BD
 	public void connect() {
 		try {
@@ -73,7 +73,7 @@ public class BD extends JFrame{
 
 		return uActual;
 	}
-/*
+	/*
 	//MÉTODO EXISTEUSUARIO 
 	public boolean existeUsuario(Usuario usuario) {
 		try {
@@ -104,9 +104,9 @@ public class BD extends JFrame{
 			return false; //si no funciona pues devuelve false
 		}	
 	}
-	*/
-	
-	//MÉTODO EXISTEUSUARIO 
+	 */
+
+	//MÉTODO COMPROBARLOGIN
 	public boolean existeUsuario(Usuario usuario) {
 		try {
 			ResultSet rs;
@@ -125,19 +125,45 @@ public class BD extends JFrame{
 					return true;
 				}	
 			}
-
+			logger.warning("Se han comprobado el login y la contraseña correctamente.");
 			ps.close();
 			return false;
-
-
-		} catch (Exception e) {
+		} catch (Exception e) { 
 			//logger
 			logger.warning("No se ha podido comprobar si existe el usuario.");
 			return false; //si no funciona pues devuelve false
 		}	
 	} 
+	//MÉTODO COMPARARLOGIN
+	public boolean compararLogin(Usuario usuario) {
+		try {
+			ResultSet rs;
+			String consulta = "SELECT * FROM usuario WHERE login = ?";
 
-	
+			PreparedStatement ps = conn.prepareStatement(consulta); 
+			ps.setString(1, usuario.getLogin()); //así comparamos login
+
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				if(rs.getString("login").equals(usuario.getLogin())) {
+					JOptionPane.showMessageDialog(null, "¡Prueba con otro nombre de usuario!", "Error", JOptionPane.ERROR_MESSAGE);
+					return true;
+				}
+
+			}
+			logger.warning("Se ha comparado el login correctamente.");
+			ps.close();
+			return false;
+		} catch (Exception e) {
+			logger.warning("No se ha podido comparar el login.");
+			e.printStackTrace();
+			return false;
+		}
+
+
+	}
+
+
 	//MÉTODO BORRAR USUARIO
 	public void borrarUsuario(Usuario uActual) throws SQLException {
 		Connection conn = DriverManager.getConnection("jdbc:sqlite:database.db");
@@ -199,15 +225,15 @@ public class BD extends JFrame{
 	public void editarUsuario(Usuario usuario) throws SQLException {
 		Connection conn = DriverManager.getConnection("jdbc:sqlite:database.db");
 		Statement stmt = (Statement) conn.createStatement();
-		
+
 		ResultSet rs = stmt.executeQuery("SELECT * FROM usuario");
-		
+
 		try {
 			String instruccion = "UPDATE usuario SET nombre = '" + usuario.getNombre() + "', apellido = '" + usuario.getApellido() + "', dni = '" + usuario.getDni() + "', tarjeta = '" + usuario.getTarjeta() + "', login = '" + usuario.getLogin() + "', contrasenya = '" + usuario.getContrasenya() + "', email = '" + usuario.getEmail() + "' WHERE dni = '" + usuario.getDni() + "'";
-			
+
 			//String instruccion = "UDPATE usuario (nombre, apellido, dni, tarjeta, login, contrasenya, email) VALUES ('" + uActual.getNombre() + "', '" + uActual.getApellido() + "', '" +uActual.getDni() + "', '" +uActual.getTarjeta() + "', '" +uActual.getLogin() + "', '" + uActual.getContrasenya() + "', '" +uActual.getEmail() + "');";
 			int rs2 = stmt.executeUpdate(instruccion);
-			
+
 			uActual = new Usuario(usuario.getNombre(), usuario.getApellido(), usuario.getDni(), usuario.getTarjeta(), usuario.getLogin(), usuario.getContrasenya(), usuario.getEmail());
 			logger.warning("El usuario se ha actualizado");
 			JOptionPane.showMessageDialog(null, "¡El usuario se ha actualizado correctamente!");
@@ -217,8 +243,8 @@ public class BD extends JFrame{
 			logger.warning("El usuario NO se ha actualizado");
 		}
 
-		
-		
+
+
 	}
 
 	//MÉTODO para comprobar login --> miramos si COINDIDE el login && password
@@ -245,7 +271,7 @@ public class BD extends JFrame{
 						Handler handler = new FileHandler("AccesoBD.csv");
 						handler.setFormatter(new SimpleFormatter());
 						log.addHandler(handler);
-						
+
 						//INTENTAR QUE SE VEA EL USUARIO QUE HA ACCEDIDO A LA APLICACIÓN
 						log.log(Level.INFO, "Accede a la aplicación el usuario: ", Usuario.getLogin());
 					} catch (SecurityException e) {
@@ -453,11 +479,11 @@ public class BD extends JFrame{
 	// 	List<Actividad> listaActividades = new ArrayList();
 
 	// 	try(Statement stmt = (Statement) conn.createStatement()){
-			
+
 	// 		ResultSet actividad = stmt.executeQuery("SELECT * FROM actividad;");
-			
+
 	// 		while(actividad.next()){
-			
+
 	// 			Actividad actividad1 = new Actividad(actividad.getString("codigo"), actividad.getString("nombre"), actividad.getInt("aforo"), actividad.getString("instructor"), actividad.getString("ubicacion"), actividad.getString("descripcion"), actividad.getString("imagen"));
 	// 			listaActividades.add(actividad1);
 	// 		}
@@ -473,9 +499,9 @@ public class BD extends JFrame{
 		try(Statement stmt = (Statement) conn.createStatement()) {
 
 			ResultSet buceo = stmt.executeQuery("SELECT * FROM actividad WHERE nombre = Buceo;");
-			
+
 			while(buceo.next()) {
-				
+
 				Buceo actividad = new Buceo(buceo.getString("codigo"), buceo.getString("nombre"), buceo.getInt("aforo"), buceo.getString("instructor"), buceo.getString("ubicacion"), buceo.getString("descripcion"), buceo.getString("imagen"), buceo.getInt("cantMaterial"));
 				listaBuceo.add(actividad);
 			}	
@@ -484,17 +510,17 @@ public class BD extends JFrame{
 		}
 		return listaBuceo;
 	}
-	
+
 	public List<Ski> getListaSki(){
 
 		List<Ski> listaSki = new ArrayList<Ski>();
 
 		try(Statement stmt = (Statement) conn.createStatement()) {
-			
+
 			ResultSet ski = stmt.executeQuery("SELECT * FROM actividad WHERE nombre = Ski;");
-			
+
 			while(ski.next()) {
-				
+
 				Ski actividad = new Ski(ski.getString("codigo"), ski.getString("nombre"), ski.getInt("aforo"), ski.getString("instructor"), ski.getString("ubicacion"), ski.getString("descripcion"), ski.getString("imagen"), ski.getInt("cantMaterial"));
 				listaSki.add(actividad);
 			}
@@ -511,9 +537,9 @@ public class BD extends JFrame{
 		try(Statement stmt = (Statement) conn.createStatement()) {
 
 			ResultSet surf = stmt.executeQuery("SELECT * FROM actividad WHERE nombre = Surf;");
-			
+
 			while(surf.next()) {
-				
+
 				Surf actividad = new Surf(surf.getString("codigo"), surf.getString("nombre"), surf.getInt("aforo"), surf.getString("instructor"), surf.getString("ubicacion"), surf.getString("descripcion"), surf.getString("imagen"), surf.getInt("cantMaterial"));
 				listaSurf.add(actividad);
 			}
