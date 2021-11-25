@@ -11,6 +11,7 @@ import javax.swing.*;
 
 import BD.BD;
 import clases.Usuario;
+import javax.swing.border.EmptyBorder;
 
 public class VentanaPerfil extends JFrame {
 
@@ -29,7 +30,8 @@ public class VentanaPerfil extends JFrame {
 		this.setTitle("Mi Perfil");
 		//panelPrincip
 		panel = new JPanel();
-		panel.setLayout(new FlowLayout());
+		panel.setBorder(new EmptyBorder(14, 14, 14, 14));
+		panel.setLayout(new GridLayout(8,1));
 		
 		//panelLabel
 		panelLabel = new JPanel();
@@ -254,8 +256,11 @@ public class VentanaPerfil extends JFrame {
 		
 		setVisible(true);
 		pack();
-		setSize(350,500);
+		setSize(350,550);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+	}
+	public static void main(String[] args) {
+		new VentanaPerfil(null);
 	}
 }
