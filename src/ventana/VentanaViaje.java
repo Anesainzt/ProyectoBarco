@@ -1,330 +1,188 @@
 package ventana;
 
-
-import java.awt.Color;
-import java.awt.Container;
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-import javax.swing.*;
-import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
 
 import clases.Usuario;
+import javax.swing.JLabel;
+import javax.swing.JRadioButton;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
+import javax.swing.JList;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 
 public class VentanaViaje extends JFrame {
-	
-	Container cp;
-	JLabel viaje;
-	JPanel pPrinc,p1, p2, p22, p11;
-	JRadioButton idaVuelta, soloIda, viajesProgramados;//Programados desde la fecha y la hora de hoy
-	JComboBox origen, destino;
+
+	private JPanel contentPane;
+	private JDateChooser calendarioIda, calendarioVuelta;
+	private SimpleDateFormat sdf;
 	DefaultListModel<String> lista;
 	JList<String> listaViajes;
 	JScrollPane scrollListaViajes;
-	JButton personas;
-	JMenuBar menuBar;
-	JMenu menu;
-	JMenuItem itemPerfil, itemGaleria, itemSesion, itemSalir;
-	
-	JCalendar calendario;
-	JButton fechaInicio, fechaFin;
-	Date d1, d2, hoy;
-	JPanel cPanel;
-	String fechaInc;
-	Logger logger = Logger.getLogger(VentanaViaje.class.getName());
-	
-	
-	public VentanaViaje(Usuario uActual) {
-				
-		cp = this.getContentPane();
-		
-		//panelPrincp
-		pPrinc = new JPanel();
-		pPrinc.setLayout(new GridLayout(1,2));
-		
-		//menú
-		menuBar = new JMenuBar();
-		menu = new JMenu("Más opciones");
-	
-		itemPerfil = new JMenuItem("Mi perfil", new ImageIcon("images/perfil.png"));
-		itemPerfil.setBackground(Color.WHITE);
-		itemPerfil.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				new VentanaPerfil(uActual);
-				
-			}
-		});
-		
-		itemGaleria = new JMenuItem("Galería", new ImageIcon("images/galeria.png"));
-		itemGaleria.setBackground(Color.WHITE);
-		itemGaleria.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				try {
-					new VentanaGaleria();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					logger.log(Level.INFO, "");//METER LA INFO DEL ERROR
-				}
-				
-			}
-		});
-		
-		itemSesion = new JMenuItem("Cerrar Sesión", new ImageIcon("images/sesion.png"));
-		itemSesion.setBackground(Color.WHITE);
-		itemSesion.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				try {
-					JOptionPane.showMessageDialog(null, "¡Hasta pronto!");
-					new VentanaInicio();
-					dispose();
-				} catch (Exception e) {
-					logger.log(Level.INFO, "");//METER LA INFO DEL ERROR
-				}
-				
-			}
-		});
-		
-		itemSalir = new JMenuItem("Salir", new ImageIcon("images/salir.png"));
-		itemSalir.setBackground(Color.WHITE);
-		itemSalir.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				try {
-					JOptionPane.showMessageDialog(null, "¡Nos vemos pronto!");
-					dispose();
-				} catch (Exception e) {
-					logger.log(Level.INFO, "");//METER LA INFO DEL ERROR
-				}
-				
-			}
-		});
-		
-		
-		//Panel de la izquierda
-		p1 = new JPanel();
-		p1.setLayout(new GridLayout(5, 1));
-		
-		viaje = new JLabel("TU VIAJE EMPIEZA AQUÍ");
-		idaVuelta = new JRadioButton("Ida y Vuelta");
-		soloIda = new JRadioButton("Solo ida");
-		viajesProgramados = new JRadioButton("Viajes Largos programados");
-		
-		p11 = new JPanel();
-		pPrinc.setLayout(new GridLayout(1,2));
-		
-		
-		//Panel de la derecha
-		p2 = new JPanel();
-		p2.setLayout(new GridLayout(5, 1));
-		
-		//Panel de la derecha con panel arriba 
-		p22 = new JPanel();
-		p22.setLayout(new GridLayout(1, 2));
-		
-		//Poner los destinos que haya creado el admin............................
-		origen= new JComboBox();
-		origen.addItem("Bilbao");
-		origen.addItem("Barcelona");
-		origen.addItem("Malaga");
-		origen.addItem("Vigo");
-		origen.addItem("Lisboa");
-		origen.addItem("Valencia");
-		
-		destino= new JComboBox();
-		destino.addItem("Bilbao");
-		destino.addItem("Barcelona");
-		destino.addItem("Malaga");
-		destino.addItem("Vigo");
-		destino.addItem("Lisboa");
-		destino.addItem("Valencia");
-		
-		//Panel del calendario
-		cPanel = new JPanel();
-		cPanel.setLayout(new GridLayout(2,1));//fila, columna
-		fechaInicio = new JButton("Fecha Inicio");
-		fechaFin = new JButton("Fecha Fin");
-		calendario = new JCalendar();
-		//bd = new BD();
-		//IMPEDIMOS QUE SE PUEDAN COMPRAR BILLETES ANTERIORES AL DIA DE HOY
-		hoy = calendario.getDate();
-		calendario.setMinSelectableDate(hoy);
-		
-		fechaInicio.addActionListener(new ActionListener(){
 
-//		     @Override
-		     public void actionPerformed(ActionEvent e) {
-		    	 String year = Integer.toString(calendario.getCalendar().get(java.util.Calendar.YEAR));
-		    	 String mes = Integer.toString(calendario.getCalendar().get(java.util.Calendar.MONTH) + 1);
-		    	 String dia = Integer.toString(calendario.getCalendar().get(java.util.Calendar.DATE));
-		    	 if (Integer.parseInt(mes) < 10 && Integer.parseInt(dia) < 10) {
-		    		 fechaInc = year + "-0" + mes + "-0" + dia;
-		    	 } else if (Integer.parseInt(mes) < 10 && Integer.parseInt(dia) >= 10) {
-					 fechaInc = year + "-0" + mes + "-" + dia;
-		    	 } else if (Integer.parseInt(mes) >= 10 && Integer.parseInt(dia) < 10) {
-					 fechaInc = year + "-" + mes + "-0" + dia;
-		    	 } else {
-					 fechaInc = year + "-" + mes + "-" + dia;
-		    	 }
-		    	 
-		    	 cPanel.add(fechaFin);
-		    	 cPanel.remove(fechaInicio);
-		    	 setVisible(true);
-		    	 
-		    	 d1 = calendario.getDate();
-		    	 
-		    	 //CREAMOS LA RESTRICCION DE NO PODER VOLVER A ESCOGER LA FECHA INICIO PARA LA FECHA FINAL
-		    	 int minYear = Integer.parseInt(year);
-		    	 int minMes = Integer.parseInt(mes);
-		    	 int minDia = Integer.parseInt(dia);
-		    	 
-		    	 Date minNoche = new Date(Date.UTC(minYear-1900, minMes-1, minDia +1, 0, 0, 0));
-		    	 
-		    	 calendario.setMinSelectableDate(minNoche);
-		     }
-		});
-		
-		//A CONTINUACION SELECCIONAS OTRA FECHA PARA SELECCIONAR EL DIA DE LA VUELTA
-		fechaFin.addActionListener(new ActionListener(){
-					
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String year = Integer.toString(calendario.getCalendar().get(java.util.Calendar.YEAR));
-				String mes = Integer.toString(calendario.getCalendar().get(java.util.Calendar.MONTH) + 1);
-				String dia = Integer.toString(calendario.getCalendar().get(java.util.Calendar.DATE));
-				String fechaEndBD = year + "-" + mes + "-" + dia;
-				d2 = calendario.getDate();
-						
-				//bd.connect();
-				//GUARDAMOS LOS DIAS QUE HA RESERVADO EN LA BASE DE DATOS
-				//bd.calendario(type, dia, mes , year, fechaInc);
-						
-				 dispose();	       
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					VentanaViaje frame = new VentanaViaje(null);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public VentanaViaje(Usuario uActual) {
+		sdf = new SimpleDateFormat("dd-MM-yyyy");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 510);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
 		
+		JPanel panelTitulo = new JPanel();
+		contentPane.add(panelTitulo, BorderLayout.NORTH);
+		
+		JLabel lblTitulo = new JLabel("TU VIAJE EMPIEZA AQUÍ");
+		panelTitulo.add(lblTitulo);
+		
+		JComboBox<String> cbOrigen = new JComboBox<String>();
+		cbOrigen.addItem("Bilbao");
+		cbOrigen.addItem("Barcelona");
+		cbOrigen.addItem("Malaga");
+		cbOrigen.addItem("Vigo");
+		cbOrigen.addItem("Lisboa");
+		cbOrigen.addItem("Valencia");
+		
+		
+		JComboBox<String> cbDestino = new JComboBox<String>();
+		cbDestino.addItem("Bilbao");
+		cbDestino.addItem("Barcelona");
+		cbDestino.addItem("Malaga");
+		cbDestino.addItem("Vigo");
+		cbDestino.addItem("Lisboa");
+		cbDestino.addItem("Valencia");
+		
+		JPanel panelAbajo = new JPanel();
+		contentPane.add(panelAbajo, BorderLayout.CENTER);
+		
+		JPanel panelRadioB = new JPanel();
+		panelAbajo.add(panelRadioB, BorderLayout.NORTH);
+		
+		JRadioButton rbIda = new JRadioButton("Ida");
+		panelRadioB.add(rbIda);
+		
+		JRadioButton rbIdaVuelta = new JRadioButton("Ida y vuelta");
+		panelRadioB.add(rbIdaVuelta);
+		
+		JRadioButton rbVuelosProgramados = new JRadioButton("Vuelos Programados");
+		panelRadioB.add(rbVuelosProgramados);
+		
+		JPanel panelOpciones = new JPanel();
+		panelOpciones.setLayout(new GridLayout(1,2));
+		panelAbajo.add(panelOpciones, BorderLayout.CENTER);
+		
+		JPanel panelDYO = new JPanel();
+		panelDYO.setLayout(new GridLayout(2, 2));
+		panelOpciones.add(panelDYO);
+		
+		JLabel lblOrigen = new JLabel("Origen:");
+		panelDYO.add(lblOrigen);
+		
+		JComboBox<String> Origen = new JComboBox<String>();
+		panelDYO.add(Origen);
+		
+		JLabel lblDestino = new JLabel("Destino:");
+		panelDYO.add(lblDestino);
+		
+		JComboBox<String> Destino = new JComboBox<String>();
+		panelDYO.add(Destino);
+		
+		JPanel panelCalendario = new JPanel();		
+		panelCalendario.setLayout(new GridLayout(2,2));
+		panelOpciones.add(panelCalendario);
+		
+		calendarioIda = new JDateChooser();
+		panelCalendario.add(calendarioIda);
+		
+		JCalendar calIda = calendarioIda.getJCalendar();
+		calIda.setMinSelectableDate(new Date(System.currentTimeMillis()));
+		
+		JButton btnSeleccionarIda = new JButton("Fecha ida");
+		
+		panelCalendario.add(btnSeleccionarIda);
+		
+		calendarioVuelta = new JDateChooser();
+		panelCalendario.add(calendarioVuelta);
+		
+		JButton btnSeleccionarVuelta = new JButton("Fecha vuelta");
+		panelCalendario.add(btnSeleccionarVuelta);
+		
+		JPanel pViajes = new JPanel();
+		pViajes.setLayout(new GridLayout(3,1));
+		panelAbajo.add(pViajes);
+	
 		lista = new DefaultListModel<>();
-		listaViajes =  new JList<String>(lista);
-		scrollListaViajes = new JScrollPane(listaViajes);
+	
 		lista.addElement("1");
 		lista.addElement("2");
 		lista.addElement("3");
 		
+		JPanel panel_1 = new JPanel();
+		pViajes.add(panel_1);
 		
-		personas = new JButton("¿Cuantas personas?");
-		personas.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new VentanaPersonasTicket();
-				dispose();
-			}
-		});
+		lista = new DefaultListModel<>();
+		listaViajes =  new JList<String>(lista);
+		scrollListaViajes = new JScrollPane(listaViajes);
+		lista.addElement("Viaje programado en las fechas seleccionadas");
+		lista.addElement("2");
+		lista.addElement("3");
+		panel_1.add(scrollListaViajes);
+		
+		JPanel panel = new JPanel();
+		panel_1.add(panel);
+		
+		JSpinner spinner = new JSpinner();
+		spinner.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
+		panel.add(spinner);
+		
+		JPanel panel_2 = new JPanel();
+		panel_1.add(panel_2);
+		
+		JButton btnNewButton = new JButton("New button");
+		panel_2.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("New button");
+		panel_2.add(btnNewButton_1);
 		
 		
-		ButtonGroup grupo1 = new ButtonGroup();
-		grupo1.add(idaVuelta);
-		grupo1.add(soloIda);
-		grupo1.add(viajesProgramados);
 		
 		
 		
-		idaVuelta.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				origen.setVisible(true);
-				destino.setVisible(true);
-				fechaInicio.setVisible(true);
-				calendario.setVisible(true);
-				scrollListaViajes.setVisible(false);
-				personas.setVisible(true);
-			}
-		});
-		
-		soloIda.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				origen.setVisible(true);
-				destino.setVisible(true);
-				fechaInicio.setVisible(true);
-				calendario.setVisible(true);
-				scrollListaViajes.setVisible(false);
-				personas.setVisible(true);
-				
-			}
-		});
-		
-		viajesProgramados.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				origen.setVisible(true);
-				destino.setVisible(true);
-				fechaInicio.setVisible(true);
-				calendario.setVisible(true);
-				scrollListaViajes.setVisible(true);
-				personas.setVisible(true);
-			}
-		});
-		
-		cp.add(pPrinc);
-		
-		pPrinc.add(p1);
-		pPrinc.add(p2);
-		
-		setJMenuBar(menuBar);
-		menuBar.add(menu);
-		menu.add(itemPerfil);
-		menu.add(itemGaleria);
-		menu.add(itemSesion);
-		menu.add(itemSalir);
-		
-		p1.add(viaje);
-		p1.add(idaVuelta);
-		p1.add(soloIda);
-		p1.add(viajesProgramados);
-		
-		p2.add(p22);
-		p22.add(origen);
-		origen.setVisible(false);
-		p22.add(destino);
-		destino.setVisible(false);
-		
-		p2.add(cPanel);
-		cPanel.add(fechaInicio);
-		cPanel.add(calendario);
-		fechaInicio.setVisible(false);
-		calendario.setVisible(false);
-		
-		p2.add(scrollListaViajes);
-		scrollListaViajes.setVisible(false);
-		
-		p2.add(personas);
-		personas.setVisible(false);
-		
-		//desactivarBotones();
-		setTitle("Billetes");
-		pack();
-		setSize(700,450);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setVisible(true);
 	}
-	private void desactivarBotones() {
-		personas.setEnabled(false);
-	}
-	private void activarBotones() {
-		personas.setEnabled(true);
-	}	
 
 }
