@@ -2,7 +2,7 @@ package clases;
 
 public class Ski extends Actividad {
 	
-	protected int cantSkis;
+	protected static int cantSkis;
 
 	public Ski(String codigo, String nombre, int aforo, String instructor, String ubicacion, String descripcion, String imagen, int cantSkis) {
 		super(codigo, nombre, aforo, instructor, ubicacion, descripcion);
@@ -14,7 +14,7 @@ public class Ski extends Actividad {
 		this.cantSkis = 0;
 	}
 
-	public int getCantSkis() {
+	public static int getCantSkis() {
 		return cantSkis;
 	}
 
@@ -22,6 +22,7 @@ public class Ski extends Actividad {
 		this.cantSkis = cantSkis;
 	}
 
+	//BORRAR
 	@Override
 	public String toString() {
 		return "Ski [cantSkis=" + cantSkis + "]";
