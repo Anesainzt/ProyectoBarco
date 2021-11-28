@@ -52,18 +52,38 @@ public class VentanaGaleria extends JFrame{
         panelPrincipal = new JPanel(new GridLayout(numFotos, 2));
         panelPrincipal.setSize(1000, 2000);
         
-        for (int i = 1; i <= numFotos; i++) {
+        for (int i = 1; i <= numFotos; i+=2) {
+            int j = i + 1;
             BufferedImage bufferedImage = ImageIO.read(new File("images/barco" +i+ ".jpg"));
             Image image = bufferedImage.getScaledInstance(400, 200, Image.SCALE_DEFAULT);
+            BufferedImage bufferedImage2 = ImageIO.read(new File("images/barco" +j+ ".jpg"));
+            Image image2 = bufferedImage2.getScaledInstance(400, 200, Image.SCALE_DEFAULT);
 		    //JLabel label = new JLabel(new ImageIcon(image));
             JButton boton = new JButton(new ImageIcon(image));
             JLabel label = new JLabel("hola"); //bd.getActividades
+            JButton boton2 = new JButton(new ImageIcon(image2));
+            JLabel label2 = new JLabel("hola"); //bd.getActividades
             //boton.setPreferredSize(new Dimension(200, 100));
 
             panelPrincipal.add(boton);
+            panelPrincipal.add(boton2);
             panelPrincipal.add(label);
+            panelPrincipal.add(label2);
 
             boton.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					try {
+                        new VentanaGaleriaActividades();
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+				}
+			});
+
+            boton2.addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
