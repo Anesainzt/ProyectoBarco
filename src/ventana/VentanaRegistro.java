@@ -3,21 +3,21 @@ package ventana;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.*;
 
-import javax.imageio.*;
 import javax.swing.*;
 
 import BD.BD;
 import clases.Usuario;
 
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class VentanaRegistro extends JFrame {
-	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	static Logger logger = Logger.getLogger(VentanaRegistro.class.getName());
 
 	public static boolean esNumerico(String str) { 

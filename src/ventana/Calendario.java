@@ -12,13 +12,17 @@ import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Logger;
 
 
 public class Calendario extends JFrame{
+
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	Container cp;
 	JCalendar calendario;
 	JTextField fecha;
@@ -85,6 +89,10 @@ public class Calendario extends JFrame{
 		    	 } else {
 					 fechaInc = year + "-" + mes + "-" + dia;
 		    	 }
+		
+		    	 
+		    	 
+		    	 
 		    	 
 		    	 p111.add(fechaFin);
 		    	 p111.remove(fechaInicio);
@@ -99,7 +107,8 @@ public class Calendario extends JFrame{
 		    	 
 		    	 //SE RESTA 1900 PORQUE LA LIBRER�A EMPIEZA A CONTAR DESDE 1900
 		    	 //SE RESTA 1 AL MES PORQUE EMPIEZA A CONTAR DESDE 0 Y ANTES LE HEMOS SUMADO 1 PARA ESCRIBIR BIEN LA FECHA
-		    	 Date minNoche = new Date(Date.UTC(minYear-1900, minMes-1, minDia +1, 0, 0, 0));
+		    	 @SuppressWarnings("deprecation")
+				Date minNoche = new Date(Date.UTC(minYear-1900, minMes-1, minDia +1, 0, 0, 0));
 		    	 
 		    	 calendario.setMinSelectableDate(minNoche);
 		     }
@@ -114,12 +123,24 @@ public class Calendario extends JFrame{
 				String mes = Integer.toString(calendario.getCalendar().get(java.util.Calendar.MONTH) + 1);
 				String dia = Integer.toString(calendario.getCalendar().get(java.util.Calendar.DATE));
 				fecha.setText(dia + "-" + mes + "-" + year);
-				String fechaEndBD = year + "-" + mes + "-" + dia;
+				
+				@SuppressWarnings("unused")
+				String fechaEndBD = "";
+				fechaEndBD = year + "-" + mes + "-" + dia;
 				d2 = calendario.getDate();
 				
 				//bd.connect();
 				//GUARDAMOS LOS DIAS QUE HA RESERVADO EN LA BASE DE DATOS
 				//bd.calendario(type, dia, mes , year, fechaInc);
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				
 				
 		        dispose();	       
@@ -165,6 +186,17 @@ public class Calendario extends JFrame{
 	public static void main(String[] args) {
 		new Calendario(null);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

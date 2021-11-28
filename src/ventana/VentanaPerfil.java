@@ -15,6 +15,10 @@ import javax.swing.border.EmptyBorder;
 
 public class VentanaPerfil extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected Container cp;
 	protected JPanel panel,panelLabel,panelDni,panelNombre,panelApellido,panelEmail,panelUsuario,panelContrasenya,panelNcuenta,panelBotones,panelEditar,panelAceptar,panelBorrar,panelAtras;
 	protected JTextField textoDni,textoNombre,textoApellido,textoEmail,textoUsuario,textoContrasenya,textoNcuenta;
@@ -24,6 +28,7 @@ public class VentanaPerfil extends JFrame {
 	
 	static Logger logger = Logger.getLogger(VentanaPerfil.class.getName());
 
+	@SuppressWarnings("static-access")
 	public VentanaPerfil(Usuario uActual) {
 		
 		cp = this.getContentPane();

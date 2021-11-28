@@ -5,7 +5,11 @@ import java.awt.*;
 
 public class VentanaTicket extends JFrame {
 
-    private Container cp;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Container cp;
     private JPanel panelPrincipal;
 
     public VentanaTicket(){

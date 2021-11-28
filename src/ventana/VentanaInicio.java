@@ -15,7 +15,12 @@ import BD.BD;
 import clases.Usuario;
 
 public class VentanaInicio extends JFrame {
-	
+
+	/**
+	 * 
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected Container cp;
 	protected JPanel panel, panelIzqda, panelDcha, panel1, panel2, panel3, panel4;
 	protected JLabel labelWelcome,labelUsuario,labelContrasenya;
@@ -77,6 +82,7 @@ public class VentanaInicio extends JFrame {
 		botonLogin = new JButton("Iniciar sesión");
 		botonLogin.addActionListener(new ActionListener() {
 			
+			@SuppressWarnings("static-access")
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				bd.connect();

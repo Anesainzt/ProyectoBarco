@@ -8,29 +8,23 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 public class VentanaActividades extends JFrame{
 
 	
+	private static final long serialVersionUID = 1L;
 	public VentanaActividades() throws IOException {
 		
 		JPanel panelPrincipal = new JPanel();
+		panelPrincipal.setBorder(new EmptyBorder(4, 15, 15, 15));
 		JPanel panelIzquierdo = new JPanel();
 		JPanel panelMedio = new JPanel();
 		JPanel panelDerecho = new JPanel();
@@ -45,20 +39,22 @@ public class VentanaActividades extends JFrame{
 		JPanel panel8 = new JPanel();
 		
 		
-		JComboBox<String> combobox = new JComboBox();
+		JComboBox<String> combobox = new JComboBox<String>();
 		JLabel label1 = new JLabel("¿Desea alguna actividad? ");
+		
 		JLabel label2 = new JLabel("Cantidad de Personas");
+		
+		
 		JLabel label3 = new JLabel("Tarifa");
 		//QUITAR Y CUANDO ESCOJA ELEGIR CANTIDAD DE PERSONAS QUE APAREZCA ESA VENTANA Y DESPUES DE SELECIONAR LAS PERSONAS IR A LA VENTANA QUE ESTÁ CREANDO ANDREA
 		JButton boton1 = new JButton("No quiero nada");
-		JButton boton2 = new JButton("Elegir cantidad de personas");
-		JTextField txt2 = new JTextField("",10);
+		
+		
 		
 		BufferedImage bufferedImage = ImageIO.read(new File("images/yate2.jpg"));
 		Image imagenBarco = bufferedImage.getScaledInstance(400, 200, Image.SCALE_DEFAULT);
 		JLabel label4 = new JLabel(new ImageIcon(imagenBarco));
 		
-		txt2.setText("yyyy/mm/dd");//cambiar por calendario
 		
 		combobox.addItem("Surf");
 		combobox.addItem("Ski Acuático");
@@ -77,7 +73,7 @@ public class VentanaActividades extends JFrame{
 		panel7.setLayout(new FlowLayout());
 		
 		
-		add(panelPrincipal);
+		getContentPane().add(panelPrincipal);
 		panelPrincipal.add(panelIzquierdo);
 		panelPrincipal.add(panelMedio);
 		panelPrincipal.add(panelDerecho);
@@ -95,12 +91,12 @@ public class VentanaActividades extends JFrame{
 		
 		panel1.add(label1);
 		panel2.add(combobox);
-		panel3.add(txt2);
+		panel3.add(VentanaViaje.calendarioActividades);
 		panel4.add(boton1);
-		panel4.add(boton2);
 		
 		panel5.add(label2);
-		panel6.add(boton2);
+		panel6.add(VentanaViaje.spinnerAct);
+		
 		panel7.add(label3);
 		
 		panel8.add(label4);
@@ -114,15 +110,6 @@ public class VentanaActividades extends JFrame{
 				new VentanaPago();
 			}
 		});
-		
-		boton2.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-			new VentanaPersonasTicket();	
-			}
-		});
 	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Ventana Actividades");
@@ -132,8 +119,9 @@ public class VentanaActividades extends JFrame{
 		
 	}
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
+		
 		new VentanaActividades();
+		
 	}
 }
 

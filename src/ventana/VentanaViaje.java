@@ -20,8 +20,8 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
 import javax.swing.JSpinner;
@@ -29,16 +29,21 @@ import javax.swing.SpinnerNumberModel;
 
 public class VentanaViaje extends JFrame {
 
-	private JPanel contentPane;
-	private JDateChooser calendarioIda, calendarioVuelta;
-	private SimpleDateFormat sdf;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	JPanel contentPane;
+	JDateChooser calendarioIda, calendarioVuelta;
+	static JDateChooser calendarioActividades;
+	SimpleDateFormat sdf;
+	static JCalendar cact;
+	static JSpinner spinnerAct;
 	DefaultListModel<String> lista;
 	JList<String> listaViajes;
 	JScrollPane scrollListaViajes;
-
-	/**
-	 * Launch the application.
-	 */
+	
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -128,56 +133,85 @@ public class VentanaViaje extends JFrame {
 		
 		calendarioIda = new JDateChooser();
 		panelCalendario.add(calendarioIda);
-		
 		JCalendar calIda = calendarioIda.getJCalendar();
 		calIda.setMinSelectableDate(new Date(System.currentTimeMillis()));
 		
-		JButton btnSeleccionarIda = new JButton("Fecha ida");
-		
-		panelCalendario.add(btnSeleccionarIda);
-		
 		calendarioVuelta = new JDateChooser();
-		panelCalendario.add(calendarioVuelta);
-		
+		JCalendar calVuelta = calendarioVuelta.getJCalendar();
+
+		JButton btnSeleccionarIda = new JButton("Fecha ida");
+		btnSeleccionarIda.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+		    	 calVuelta.setMinSelectableDate(calendarioIda.getDate());
+			}
+			
+		});
 		JButton btnSeleccionarVuelta = new JButton("Fecha vuelta");
+		panelCalendario.add(btnSeleccionarIda);
+		panelCalendario.add(calendarioVuelta);
 		panelCalendario.add(btnSeleccionarVuelta);
 		
-		JPanel pViajes = new JPanel();
-		pViajes.setLayout(new GridLayout(3,1));
-		panelAbajo.add(pViajes);
-	
-		lista = new DefaultListModel<>();
-	
-		lista.addElement("1");
-		lista.addElement("2");
-		lista.addElement("3");
+		JPanel panel = new JPanel();
+		panelAbajo.add(panel);
 		
-		JPanel panel_1 = new JPanel();
-		pViajes.add(panel_1);
+		
+	
 		
 		lista = new DefaultListModel<>();
 		listaViajes =  new JList<String>(lista);
 		scrollListaViajes = new JScrollPane(listaViajes);
+		
+		panel.add(scrollListaViajes);
+		
 		lista.addElement("Viaje programado en las fechas seleccionadas");
 		lista.addElement("2");
 		lista.addElement("3");
-		panel_1.add(scrollListaViajes);
 		
-		JPanel panel = new JPanel();
-		panel_1.add(panel);
 		
+		spinnerAct = new JSpinner();
 		JSpinner spinner = new JSpinner();
-		spinner.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
+		spinner.setModel(new SpinnerNumberModel(1, 1, 10, 1));
 		panel.add(spinner);
 		
-		JPanel panel_2 = new JPanel();
-		panel_1.add(panel_2);
+		JPanel panel_1 = new JPanel();
+		panelAbajo.add(panel_1);
 		
 		JButton btnNewButton = new JButton("New button");
-		panel_2.add(btnNewButton);
+		panel_1.add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("New button");
-		panel_2.add(btnNewButton_1);
+		JButton btnIraActividad = new JButton("Aceptar billete");
+		panel_1.add(btnIraActividad);
+		
+		calendarioActividades = new JDateChooser();
+		cact = calendarioActividades.getJCalendar();
+		
+		btnIraActividad.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					new VentanaActividades();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				cact.setMinSelectableDate(calendarioIda.getDate());
+				cact.setMaxSelectableDate(calendarioVuelta.getDate());
+				spinnerAct.setModel(new SpinnerNumberModel(0, 0,(Comparable<?>) spinner.getValue(), 1));
+				
+				dispose();
+				
+			}
+			
+		});
+
+		
+		
+		
+		
+		
 		
 		
 		
