@@ -26,7 +26,7 @@ public class VentanaGaleria extends JFrame{
     private JPanel panel2;
 
     private String nombre = "SURF";
-    private String instructor = "Manolo";
+    private String instructor = "Instructor";
 
     private List<Surf> listaSurf;
     private List<Ski> listaSki;
@@ -48,6 +48,8 @@ public class VentanaGaleria extends JFrame{
         contentPane = new JPanel();
         setContentPane(contentPane);
 
+        //scroll.setPreferredSize(new Dimension(400, 250));
+
         listaSurf = new ArrayList<Surf>(bd.getListaSurf());
         listaSki = new ArrayList<Ski>(bd.getListaSki());
         listaBuceo= new ArrayList<Buceo>(bd.getListaBuceo());
@@ -63,27 +65,35 @@ public class VentanaGaleria extends JFrame{
 		int numFotos = 6; // calculará el número de fotos que haya en la bd
         
         panel1 = new JPanel(new GridLayout(numFotos, 2));
-        panel1.setSize(1000, 2000);
         
         for (int i = 1; i <= numFotos; i+=2) {
             int j = i + 1;
             BufferedImage bufferedImage = ImageIO.read(new File("images/barco" +i+ ".jpg"));
             Image image = bufferedImage.getScaledInstance(400, 200, Image.SCALE_DEFAULT);
+
             BufferedImage bufferedImage2 = ImageIO.read(new File("images/barco" +j+ ".jpg"));
             Image image2 = bufferedImage2.getScaledInstance(400, 200, Image.SCALE_DEFAULT);
-		    //JLabel label = new JLabel(new ImageIcon(image));
-            JButton boton = new JButton(new ImageIcon(image));
-            JLabel label = new JLabel("hola"); //bd.getActividades
-            JButton boton2 = new JButton(new ImageIcon(image2));
-            JLabel label2 = new JLabel("hola"); //bd.getActividades
-            //boton.setPreferredSize(new Dimension(200, 100));
 
-            panel1.add(boton);
-            panel1.add(boton2);
-            panel1.add(label);
-            panel1.add(label2);
+            JLabel labelImagen = new JLabel(new ImageIcon(image));
 
-            boton.addActionListener(new ActionListener() {
+            JPanel panelBotonTitulo = new JPanel();
+            JButton botonTitulo = new JButton("Título"); //bd.getActividades
+            botonTitulo.setPreferredSize(new Dimension(200, 40));
+            panelBotonTitulo.add(botonTitulo);
+
+            JLabel labelImagen2 = new JLabel(new ImageIcon(image2));
+
+            JPanel panelBotonTitulo2 = new JPanel();
+            JButton botonTitulo2 = new JButton("Título"); //bd.getActividades
+            botonTitulo2.setPreferredSize(new Dimension(200, 40));
+            panelBotonTitulo2.add(botonTitulo2);
+
+            panel1.add(labelImagen);
+            panel1.add(labelImagen2);
+            panel1.add(panelBotonTitulo);
+            panel1.add(panelBotonTitulo2);
+
+            botonTitulo.addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
@@ -97,7 +107,7 @@ public class VentanaGaleria extends JFrame{
 				}
 			});
 
-            boton2.addActionListener(new ActionListener() {
+            botonTitulo2.addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
@@ -118,7 +128,6 @@ public class VentanaGaleria extends JFrame{
         // panel 2
 
         panel2 = new JPanel(new GridLayout(4, 2));
-        panel2.setSize(1000, 600);
 
         JLabel labelNombre = new JLabel(nombre);
         labelNombre.setFont(new Font("Serif", Font.PLAIN, 55));
@@ -129,7 +138,10 @@ public class VentanaGaleria extends JFrame{
         JLabel labelDescripcion = new JLabel("Descripción");
         JLabel labelCantidadMaterial= new JLabel("Cantidad material");
 
-        JButton botonAtras = new JButton("Atrás");
+        JPanel panelBotonAtras = new JPanel();
+        JButton botonAtras = new JButton("Atrás"); //bd.getActividades
+        botonAtras.setPreferredSize(new Dimension(200, 40));
+        panelBotonAtras.add(botonAtras);
 
         BufferedImage bufferedImage = ImageIO.read(new File("images/barco2.jpg"));
         Image image = bufferedImage.getScaledInstance(400, 200, Image.SCALE_DEFAULT);
@@ -142,7 +154,7 @@ public class VentanaGaleria extends JFrame{
         panel2.add(labelUbicacion);
         panel2.add(labelDescripcion);
         panel2.add(labelCantidadMaterial);
-        panel2.add(botonAtras);
+        panel2.add(panelBotonAtras);
 
         botonAtras.addActionListener(new ActionListener() {
 				
