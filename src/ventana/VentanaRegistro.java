@@ -151,14 +151,15 @@ public class VentanaRegistro extends JFrame {
 				String contrasenya = texto6.getText();
 				String tarjeta = texto7.getText();
 
-				Usuario usuario = new Usuario(nombre, apellido, dni, tarjeta, login, contrasenya, email);
 				if (!esNumerico(tarjeta)|| tarjeta.length() !=16) {
 					JOptionPane.showMessageDialog( null, "Introduce un número de tarjeta válido");
 					//el campo de la tarjeta se vacía
 					texto7.setText(null);
 
 				} else {
-					if(!texto1.getText().equals(null) && !texto2.getText().equals(null) && !texto3.getText().equals(null) && !texto4.getText().equals(null) && !texto5.getText().equals(null) && !texto6.getText().equals(null) && !texto7.getText().equals(null)) {
+					if(!texto1.getText().equals("") && !texto2.getText().equals("") && !texto3.getText().equals("") && !texto4.getText().equals("") && !texto5.getText().equals("") && !texto6.getText().equals("") && !texto7.getText().equals("")) {
+						Usuario usuario = new Usuario(nombre, apellido, dni, tarjeta, login, contrasenya, email);
+						
 						if(bd.compararLogin(usuario) == false) {
 							bd.crearUsuario(texto5, texto6, texto2, texto3, texto1, texto7, texto4);
 
