@@ -60,8 +60,6 @@ public class VentanaGaleria extends JFrame{
         contentPane = new JPanel();
         setContentPane(contentPane);
 
-        //scroll.setPreferredSize(new Dimension(400, 250));
-
         listaSurf = new ArrayList<Surf>(bd.getListaSurf());
         listaSki = new ArrayList<Ski>(bd.getListaSki());
         listaBuceo= new ArrayList<Buceo>(bd.getListaBuceo());
@@ -77,6 +75,7 @@ public class VentanaGaleria extends JFrame{
 		int numFotos = 6; // calculará el número de fotos que haya en la bd
         
         panel1 = new JPanel(new GridLayout(numFotos, 2));
+        //panel1.setSize(900, 500);
         scroll = new JScrollPane(panel1);
         scroll.setPreferredSize(new Dimension(1000, 600));
         
