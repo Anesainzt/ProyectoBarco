@@ -13,6 +13,8 @@ import javax.swing.*;
 
 import BD.BD;
 import clases.Usuario;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.CompoundBorder;
 
 public class VentanaInicio extends JFrame {
 
@@ -24,10 +26,11 @@ public class VentanaInicio extends JFrame {
 	protected Container cp;
 	protected JPanel panel, panelIzqda, panelDcha, panel1, panel2, panel3, panel4;
 	protected JLabel labelWelcome,labelUsuario,labelContrasenya;
-	protected JTextField textoUsuario,textoContrasenya;
+	public static JTextField textoUsuario;
+	public static JTextField textoContrasenya;
 	//protected JPasswordField textoContrasenya;
 	protected JButton botonLogin, botonRegistro;
-	protected BD bd = new BD();
+	protected static BD bd = new BD();
 	
 	static Logger logger = Logger.getLogger(VentanaInicio.class.getName());
 	
@@ -82,14 +85,15 @@ public class VentanaInicio extends JFrame {
 		botonLogin = new JButton("Iniciar sesión");
 		botonLogin.addActionListener(new ActionListener() {
 			
-			@SuppressWarnings("static-access")
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				bd.connect();
+			
 				if(bd.comprobarLogin(textoUsuario.getText(), textoContrasenya.getText())) {
 					try {
 						uActual.setLogin(textoUsuario.getText());
 						
+						//He modificado un poco el inicio de sesión de la bd
 						new VentanaViaje(bd.getuActual());
 						dispose();
 					} catch (Exception e) {
@@ -119,7 +123,7 @@ public class VentanaInicio extends JFrame {
 		panelDcha = new JPanel();
 		
 		BufferedImage bufferedImage = ImageIO.read(new File("images/yate.jpg"));
-		Image image = bufferedImage.getScaledInstance(600, 400, Image.SCALE_DEFAULT);
+		Image image = bufferedImage.getScaledInstance(250, 260, Image.SCALE_DEFAULT);
 		JLabel label = new JLabel(new ImageIcon(image));
 		 
 		
@@ -149,7 +153,7 @@ public class VentanaInicio extends JFrame {
 		
 		setVisible(true);
 		pack();
-		setSize(600,350);
+		setSize(600,310);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 

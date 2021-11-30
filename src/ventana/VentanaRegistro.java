@@ -154,6 +154,8 @@ public class VentanaRegistro extends JFrame {
 				if (!esNumerico(tarjeta)|| tarjeta.length() !=16) {
 					JOptionPane.showMessageDialog( null, "Introduce un número de tarjeta válido");
 					
+					//Yo no pondria todos a null toston volver a escribirlos
+					
 					texto1.setText(null);
 					texto2.setText(null);
 					texto3.setText(null);

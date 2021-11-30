@@ -20,6 +20,7 @@ import clases.Buceo;
 import clases.Ski;
 import clases.Surf;
 import clases.Usuario;
+import ventana.VentanaInicio;
 
 public class BD extends JFrame{
 
@@ -293,8 +294,19 @@ public class BD extends JFrame{
 
 					return true;
 				}	
+			}if (VentanaInicio.textoUsuario.getText().equals("")|| VentanaInicio.textoContrasenya.getText().equals("")) {
+				JOptionPane.showMessageDialog(null, "¡No has introducido la contraseña o el usuario!", "Error", JOptionPane.ERROR_MESSAGE);
+			}else{
+				JOptionPane.showMessageDialog(null, "¡Contraseña o usuario incorrectos!", "Error", JOptionPane.ERROR_MESSAGE);
+				try {
+					VentanaInicio.textoUsuario.setText("");
+					VentanaInicio.textoContrasenya.setText("");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
-			JOptionPane.showMessageDialog(null, "¡Contraseña o usuario incorrectos!", "Error", JOptionPane.ERROR_MESSAGE);
+			
 
 			ps.close();
 			return false;

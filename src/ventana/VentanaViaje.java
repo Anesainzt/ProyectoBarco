@@ -57,9 +57,6 @@ public class VentanaViaje extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public VentanaViaje(Usuario uActual) {
 		sdf = new SimpleDateFormat("dd-MM-yyyy");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -206,16 +203,9 @@ public class VentanaViaje extends JFrame {
 			}
 			
 		});
-
 		
 		
-		
-		
-		
-		
-		
-		
-		
+		setVisible(true);
 		
 	}
 
