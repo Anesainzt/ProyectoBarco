@@ -3,6 +3,7 @@ package ventana;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.*;
 
@@ -21,34 +22,34 @@ public class VentanaRegistro extends JFrame {
 	static Logger logger = Logger.getLogger(VentanaRegistro.class.getName());
 
 	public static boolean esNumerico(String str) { 
-		  try {
-		    Double.parseDouble(str);
-		    return true;
-		  } catch(NumberFormatException e){
-		    return false;
-		  }
+		try {
+			Double.parseDouble(str);
+			return true;
+		} catch(NumberFormatException e){
+			return false;
 		}
-	
+	}
+
 	protected Container cp;
 	protected JPanel panel,panelIzqda,panelDcha,panel1,panel2,panel3,panel4,panel5,panel6,panel7,panel8,panel9,panel10,panel11,panel12,panel13,
-	panel14,panel15,panel16,panel17;
+	panel14,panel15,panel16,panel17,panel18;
 	protected JLabel label1,iconoCv,label3,label4,label5,label6,label7,label8,label9,icono1,icono2,icono3,icono4,icono5,icono6,icono7,icono8;
 	protected JTextField texto1,texto2,texto3,texto4,texto5,texto6,texto7;
 	protected JButton botonRegistro;
 
 	public VentanaRegistro() {
-		
+
 		//ContentPane
 		cp = this.getContentPane();
 		this.setTitle("Registro");
 		//panelPrinc
 		panel = new JPanel();
 		panel.setLayout(new GridLayout(1,2));
-		
+
 		//panelIzqda
 		panelIzqda = new JPanel();
 		panelIzqda.setLayout(new GridLayout(9,1));
-		
+
 		//panelDcha
 		panelDcha = new JPanel();
 		panelDcha.setLayout(new GridLayout(9,1));
@@ -64,8 +65,8 @@ public class VentanaRegistro extends JFrame {
 		icono6 = new JLabel(new ImageIcon("images/t.png"));
 		icono7 = new JLabel(new ImageIcon("images/r.png"));
 		icono8 = new JLabel(new ImageIcon("images/o.png"));
-		
-		
+
+
 		//panel2
 		panel2 = new JPanel();
 		iconoCv= new JLabel(new ImageIcon("images/cv.png"));
@@ -73,15 +74,15 @@ public class VentanaRegistro extends JFrame {
 		//panel3
 		panel3 = new JPanel();	
 		label3 = new JLabel("DNI:");
-		
+
 		//panel4
 		panel4 = new JPanel();
 		texto1 = new JTextField();
 		texto1.setPreferredSize(new Dimension (200, 25));
-		
+
 		//panel5
 		panel5 = new JPanel();
-		label4 = new JLabel("Nombre");
+		label4 = new JLabel("Nombre:");
 
 		//panel6
 		panel6 = new JPanel();
@@ -90,7 +91,7 @@ public class VentanaRegistro extends JFrame {
 
 		//panel5
 		panel7 = new JPanel();
-		label5 = new JLabel("Apellido");
+		label5 = new JLabel("Apellido:");
 
 		//panel8
 		panel8 = new JPanel();
@@ -99,8 +100,8 @@ public class VentanaRegistro extends JFrame {
 
 		//panel9
 		panel9 = new JPanel();
-		label6 = new JLabel("Email");
-		
+		label6 = new JLabel("Email:");
+
 		//panel10
 		panel10 = new JPanel();
 		texto4 = new JTextField();
@@ -108,36 +109,36 @@ public class VentanaRegistro extends JFrame {
 
 		//panel11
 		panel11 = new JPanel();
-		label7 = new JLabel("Usuario");
+		label7 = new JLabel("Usuario:");
 
 		//panel12
 		panel12 = new JPanel();
 		texto5 = new JTextField();
 		texto5.setPreferredSize(new Dimension (200, 25));
-		
+
 		//panel13
 		panel13 = new JPanel();
-		label8 = new JLabel("Contraseña");
-		
+		label8 = new JLabel("Contraseña:");
+
 		//panel14
 		panel14 = new JPanel();
 		texto6 = new JTextField();
 		texto6.setPreferredSize(new Dimension (200, 25));
-		
+
 		//panel15
 		panel15 = new JPanel();
-		label9 = new JLabel("Nº cuenta");
-		
+		label9 = new JLabel("Nº cuenta:");
+
 		//panel16
 		panel16 = new JPanel();
 		texto7 = new JTextField();
 		texto7.setPreferredSize(new Dimension (200, 25));
-		
+
 		//panel17
 		panel17 = new JPanel();
 		botonRegistro = new JButton("Registrarme");
 		botonRegistro.addActionListener(new ActionListener(){
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				BD bd = new BD();
@@ -149,40 +150,52 @@ public class VentanaRegistro extends JFrame {
 				String login = texto5.getText();
 				String contrasenya = texto6.getText();
 				String tarjeta = texto7.getText();
-				
+
 				Usuario usuario = new Usuario(nombre, apellido, dni, tarjeta, login, contrasenya, email);
 				if (!esNumerico(tarjeta)|| tarjeta.length() !=16) {
 					JOptionPane.showMessageDialog( null, "Introduce un número de tarjeta válido");
-					
-					//Yo no pondria todos a null toston volver a escribirlos
-					
-					texto1.setText(null);
-					texto2.setText(null);
-					texto3.setText(null);
-					texto4.setText(null);
-					texto5.setText(null);
-					texto6.setText(null);
+					//el campo de la tarjeta se vacía
 					texto7.setText(null);
-					
+
 				} else {
-				if(bd.compararLogin(usuario) == false) {
-					bd.crearUsuario(texto5, texto6, texto2, texto3, texto1, texto7, texto4);
-					
-					try {
-						new VentanaViaje(usuario);
-						dispose();
-					} catch (Exception e) {
-						logger.log(Level.INFO, "");//METER LA INFO DEL ERROR
+					if(!texto1.getText().equals(null) && !texto2.getText().equals(null) && !texto3.getText().equals(null) && !texto4.getText().equals(null) && !texto5.getText().equals(null) && !texto6.getText().equals(null) && !texto7.getText().equals(null)) {
+						if(bd.compararLogin(usuario) == false) {
+							bd.crearUsuario(texto5, texto6, texto2, texto3, texto1, texto7, texto4);
+
+							try {
+								new VentanaViaje(usuario);
+								dispose();
+							} catch (Exception e) {
+								logger.log(Level.INFO, "");//METER LA INFO DEL ERROR
+							}
+						} 
+						bd.disconnect();
+					} else {
+						JOptionPane.showMessageDialog(null, "Rellene todos los campos.");
 					}
 				}
-				
-				bd.disconnect();
-				
-			}
 			}
 		});
-		
-		
+		//panel18
+		panel18 = new JPanel();
+		panel18.setLayout(new FlowLayout());
+		JButton botonVolver = new JButton("Volver");
+		botonVolver.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					new VentanaInicio();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				dispose();
+
+			}
+		});
+
+
 
 		cp.add(panel);
 		panel.add(panelIzqda);
@@ -205,6 +218,7 @@ public class VentanaRegistro extends JFrame {
 		panelIzqda.add(panel15);
 		panelDcha.add(panel16);
 		panelIzqda.add(panel17);
+		panelDcha.add(panel18);
 
 
 
@@ -216,7 +230,7 @@ public class VentanaRegistro extends JFrame {
 		panel1.add(icono6);
 		panel1.add(icono7);
 		panel1.add(icono8);
-		
+
 		panel2.add(iconoCv);
 		panel3.add(label3);
 		panel4.add(texto1);
@@ -233,12 +247,17 @@ public class VentanaRegistro extends JFrame {
 		panel15.add(label9);
 		panel16.add(texto7);
 		panel17.add(botonRegistro);
+		panel18.add(botonVolver);
 
 		setVisible(true);
 		pack();
 		setSize(550, 450);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+	}
+
+	public static void main(String[] args) {
+		new VentanaRegistro();
 	}
 
 }
