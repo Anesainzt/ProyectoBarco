@@ -27,7 +27,9 @@ public class VentanaGaleria extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
 	private JPanel contentPane;
+
     private JScrollPane scroll;
     private JPanel panel1;
 
@@ -75,6 +77,8 @@ public class VentanaGaleria extends JFrame{
 		int numFotos = 6; // calculará el número de fotos que haya en la bd
         
         panel1 = new JPanel(new GridLayout(numFotos, 2));
+        scroll = new JScrollPane(panel1);
+        scroll.setPreferredSize(new Dimension(1000, 600));
         
         for (int i = 1; i <= numFotos; i+=2) {
             int j = i + 1;
@@ -131,9 +135,6 @@ public class VentanaGaleria extends JFrame{
 				}
 			});
         }
-
-        scroll = new JScrollPane(panel1);
-        scroll.setVisible(true);
 
         // panel 2
 
