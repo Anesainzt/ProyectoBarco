@@ -32,6 +32,7 @@ public class VentanaGaleria extends JFrame{
 
     private JScrollPane scroll;
     private JPanel panel1;
+    private JPanel panelFotoBoton;
 
     private JPanel panel2;
     private JPanel panel2Derecha;
@@ -74,18 +75,14 @@ public class VentanaGaleria extends JFrame{
 
 		int numFotos = 6; // calculará el número de fotos que haya en la bd
         
-        panel1 = new JPanel(new GridLayout(numFotos, 2));
-        //panel1.setSize(900, 500);
+        panel1 = new JPanel(new GridLayout(numFotos/2, 2));
         scroll = new JScrollPane(panel1);
         scroll.setPreferredSize(new Dimension(1000, 600));
         
-        for (int i = 1; i <= numFotos; i+=2) {
-            int j = i + 1;
+        for (int i = 1; i <= numFotos; i++) {
+
             BufferedImage bufferedImage = ImageIO.read(new File("images/barco" +i+ ".jpg"));
             Image image = bufferedImage.getScaledInstance(400, 200, Image.SCALE_DEFAULT);
-
-            BufferedImage bufferedImage2 = ImageIO.read(new File("images/barco" +j+ ".jpg"));
-            Image image2 = bufferedImage2.getScaledInstance(400, 200, Image.SCALE_DEFAULT);
 
             JLabel labelImagen = new JLabel(new ImageIcon(image));
 
@@ -94,33 +91,18 @@ public class VentanaGaleria extends JFrame{
             botonTitulo.setPreferredSize(new Dimension(200, 40));
             panelBotonTitulo.add(botonTitulo);
 
-            JLabel labelImagen2 = new JLabel(new ImageIcon(image2));
+            panelFotoBoton = new JPanel(new GridLayout(2, 1));
+            
+            Border border = panelFotoBoton.getBorder();
+            Border margin = new EmptyBorder(25, 0, -145, 0);
+            panelFotoBoton.setBorder(new CompoundBorder(border, margin));
 
-            JPanel panelBotonTitulo2 = new JPanel();
-            JButton botonTitulo2 = new JButton("Título"); //bd.getActividades
-            botonTitulo2.setPreferredSize(new Dimension(200, 40));
-            panelBotonTitulo2.add(botonTitulo2);
+            panelFotoBoton.add(labelImagen);
+            panelFotoBoton.add(panelBotonTitulo);
 
-            panel1.add(labelImagen);
-            panel1.add(labelImagen2);
-            panel1.add(panelBotonTitulo);
-            panel1.add(panelBotonTitulo2);
+            panel1.add(panelFotoBoton);
 
             botonTitulo.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					try {
-                        scroll.setVisible(false);
-                        panel2.setVisible(true);
-                    } catch (Exception e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-				}
-			});
-
-            botonTitulo2.addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
