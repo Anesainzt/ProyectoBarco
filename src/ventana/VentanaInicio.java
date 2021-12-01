@@ -55,7 +55,6 @@ public class VentanaInicio extends JFrame {
 		panel1.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0)); //TOC
 
 		labelWelcome = new JLabel(new ImageIcon("images/welcome.png"));
-		
 		panel1.setBackground(Color.white);
 		
 		//panel2
@@ -121,6 +120,7 @@ public class VentanaInicio extends JFrame {
 		
 		//panelDcha
 		panelDcha = new JPanel();
+		panelDcha.setBackground(Color.white);
 		
 		BufferedImage bufferedImage = ImageIO.read(new File("images/yate.jpg"));
 		Image image = bufferedImage.getScaledInstance(250, 260, Image.SCALE_DEFAULT);
