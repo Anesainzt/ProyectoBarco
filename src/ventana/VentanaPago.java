@@ -92,6 +92,19 @@ public class VentanaPago extends JFrame{
         panelAbajo.add(panelBotonCancelar);
         panelAbajo.add(panelBotonAceptar);
 
+        botonCancelar.addActionListener(new ActionListener() {
+				
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                try {
+                    new VentanaTicket();
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                	logger.log(Level.INFO, "");//METER LA INFO DEL ERROR
+                }
+            }
+        });
+
         botonAceptar.addActionListener(new ActionListener() {
 				
             @Override
