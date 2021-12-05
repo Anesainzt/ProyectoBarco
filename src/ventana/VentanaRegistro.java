@@ -36,6 +36,7 @@ public class VentanaRegistro extends JFrame {
 	protected JLabel label1,iconoCv,label3,label4,label5,label6,label7,label8,label9,icono1,icono2,icono3,icono4,icono5,icono6,icono7,icono8;
 	protected JTextField texto1,texto2,texto3,texto4,texto5,texto6,texto7;
 	protected JButton botonRegistro;
+	protected JProgressBar barraProgreso;
 
 	public VentanaRegistro() {
 
@@ -141,6 +142,26 @@ public class VentanaRegistro extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				getContentPane().add(barraProgreso);
+				Thread t = new Thread(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						barraProgreso.setVisible(true);
+						for (int i = 0; i < 100; i++) {
+							barraProgreso.setValue(i);
+							try {
+								Thread.sleep(10);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+						 barraProgreso.setVisible(false);
+					}
+				});
+				t.start();
 				BD bd = new BD();
 				bd.connect();
 				String dni = texto1.getText();
@@ -178,7 +199,7 @@ public class VentanaRegistro extends JFrame {
 			}
 		});
 		//panel18
-		panel18 = new JPanel();//ercgfer
+		panel18 = new JPanel();
 		panel18.setLayout(new FlowLayout());
 		JButton botonVolver = new JButton("Volver");
 		botonVolver.addActionListener(new ActionListener() {
