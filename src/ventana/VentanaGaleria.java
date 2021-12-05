@@ -11,7 +11,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.lang.System.Logger.Level;
+import java.util.logging.Level;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionListener;
@@ -24,10 +24,11 @@ import clases.Surf;
 public class VentanaGaleria extends JFrame{
 
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+     * 
+     */
 
+    public BD bd = new BD();
+    private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
     private JScrollPane scroll;
@@ -48,8 +49,6 @@ public class VentanaGaleria extends JFrame{
     static Logger logger = Logger.getLogger(VentanaGaleria.class.getName());
 
     public VentanaGaleria() throws IOException {
-
-        BD bd = new BD();
         bd.connect();
 
         setTitle("Galería de fotos");
@@ -61,15 +60,14 @@ public class VentanaGaleria extends JFrame{
         contentPane = new JPanel();
         setContentPane(contentPane);
 
-        listaSurf = new ArrayList<Surf>(bd.getListaSurf());
-        listaSki = new ArrayList<Ski>(bd.getListaSki());
-        listaBuceo= new ArrayList<Buceo>(bd.getListaBuceo());
+        listaSki = new ArrayList<Ski>();
+        listaSki = bd.getListaSki();
 
-        for (Surf surf : listaSurf) {
-            System.out.println(surf);
+        for (Ski ski : listaSki) {
+            System.out.println(ski);
         }
 
-        System.out.println(listaSurf);
+        System.out.println(listaSki);
 
         // panel 1
 
@@ -190,7 +188,7 @@ public class VentanaGaleria extends JFrame{
                     panel2.setVisible(false);
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
-                	//logger.log(Level.INFO, "");//METER LA INFO DEL ERROR
+                	logger.log(Level.INFO, "");//METER LA INFO DEL ERROR
                 }
             }
         });

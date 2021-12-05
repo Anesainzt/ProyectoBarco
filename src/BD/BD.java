@@ -504,24 +504,47 @@ public class BD extends JFrame{
 	// 	}
 	// }
 
-	public List<Buceo> getListaBuceo(){
+	// public List<Buceo> getListaBuceo(){
 
-		List<Buceo> listaBuceo = new ArrayList<Buceo>();
+	// 	List<Buceo> listaBuceo = new ArrayList<Buceo>();
 
-		try(Statement stmt = (Statement) conn.createStatement()) {
+	// 	try(Statement stmt = (Statement) conn.createStatement()) {
 
-			ResultSet buceo = stmt.executeQuery("SELECT * FROM actividad WHERE nombre = Buceo;");
+	// 		ResultSet buceo = stmt.executeQuery("SELECT * FROM actividad WHERE nombre = Buceo");
 
-			while(buceo.next()) {
+	// 		while(buceo.next()) {
 
-				Buceo actividad = new Buceo(buceo.getString("codigo"), buceo.getString("nombre"), buceo.getInt("aforo"), buceo.getString("instructor"), buceo.getString("ubicacion"), buceo.getString("descripcion"), buceo.getString("imagen"), buceo.getInt("cantMaterial"));
-				listaBuceo.add(actividad);
-			}	
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		return listaBuceo;
-	}
+	// 			Buceo actividad = new Buceo(buceo.getString("codigo"), buceo.getString("nombre"), buceo.getInt("aforo"), buceo.getString("instructor"), buceo.getString("ubicacion"), buceo.getString("descripcion"), buceo.getString("imagen"), buceo.getInt("cantMaterial"));
+	// 			listaBuceo.add(actividad);
+	// 		}	
+	// 	}catch (Exception e) {
+	// 		e.printStackTrace();
+	// 	}
+	// 	return listaBuceo;
+	// }
+
+	// public List<Ski> getListaSki(){
+
+	// 	List<Ski> listaSki = new ArrayList<Ski>();
+
+	// 	try(Statement stmt = conn.createStatement()) {
+
+	// 		ResultSet rs = stmt.executeQuery("SELECT * FROM actividad");
+
+	// 		while(rs.next()) {
+
+	// 			Ski actividad = new Ski(rs.getString("codigo"), rs.getString("nombre"), rs.getInt("aforo"),
+	// 					rs.getString("instructor"), rs.getString("ubicacion"), rs.getString("descripcion"),
+	// 					rs.getString("imagen"), rs.getInt("cantMaterial"));
+	// 			if (actividad.getNombre() == "Ski") {
+	// 				listaSki.add(actividad);
+	// 			}
+	// 		}
+	// 	} catch (Exception e) {
+	// 		e.printStackTrace();
+	// 	}
+	// 	return listaSki;
+	// }
 
 	public List<Ski> getListaSki(){
 
@@ -542,22 +565,22 @@ public class BD extends JFrame{
 		return listaSki;
 	}
 
-	public List<Surf> getListaSurf(){
+	// public List<Surf> getListaSurf(){
 
-		List<Surf> listaSurf = new ArrayList<Surf>();
+	// 	List<Surf> listaSurf = new ArrayList<Surf>();
 
-		try(Statement stmt = (Statement) conn.createStatement()) {
+	// 	try(Statement stmt = (Statement) conn.createStatement()) {
 
-			ResultSet surf = stmt.executeQuery("SELECT * FROM actividad WHERE nombre = Surf;");
+	// 		ResultSet surf = stmt.executeQuery("SELECT * FROM actividad WHERE nombre = Surf");
 
-			while(surf.next()) {
+	// 		while(surf.next()) {
 
-				Surf actividad = new Surf(surf.getString("codigo"), surf.getString("nombre"), surf.getInt("aforo"), surf.getString("instructor"), surf.getString("ubicacion"), surf.getString("descripcion"), surf.getString("imagen"), surf.getInt("cantMaterial"));
-				listaSurf.add(actividad);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return listaSurf;
-	}
+	// 			Surf actividad = new Surf(surf.getString("codigo"), surf.getString("nombre"), surf.getInt("aforo"), surf.getString("instructor"), surf.getString("ubicacion"), surf.getString("descripcion"), surf.getString("imagen"), surf.getInt("cantMaterial"));
+	// 			listaSurf.add(actividad);
+	// 		}
+	// 	} catch (Exception e) {
+	// 		e.printStackTrace();
+	// 	}
+	// 	return listaSurf;
+	// }
 }

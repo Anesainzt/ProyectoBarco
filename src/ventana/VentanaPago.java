@@ -97,7 +97,7 @@ public class VentanaPago extends JFrame{
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 try {
-                    new VentanaTicket();
+                    new VentanaActividades();
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
                 	logger.log(Level.INFO, "");//METER LA INFO DEL ERROR
