@@ -178,7 +178,7 @@ public class VentanaRegistro extends JFrame {
 			}
 		});
 		//panel18
-		panel18 = new JPanel();
+		panel18 = new JPanel();//ercgfer
 		panel18.setLayout(new FlowLayout());
 		JButton botonVolver = new JButton("Volver");
 		botonVolver.addActionListener(new ActionListener() {
