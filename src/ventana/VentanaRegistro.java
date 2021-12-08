@@ -36,7 +36,7 @@ public class VentanaRegistro extends JFrame {
 	protected JLabel label1,iconoCv,label3,label4,label5,label6,label7,label8,label9,icono1,icono2,icono3,icono4,icono5,icono6,icono7,icono8;
 	protected JTextField texto1,texto2,texto3,texto4,texto5,texto6,texto7;
 	protected JButton botonRegistro;
-	protected JProgressBar barraProgreso;
+	JProgressBar barraProgreso;
 	private JPanel panel_1;
 
 	public VentanaRegistro() {
@@ -46,7 +46,7 @@ public class VentanaRegistro extends JFrame {
 		this.setTitle("Registro");
 		//panelPrinc
 		panel = new JPanel();
-		panel.setLayout(new GridLayout(1,2));
+		panel.setLayout(new GridLayout(1,3));
 
 		//panelIzqda
 		panelIzqda = new JPanel();
@@ -139,34 +139,15 @@ public class VentanaRegistro extends JFrame {
 		//panel17
 		panel17 = new JPanel();
 		botonRegistro = new JButton("Registrarme");
+		
+		panel_1 = new JPanel();
+		barraProgreso = new JProgressBar();
+		
+		
 		botonRegistro.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-			
-				//HILO
-				//Modificar hilo
-				Thread t = new Thread(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						barraProgreso.setVisible(true);
-						for (int i = 0; i < 100; i++) {
-							barraProgreso.setValue(i);
-							try {
-								Thread.sleep(10);
-							} catch (InterruptedException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						}
-						 barraProgreso.setVisible(false);
-					}
-				});
-				t.start();
-				//ACABA
-				
 				
 				BD bd = new BD();
 				bd.connect();
@@ -187,6 +168,26 @@ public class VentanaRegistro extends JFrame {
 					if(!texto1.getText().equals("") && !texto2.getText().equals("") && !texto3.getText().equals("") && !texto4.getText().equals("") && !texto5.getText().equals("") && !texto6.getText().equals("") && !texto7.getText().equals("")) {
 						Usuario usuario = new Usuario(nombre, apellido, dni, tarjeta, login, contrasenya, email);
 						
+						//HILO
+						Thread t = new Thread(new Runnable() {
+							
+							@Override
+							public void run() {
+								// TODO Auto-generated method stub
+							try {
+								for (int i = 0; i < 100; i++) {
+									barraProgreso.setValue(i);
+									Thread.sleep(10);
+								}
+							} catch (Exception e2) {
+								// TODO: handle exception
+							}	
+							}
+						});
+						t.start();
+						barraProgreso.setVisible(true);
+						//ACABA
+						
 						if(bd.compararLogin(usuario) == false) {
 							bd.crearUsuario(texto5, texto6, texto2, texto3, texto1, texto7, texto4);
 
@@ -203,6 +204,8 @@ public class VentanaRegistro extends JFrame {
 					}
 				}
 			}
+
+			
 		});
 		//panel18
 		panel18 = new JPanel();
@@ -223,17 +226,14 @@ public class VentanaRegistro extends JFrame {
 			}
 		});
 
-
-
-		cp.add(panel);
+		cp.add(panel);		
+		getContentPane().add(panel_1, BorderLayout.SOUTH);
 		
+		panel_1.add(barraProgreso);
+		barraProgreso.setVisible(false);
 		
 		panel.add(panelIzqda);
 		panel.add(panelDcha);
-		panel.add(panel_1);
-		
-		//añadir al panel_1 la barra
-		//poner a false la barra
 		
 		panelIzqda.add(panel1);
 		panelDcha.add(panel2);
@@ -253,7 +253,6 @@ public class VentanaRegistro extends JFrame {
 		panelDcha.add(panel16);
 		panelIzqda.add(panel17);
 		panelDcha.add(panel18);
-
 
 
 		panel1.add(icono1);
@@ -283,9 +282,7 @@ public class VentanaRegistro extends JFrame {
 		panel17.add(botonRegistro);
 		panel18.add(botonVolver);
 		
-		panel_1 = new JPanel();
-		getContentPane().add(panel_1, BorderLayout.SOUTH);
-
+		
 		setVisible(true);
 		pack();
 		setSize(550, 450);
