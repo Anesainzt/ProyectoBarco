@@ -37,6 +37,7 @@ public class VentanaRegistro extends JFrame {
 	protected JTextField texto1,texto2,texto3,texto4,texto5,texto6,texto7;
 	protected JButton botonRegistro;
 	protected JProgressBar barraProgreso;
+	private JPanel panel_1;
 
 	public VentanaRegistro() {
 
@@ -142,7 +143,9 @@ public class VentanaRegistro extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				getContentPane().add(barraProgreso);
+			
+				//HILO
+				//Modificar hilo
 				Thread t = new Thread(new Runnable() {
 					
 					@Override
@@ -162,6 +165,9 @@ public class VentanaRegistro extends JFrame {
 					}
 				});
 				t.start();
+				//ACABA
+				
+				
 				BD bd = new BD();
 				bd.connect();
 				String dni = texto1.getText();
@@ -220,9 +226,15 @@ public class VentanaRegistro extends JFrame {
 
 
 		cp.add(panel);
+		
+		
 		panel.add(panelIzqda);
 		panel.add(panelDcha);
-
+		panel.add(panel_1);
+		
+		//añadir al panel_1 la barra
+		//poner a false la barra
+		
 		panelIzqda.add(panel1);
 		panelDcha.add(panel2);
 		panelIzqda.add(panel3);
@@ -270,6 +282,9 @@ public class VentanaRegistro extends JFrame {
 		panel16.add(texto7);
 		panel17.add(botonRegistro);
 		panel18.add(botonVolver);
+		
+		panel_1 = new JPanel();
+		getContentPane().add(panel_1, BorderLayout.SOUTH);
 
 		setVisible(true);
 		pack();
