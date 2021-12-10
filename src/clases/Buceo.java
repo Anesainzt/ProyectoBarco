@@ -19,13 +19,4 @@ public class Buceo extends Actividad {
 	public void setCantBombonas(int cantBombonas) {
 		this.cantBombonas = cantBombonas;
 	}
-
-	//SIRVE PARA ALGO?
-	@Override
-	public String toString() {
-		return "Buceo [cantBombonas=" + cantBombonas + "]";
-	}
-	
-	
-
 }

@@ -21,14 +21,4 @@ public class Ski extends Actividad {
 	public void setCantSkis(int cantSkis) {
 		this.cantSkis = cantSkis;
 	}
-
-	//BORRAR
-	@Override
-	public String toString() {
-		return "Ski [cantSkis=" + cantSkis + "]";
-	}
-	
-	
-	
-
 }

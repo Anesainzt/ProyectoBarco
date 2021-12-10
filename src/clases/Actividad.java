@@ -8,10 +8,7 @@ public abstract class Actividad {
 	protected String instructor; //nombre del instructor/a
 	protected String ubicacion;
 	protected String descripcion; 
-	//protected String imagen; //Porque hay un String de imagen?
-	
-	
-	
+
 	public Actividad(String codigo, String nombre, int aforo, String instructor, String ubicacion, String descripcion) {
 		super();
 		this.codigo = codigo;
@@ -20,7 +17,6 @@ public abstract class Actividad {
 		this.instructor = instructor;
 		this.ubicacion = ubicacion;
 		this.descripcion = descripcion;
-		//this.imagen = imagen;
 	}
 	
 	public Actividad() {
@@ -31,7 +27,6 @@ public abstract class Actividad {
 		this.instructor = "";
 		this.ubicacion = "";
 		this.descripcion = "";
-		//this.imagen = "";
 	}
 
 	public String getCodigo() {
@@ -81,15 +76,6 @@ public abstract class Actividad {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-
-	/*public String getImagen() {
-		return imagen;
-	}
-
-	public void setImagen(String imagen) {
-		this.imagen= imagen;
-	}
-	 */
 	@Override
 	public String toString() {
 		return "Actividad [codigo=" + codigo + ", nombre=" + nombre + ", aforo=" + aforo + ", instructor=" + instructor

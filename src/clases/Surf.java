@@ -20,16 +20,5 @@ public class Surf extends Actividad {
 
 	public void setCantTablas(int cantTablas) {
 		this.cantTablas = cantTablas;
-	}
-
-	@Override
-	public String toString() {
-		return "Surf [cantTablas=" + cantTablas + "]";
-	}
-	
-	
-	
-	
-	
-	
+	}	
 }
