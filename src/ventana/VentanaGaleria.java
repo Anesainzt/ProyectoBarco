@@ -33,6 +33,8 @@ public class VentanaGaleria extends JFrame{
 
     private JScrollPane scroll;
     private JPanel panel1;
+    private JPanel panel1Arriba;
+    private JPanel panel1Abajo;
     private JPanel panelFotoBoton;
 
     private JPanel panel2;
@@ -53,7 +55,7 @@ public class VentanaGaleria extends JFrame{
 
         setTitle("Galería de fotos");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setPreferredSize(new Dimension(1000, 600));
+        setPreferredSize(new Dimension(1000, 690));
         setVisible(true);
         pack();
 
@@ -72,10 +74,12 @@ public class VentanaGaleria extends JFrame{
         // panel 1
 
 		int numFotos = 6; // calculará el número de fotos que haya en la bd
-        
-        panel1 = new JPanel(new GridLayout(numFotos/2, 2));
-        scroll = new JScrollPane(panel1);
+
+        panel1 = new JPanel(new BorderLayout());
+        panel1Arriba = new JPanel(new GridLayout(numFotos/2, 2));
+        scroll = new JScrollPane(panel1Arriba);
         scroll.setPreferredSize(new Dimension(1000, 600));
+        panel1Abajo = new JPanel(new BorderLayout());
         
         for (int i = 1; i <= numFotos; i++) {
 
@@ -98,14 +102,14 @@ public class VentanaGaleria extends JFrame{
             panelFotoBoton.add(labelImagen);
             panelFotoBoton.add(panelBotonTitulo);
 
-            panel1.add(panelFotoBoton);
+            panel1Arriba.add(panelFotoBoton);
 
             botonTitulo.addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					try {
-                        scroll.setVisible(false);
+                        panel1.setVisible(false);
                         panel2.setVisible(true);
                     } catch (Exception e) {
                         // TODO Auto-generated catch block
@@ -114,6 +118,30 @@ public class VentanaGaleria extends JFrame{
 				}
 			});
         }
+
+        JPanel panelBotonVolver = new JPanel();
+        JButton botonVolver = new JButton("Volver");
+        botonVolver.setPreferredSize(new Dimension(200, 30));
+        panelBotonVolver.add(botonVolver);
+
+        /*botonVolver.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					new VentanaViaje();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+            }
+			
+		});*/
+
+        panel1Abajo.add(panelBotonVolver);
+
+        panel1.add(scroll, BorderLayout.NORTH);
+        panel1.add(panel1Abajo, BorderLayout.SOUTH);
 
         // panel 2
 
@@ -176,7 +204,7 @@ public class VentanaGaleria extends JFrame{
         panelBotonAtras.add(botonAtras);
 
         Border border = panelBotonAtras.getBorder();
-        Border margin = new EmptyBorder(40, 480, 10, 0);
+        Border margin = new EmptyBorder(120, 480, 10, 0);
         panelBotonAtras.setBorder(new CompoundBorder(border, margin));
 
         botonAtras.addActionListener(new ActionListener() {
@@ -184,7 +212,7 @@ public class VentanaGaleria extends JFrame{
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 try {
-                    scroll.setVisible(true);
+                    panel1.setVisible(true);
                     panel2.setVisible(false);
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
@@ -206,7 +234,7 @@ public class VentanaGaleria extends JFrame{
         panel1.setVisible(true);
         panel2.setVisible(false);
 
-        contentPane.add(scroll);
+        contentPane.add(panel1);
         contentPane.add(panel2);
     }
 
