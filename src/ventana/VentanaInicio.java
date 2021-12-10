@@ -13,8 +13,6 @@ import javax.swing.*;
 
 import BD.BD;
 import clases.Usuario;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.CompoundBorder;
 
 public class VentanaInicio extends JFrame {
 
@@ -112,6 +110,7 @@ public class VentanaInicio extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				new VentanaRegistro();
+				dispose();
 				
 			}
 		});

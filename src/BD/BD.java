@@ -13,12 +13,8 @@ import java.util.logging.SimpleFormatter;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import com.toedter.calendar.JCalendar;
-
 import clases.Actividad;
-import clases.Buceo;
 import clases.Ski;
-import clases.Surf;
 import clases.Usuario;
 import ventana.VentanaInicio;
 
@@ -26,9 +22,23 @@ public class BD extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	private Connection conn = null;
-	private static Logger logger = Logger.getLogger(BD.class.getName());
-	private static Logger log = Logger.getLogger(BD.class.getName());
 	private static Usuario uActual = new Usuario();
+	static Logger logger = Logger.getLogger( "BaseDatos" );
+	private static Handler handler;
+	
+	public static void guardarLogger() {
+		try {
+			handler = new FileHandler("BaseDatos.log");
+			handler.setFormatter(new SimpleFormatter());
+			logger.addHandler(handler);
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	//METODO PARA ESCRIBIR EN LOS FICHEROS
 	/*public void escribirFichero(String fichero, String texto) {
@@ -51,10 +61,11 @@ public class BD extends JFrame{
 		try {
 			Class.forName("org.sqlite.JDBC");
 			conn = DriverManager.getConnection("jdbc:sqlite:database.db");
+			logger.log( Level.INFO, "Se ha conectado con la BBDD" );
 		} catch (ClassNotFoundException e) {
-			logger.warning("Error cargando el driver de la BD");
+			logger.log( Level.INFO, "Error cargando el driver de la BD" );
 		} catch (SQLException e) {
-			logger.warning("Error conectando a la BD");
+			logger.log( Level.INFO, "Error al conectar con BD" );
 		}
 	}
 
@@ -62,7 +73,7 @@ public class BD extends JFrame{
 		try {
 			conn.close();
 		} catch (SQLException e) {
-			logger.warning(e.getMessage());
+			logger.warning("No se ha podido desconectar");
 		}
 	}
 
@@ -206,7 +217,6 @@ public class BD extends JFrame{
 
 		} catch (SQLException e) {
 			System.out.println("Se ha ejecutado el metodo de crear usuario a pesar del error");
-			e.printStackTrace();
 			logger.warning("No se ha creado el usuario");
 		}	
 
@@ -240,7 +250,6 @@ public class BD extends JFrame{
 			JOptionPane.showMessageDialog(null, "¡El usuario se ha actualizado correctamente!");
 		} catch (Exception e) {
 			System.out.println("Se ha ejecutado el metodo de editar usuario a pesar del error");
-			e.printStackTrace();
 			logger.warning("El usuario NO se ha actualizado");
 		}
 
@@ -267,8 +276,7 @@ public class BD extends JFrame{
 				if(rs.getString("login").equals(login) && rs.getString("contrasenya").equals(contrasenya)) {
 
 					//LLAMADA A LOGGER
-					//PODEMOS HACER CON LOS ERRORES DE LA BASE DE DATOS QUE SE ALMACENEN AUNQUE NO VA A HABER NINGUN ERROR SUPONGO
-					try {
+					/*try {
 						Handler handler = new FileHandler("AccesoBD.csv");
 						handler.setFormatter(new SimpleFormatter());
 						log.addHandler(handler);
@@ -278,10 +286,8 @@ public class BD extends JFrame{
 					} catch (SecurityException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					*/
+						
 					String nombre = rs.getString("nombre");
 					String apellido = rs.getString("apellido");
 					String dni = rs.getString("dni");
@@ -302,8 +308,8 @@ public class BD extends JFrame{
 					VentanaInicio.textoUsuario.setText("");
 					VentanaInicio.textoContrasenya.setText("");
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					
+					logger.info("No se ha podido comprobar");
 				}
 			}
 			
@@ -312,11 +318,10 @@ public class BD extends JFrame{
 			return false;
 		} catch (Exception e) {
 
-			//logger --> por si falla
-			logger.warning("Ha habido un error al hacer el login. " + e.getMessage());
-			e.printStackTrace();
-			return false; //si no funciona pues devuelve false xd
+			//logger
+			logger.warning("Ha habido un error al hacer el login.");
 		}
+		return true;
 	}
 
 	//En vez de en la BD hacer un hashmap en la ventana de cantidadPersonasBillete y cantidadPersonasActividad
@@ -330,12 +335,13 @@ public class BD extends JFrame{
 
 			conn.close();
 		} catch (SQLException e2) {
-			logger.warning(e2.getMessage());
+			logger.warning("No se ha podido insertar");
 		}
 
 	}
+	
 
-
+	/*
 	public void ponerAlDiaBD() {
 
 		try(Statement stmt = (Statement) conn.createStatement();){
@@ -359,7 +365,7 @@ public class BD extends JFrame{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 
 	//OBTENEMOS LOS DATOS DEL CLIENTE
@@ -385,7 +391,7 @@ public class BD extends JFrame{
 			}
 
 		} catch (SQLException e2) {
-			logger.warning(e2.getMessage());
+			logger.warning("Error al obtener los datos");
 		}
 		return cl;
 	}
@@ -420,7 +426,7 @@ public class BD extends JFrame{
 			}
 
 		} catch (SQLException e2) {
-			logger.warning(e2.getMessage());
+			logger.warning("Ha habido un error al hacer el login.");
 		}
 	}
 
@@ -429,7 +435,8 @@ public class BD extends JFrame{
 		try(Statement stmt = (Statement) conn.createStatement()) {	
 			int res2 = stmt.executeUpdate("INSERT INTO registroActividad VALUES('"+tipo.getNombre() +"' ,  '"+ fecha +"', '"+ usuario.getDni() +"'");
 		} catch (SQLException e2) {
-			e2.printStackTrace();
+			logger.warning("No se ha podido reservar la actividad");
+			
 		}
 	}
 
@@ -445,10 +452,11 @@ public class BD extends JFrame{
 
 			pstmt.execute();
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warning("No se ha podido reservar la actividad");
 		}
 	}
 
+	/*
 	//MIRAR QUE ACTIVIDADES ESTÁN RESEVADAS PARA HOY PARA EL ADMIN
 	public void actividadesHoy(DefaultTableModel modelo2) {
 
@@ -485,7 +493,7 @@ public class BD extends JFrame{
 			e.printStackTrace();
 		}
 
-	}
+	}*/
 
 	// public List<Actividad> getListaActividades(){
 	// 	List<Actividad> listaActividades = new ArrayList();
@@ -560,7 +568,7 @@ public class BD extends JFrame{
 				listaSki.add(actividad);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warning("No se ha podido cargar la información");
 		}
 		return listaSki;
 	}
