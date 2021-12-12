@@ -124,19 +124,20 @@ public class VentanaGaleria extends JFrame{
         botonVolver.setPreferredSize(new Dimension(200, 30));
         panelBotonVolver.add(botonVolver);
 
-        /*botonVolver.addActionListener(new ActionListener() {
+        botonVolver.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					new VentanaViaje();
-				} catch (IOException e1) {
+					new VentanaViaje(bd.getuActual());
+                    dispose();
+				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
             }
 			
-		});*/
+		});
 
         panel1Abajo.add(panelBotonVolver);
 

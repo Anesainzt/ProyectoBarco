@@ -80,6 +80,7 @@ public class VentanaViaje extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					new VentanaGaleria();
+					dispose();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
