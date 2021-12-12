@@ -166,7 +166,7 @@ public class VentanaRegistro extends JFrame {
 
 				} else {
 					if(!texto1.getText().equals("") && !texto2.getText().equals("") && !texto3.getText().equals("") && !texto4.getText().equals("") && !texto5.getText().equals("") && !texto6.getText().equals("") && !texto7.getText().equals("")) {
-						Usuario usuario = new Usuario(nombre, apellido, dni, tarjeta, login, contrasenya, email);
+						Usuario usuario = new Usuario(nombre, apellido, dni, tarjeta, login, contrasenya, email, null);
 						
 						//HILO
 						Thread t = new Thread(new Runnable() {

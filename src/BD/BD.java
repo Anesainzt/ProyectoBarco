@@ -207,7 +207,7 @@ public class BD extends JFrame{
 				String instruccion = "INSERT INTO usuario (login, contrasenya, nombre, apellido, dni, tarjeta, email) VALUES ('" + loginText.getText()  + "','" + contrasenyaText.getText() + "','" + nombreText.getText()  + "','" + apellidoText.getText()  + "','" + dniText.getText()  + "','" + tarjetaText.getText()  + "','" + emailText.getText() + "');";
 				JOptionPane.showMessageDialog(null, "Usuario creado con exito");
 				int rs2 = stmt.executeUpdate(instruccion);
-				uActual = new Usuario(nombreText.getText(), apellidoText.getText(), dniText.getText(), tarjetaText.getText(), loginText.getText(), contrasenyaText.getText(), emailText.getText());
+				uActual = new Usuario(nombreText.getText(), apellidoText.getText(), dniText.getText(), tarjetaText.getText(), loginText.getText(), contrasenyaText.getText(), emailText.getText(), null);
 				logger.warning("Usuario creado con exito");
 			} else {
 				JOptionPane.showMessageDialog(null, "¡Este usuario ya existe!");
@@ -233,6 +233,7 @@ public class BD extends JFrame{
 	}
 
 	//MÉTODO EDITAR USUARIO --> SIN TERMINAR
+	//AÑADIR LISTAVIAJES AL USUARIO
 	public void editarUsuario(Usuario usuario) throws SQLException {
 		Connection conn = DriverManager.getConnection("jdbc:sqlite:database.db");
 		Statement stmt = (Statement) conn.createStatement();
@@ -245,7 +246,7 @@ public class BD extends JFrame{
 			//String instruccion = "UDPATE usuario (nombre, apellido, dni, tarjeta, login, contrasenya, email) VALUES ('" + uActual.getNombre() + "', '" + uActual.getApellido() + "', '" +uActual.getDni() + "', '" +uActual.getTarjeta() + "', '" +uActual.getLogin() + "', '" + uActual.getContrasenya() + "', '" +uActual.getEmail() + "');";
 			int rs2 = stmt.executeUpdate(instruccion);
 
-			uActual = new Usuario(usuario.getNombre(), usuario.getApellido(), usuario.getDni(), usuario.getTarjeta(), usuario.getLogin(), usuario.getContrasenya(), usuario.getEmail());
+			uActual = new Usuario(usuario.getNombre(), usuario.getApellido(), usuario.getDni(), usuario.getTarjeta(), usuario.getLogin(), usuario.getContrasenya(), usuario.getEmail(), usuario.getListaViajes());
 			logger.warning("El usuario se ha actualizado");
 			JOptionPane.showMessageDialog(null, "¡El usuario se ha actualizado correctamente!");
 		} catch (Exception e) {
@@ -296,7 +297,7 @@ public class BD extends JFrame{
 					String contr = rs.getString("contrasenya");
 					String email = rs.getString("email");
 
-					uActual = new Usuario(nombre, apellido, dni, tarjeta, log, contr, email);
+					uActual = new Usuario(nombre, apellido, dni, tarjeta, log, contr, email, null);
 
 					return true;
 				}	
@@ -325,6 +326,7 @@ public class BD extends JFrame{
 	}
 
 	//En vez de en la BD hacer un hashmap en la ventana de cantidadPersonasBillete y cantidadPersonasActividad
+	// los atributos de usuario no son static
 	public void registrarCantidad(int cantidadNiyos, int cantidadAdultos) {
 
 		try {
