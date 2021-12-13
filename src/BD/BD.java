@@ -21,7 +21,7 @@ import ventana.VentanaInicio;
 public class BD extends JFrame{
 
 	private static final long serialVersionUID = 1L;
-	private Connection conn = null;
+	private static Connection conn = null;
 	private static Usuario uActual = new Usuario();
 	static Logger logger = Logger.getLogger( "BaseDatos" );
 	private static Handler handler;
@@ -57,7 +57,7 @@ public class BD extends JFrame{
 	}
 	 */
 	//CONECTA Y DESCONECTAR LA BD
-	public void connect() {
+	public static Connection connect() {
 		try {
 			Class.forName("org.sqlite.JDBC");
 			conn = DriverManager.getConnection("jdbc:sqlite:database.db");
@@ -67,6 +67,7 @@ public class BD extends JFrame{
 		} catch (SQLException e) {
 			logger.log( Level.INFO, "Error al conectar con BD" );
 		}
+		return conn;
 	}
 
 	public void disconnect() {
@@ -175,6 +176,23 @@ public class BD extends JFrame{
 
 	}
 
+	public static boolean esAdministrador(String usuario){
+		Connection con = connect();
+		Statement st = null;         
+		String sentSQL = "select administrador from usuario where nombre = '"+ usuario+"'";
+		boolean esAdmin = false;         
+		try {             
+			st = con.createStatement();             
+			ResultSet rs = st.executeQuery(sentSQL);             
+			if(rs.next()){                 
+				esAdmin = rs.getBoolean("esAdministrador");
+				}         
+			} catch (SQLException e) {             
+				// TODO Auto-generated catch block             
+				e.printStackTrace();         
+				}                  
+		return esAdmin;
+		}
 
 	//MÉTODO BORRAR USUARIO
 	public void borrarUsuario(Usuario uActual) throws SQLException {

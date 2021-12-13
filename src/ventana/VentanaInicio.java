@@ -87,14 +87,19 @@ public class VentanaInicio extends JFrame {
 				bd.connect();
 			
 				if(bd.comprobarLogin(textoUsuario.getText(), textoContrasenya.getText())) {
-					try {
-						uActual.setLogin(textoUsuario.getText());
+					if(BD.esAdministrador(textoUsuario.getText())){
+						//Ir a otra ventana que sea la parte del administrador.
+					}else {
+						try {
+							uActual.setLogin(textoUsuario.getText());
+				
+							//He modificado un poco el inicio de sesión de la bd
+							new VentanaViaje(bd.getuActual());
+							dispose();
+						} catch (Exception e) {
+							logger.log(Level.INFO, "");//METER LA INFO DEL ERROR
+						}
 						
-						//He modificado un poco el inicio de sesión de la bd
-						new VentanaViaje(bd.getuActual());
-						dispose();
-					} catch (Exception e) {
-						logger.log(Level.INFO, "");//METER LA INFO DEL ERROR
 					}
 					
 					bd.disconnect();
