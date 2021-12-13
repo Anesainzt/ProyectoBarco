@@ -10,7 +10,7 @@ import clases.Usuario;
 class UsuarioTest {
 
 	Usuario u1 = new Usuario();
-	Usuario u2 = new Usuario("","","","","","","");
+	Usuario u2 = new Usuario("","","","","","","", null);
 	
 	@Test
 	void testGNombre() {
