@@ -87,10 +87,10 @@ public class VentanaInicio extends JFrame {
 				bd.connect();
 			
 				if(bd.comprobarLogin(textoUsuario.getText(), textoContrasenya.getText())) {
-					if(BD.esAdministrador(textoUsuario.getText())){
+					if(bd.esAdministrador(textoUsuario.getText())){
 						//Ir a otra ventana que sea la parte del administrador.
 						
-						new ventanaAdministrador();
+						new VentanaAdministrador();
 						
 					}else {
 						try {

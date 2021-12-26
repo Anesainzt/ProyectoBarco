@@ -21,12 +21,10 @@ class BDTest {
 	@Test
 	void compararLoginTest() {
 		BD bd = new BD();
-		System.out.println(u1.getLogin());
 		bd.connect();
 		boolean existeu1 = false;
 		try {
 			existeu1 = bd.compararLogin(u1);
-			System.out.println(existeu1);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

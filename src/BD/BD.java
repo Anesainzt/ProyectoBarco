@@ -41,7 +41,10 @@ public class BD extends JFrame{
 		}
 	}
 	
-	//CONECTA Y DESCONECTAR LA BD
+	/**
+	 * Metodo para conectar y desconectar la conexión a la base de datos
+	 * @return
+	 */
 	public static Connection connect() {
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -63,64 +66,104 @@ public class BD extends JFrame{
 		}
 	}
 
-	//MÉTODO COMPROBAR LOGIN Y CONTRASEÑA
-	public static boolean existeUsuario(Usuario usuario) {
-		try {
-			ResultSet rs;
-
-			//preparamos una sentencia donde la bd selecciona la FILA q tenga AMBOS VALORES q le hemos pasado por parámetro
-			String consulta = "SELECT * FROM usuario WHERE login=? AND contrasenya=?;";
-
-			PreparedStatement ps = conn.prepareStatement(consulta);
-			ps.setString(1, usuario.getLogin());
-			ps.setString(2, usuario.getContrasenya());
-
-			rs = ps.executeQuery();
-			while(rs.next()) {
-				if(rs.getString("login").equals(usuario.getLogin()) && rs.getString("contrasenya").equals(usuario.getContrasenya())) {
-					JOptionPane.showMessageDialog(null, "¡Ya existe este usuario! ", "Error", JOptionPane.ERROR_MESSAGE);
-					return true;
-				}	
-			}
-			logger.warning("Se han comprobado el login y la contraseña correctamente.");
-			ps.close();
-			return false;
-		} catch (Exception e) { 
-			//logger
-			logger.warning("No se ha podido comprobar si existe el usuario.");
-			return false; //si no funciona pues devuelve false
-		}	
-	} 
-	//MÉTODO COMPARAR LOGIN
+	/**
+	 * Metodo para mirar si el login no estaba registrado anteriormente en la base de datos
+	 * Se usa en la ventana registro
+	 * @param usuario
+	 * @return
+	 */
 	public boolean compararLogin(Usuario usuario) {
-		try {
-			ResultSet rs;
-			String consulta = "SELECT * FROM usuario";
+	  try {
+            ResultSet rs;
+            String consulta = "SELECT * FROM usuario WHERE login = ?";
 
-			PreparedStatement ps = conn.prepareStatement(consulta); 
-			
+            PreparedStatement ps = conn.prepareStatement(consulta); 
+            ps.setString(1, usuario.getLogin()); //así comparamos login
 
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				System.out.println(usuario.getLogin());
-				if(rs.getString("login").equals(usuario.getLogin())) {
-					
-					JOptionPane.showMessageDialog(null, "¡Prueba con otro nombre de usuario!", "Error", JOptionPane.ERROR_MESSAGE);
-					return true;
-				}
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                if(rs.getString("login").equals(usuario.getLogin())) {
+                    JOptionPane.showMessageDialog(null, "¡Prueba con otro nombre de usuario!", "Error", JOptionPane.ERROR_MESSAGE);
+                    return true;
+                }
 
-			}
-			logger.warning("Se ha comparado el login correctamente.");
-			ps.close();
-			return false;
-		} catch (Exception e) {
-			logger.warning("No se ha podido comparar el login.");
-			e.printStackTrace();
-			return false;
-		}
-
-
+            }
+            logger.warning("Se ha comparado el login correctamente.");
+            ps.close();
+            return false;
+        } catch (Exception e) {
+            logger.warning("No se ha podido comparar el login.");
+            e.printStackTrace();
+            return false;
+        }
 	}
+	
+	/**
+	 * Metodo para comprobar si los datos introducidos por el usuario(login y contraseña) están en la base de datos 
+	 * Se usa en la ventana Inicio
+	 * @param login
+	 * @param contrasenya
+	 * @return
+	 */
+		public boolean comprobarLogin(String login, String contrasenya) {
+
+			//LAS BD SE EMPIEZAN SIEMPRE CON TRYCATCH
+			try {
+				ResultSet rs;
+
+				//preparamos una sentencia donde la bd selecciona la FILA q tenga AMBOS VALORES q le hemos pasado por parámetro
+				String consulta = "SELECT * FROM usuario WHERE login=? AND contrasenya=?;";
+
+				PreparedStatement ps = conn.prepareStatement(consulta);
+				ps.setString(1, login);
+				ps.setString(2, contrasenya);
+
+				rs = ps.executeQuery();
+				while(rs.next()) {
+					if(rs.getString("login").equals(login) && rs.getString("contrasenya").equals(contrasenya)) {
+							
+						String nombre = rs.getString("nombre");
+						String apellido = rs.getString("apellido");
+						String dni = rs.getString("dni");
+						String tarjeta = rs.getString("tarjeta");
+						String log = rs.getString("login");
+						String contr = rs.getString("contrasenya");
+						String email = rs.getString("email");
+
+						uActual = new Usuario(nombre, apellido, dni, tarjeta, log, contr, email, null);
+
+						return true;
+					}	
+				}if (VentanaInicio.textoUsuario.getText().equals("")|| VentanaInicio.textoContrasenya.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "¡No has introducido la contraseña o el usuario!", "Error", JOptionPane.ERROR_MESSAGE);
+				}else{
+					JOptionPane.showMessageDialog(null, "¡Contraseña o usuario incorrectos!", "Error", JOptionPane.ERROR_MESSAGE);
+					try {
+						VentanaInicio.textoUsuario.setText("");
+						VentanaInicio.textoContrasenya.setText("");
+					} catch (Exception e) {
+						
+						logger.info("No se ha podido comprobar");
+					}
+				}
+				
+
+				ps.close();
+				return false;
+			} catch (Exception e) {
+
+				//logger
+				logger.warning("Ha habido un error al hacer el login.");
+			}
+			return true;
+		}
+		
+	/**
+	 * Método que sirve para identificar a el administrador
+	 * Se usa en la ventana Inicio
+	 * @param usuario
+	 * @return
+	 */
 
 	public static boolean esAdministrador(String usuario){
 		Connection con = connect();
@@ -131,7 +174,7 @@ public class BD extends JFrame{
 			st = con.createStatement();             
 			ResultSet rs = st.executeQuery(sentSQL);             
 			if(rs.next()){                 
-				esAdmin = rs.getBoolean("esAdministrador");
+				esAdmin = rs.getBoolean("administrador");
 				}         
 			} catch (SQLException e) {             
 				// TODO Auto-generated catch block             
@@ -222,72 +265,6 @@ public class BD extends JFrame{
 
 	}
 
-	//MÉTODO para comprobar login --> miramos si COINDIDE el login && password
-	public boolean comprobarLogin(String login, String contrasenya) {
-
-		//LAS BD SE EMPIEZAN SIEMPRE CON TRYCATCH
-		try {
-			ResultSet rs;
-
-			//preparamos una sentencia donde la bd selecciona la FILA q tenga AMBOS VALORES q le hemos pasado por parámetro
-			String consulta = "SELECT * FROM usuario WHERE login=? AND contrasenya=?;";
-
-			PreparedStatement ps = conn.prepareStatement(consulta);
-			ps.setString(1, login);
-			ps.setString(2, contrasenya);
-
-			rs = ps.executeQuery();
-			while(rs.next()) {
-				if(rs.getString("login").equals(login) && rs.getString("contrasenya").equals(contrasenya)) {
-
-					//LLAMADA A LOGGER
-					/*try {
-						Handler handler = new FileHandler("AccesoBD.csv");
-						handler.setFormatter(new SimpleFormatter());
-						log.addHandler(handler);
-
-						//INTENTAR QUE SE VEA EL USUARIO QUE HA ACCEDIDO A LA APLICACIÓN
-						log.log(Level.INFO, "Accede a la aplicación el usuario: ", Usuario.getLogin());
-					} catch (SecurityException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					*/
-						
-					String nombre = rs.getString("nombre");
-					String apellido = rs.getString("apellido");
-					String dni = rs.getString("dni");
-					String tarjeta = rs.getString("tarjeta");
-					String log = rs.getString("login");
-					String contr = rs.getString("contrasenya");
-					String email = rs.getString("email");
-
-					uActual = new Usuario(nombre, apellido, dni, tarjeta, log, contr, email, null);
-
-					return true;
-				}	
-			}if (VentanaInicio.textoUsuario.getText().equals("")|| VentanaInicio.textoContrasenya.getText().equals("")) {
-				JOptionPane.showMessageDialog(null, "¡No has introducido la contraseña o el usuario!", "Error", JOptionPane.ERROR_MESSAGE);
-			}else{
-				JOptionPane.showMessageDialog(null, "¡Contraseña o usuario incorrectos!", "Error", JOptionPane.ERROR_MESSAGE);
-				try {
-					VentanaInicio.textoUsuario.setText("");
-					VentanaInicio.textoContrasenya.setText("");
-				} catch (Exception e) {
-					
-					logger.info("No se ha podido comprobar");
-				}
-			}
-			
-
-			ps.close();
-			return false;
-		} catch (Exception e) {
-
-			//logger
-			logger.warning("Ha habido un error al hacer el login.");
-		}
-		return true;
-	}
 
 	//En vez de en la BD hacer un hashmap en la ventana de cantidadPersonasBillete y cantidadPersonasActividad
 	// los atributos de usuario no son static
