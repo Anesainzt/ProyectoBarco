@@ -166,12 +166,12 @@ public class BD extends JFrame{
 	 */
 
 	public static boolean esAdministrador(String usuario){
-		Connection con = connect();
+		
 		Statement st = null;         
 		String sentSQL = "select administrador from usuario where nombre = '"+ usuario+"'";
 		boolean esAdmin = false;         
 		try {             
-			st = con.createStatement();             
+			st = conn.createStatement();             
 			ResultSet rs = st.executeQuery(sentSQL);             
 			if(rs.next()){                 
 				esAdmin = rs.getBoolean("administrador");
@@ -181,6 +181,7 @@ public class BD extends JFrame{
 				e.printStackTrace();         
 				}                  
 		return esAdmin;
+		
 		}
 
 	//MÉTODO BORRAR USUARIO

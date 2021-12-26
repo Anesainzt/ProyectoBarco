@@ -8,36 +8,24 @@ import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import clases.Usuario;
+
 import javax.swing.JLabel;
 import javax.swing.UIManager;
 import javax.swing.JTextPane;
 import java.awt.Color;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.awt.event.ActionEvent;
 
 public class VentanaAdministrador extends JFrame {
 
 	private JPanel contentPane;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaAdministrador frame = new VentanaAdministrador();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	public VentanaAdministrador() {
+	
+	public VentanaAdministrador(Usuario uActual) {
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 		setSize(400,320);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -47,52 +35,76 @@ public class VentanaAdministrador extends JFrame {
 		JPanel panelGeneral = new JPanel();
 
 		panelGeneral.setLayout(new GridLayout(2,1)); 
-		JPanel panelTitulo = new JPanel();
+		JPanel panelTitbot = new JPanel();
 
-		panelTitulo.setLayout(new GridLayout(4,1)); 
+		panelTitbot.setLayout(new GridLayout(3,1)); 
 		
 		contentPane.add(panelGeneral);
 		
-		panelGeneral.add(panelTitulo);
+		panelGeneral.add(panelTitbot);
 		
-		JPanel panel_4 = new JPanel();
-		panelTitulo.add(panel_4);
+		JPanel panelTitulo = new JPanel();
+		panelTitbot.add(panelTitulo);
 		
 		JTextPane txtpnMenuAdministrador = new JTextPane();
-		panel_4.add(txtpnMenuAdministrador);
+		panelTitulo.add(txtpnMenuAdministrador);
 		txtpnMenuAdministrador.setText("MENU ADMINISTRADOR");
 		txtpnMenuAdministrador.setBackground(getForeground());
 		txtpnMenuAdministrador.setFont(new Font("Consolas", Font.BOLD, 18));
 		txtpnMenuAdministrador.setForeground(Color.DARK_GRAY);
 		
-		JPanel panel = new JPanel();
-		panelTitulo.add(panel);
+		JPanel panelbotonUsuarios = new JPanel();
+		panelTitbot.add(panelbotonUsuarios);
 		
-		JButton btnNewButton = new JButton("New button");
-		panel.add(btnNewButton);
+		JButton botonUsuarios = new JButton("Usuarios Registrados");
+		panelbotonUsuarios.add(botonUsuarios);
 		
-		JPanel panel_1 = new JPanel();
-		panelTitulo.add(panel_1);
+		JPanel panelBotonActividades = new JPanel();
+		panelTitbot.add(panelBotonActividades);
 		
-		JButton btnNewButton_1 = new JButton("New button");
-		panel_1.add(btnNewButton_1);
+		JButton botonActividades = new JButton("Actividades Ofrecidas");
+		botonActividades.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		panelBotonActividades.add(botonActividades);
 		
-		JPanel panel_2 = new JPanel();
-		panelTitulo.add(panel_2);
+		JPanel panelCerrar = new JPanel();
+		panelGeneral.add(panelCerrar);
 		
-		JButton btnNewButton_2 = new JButton("New button");
-		panel_2.add(btnNewButton_2);
+		JButton botonCerrarSesion = new JButton("Cerrar Sesion");
+		botonCerrarSesion.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					new VentanaInicio();
+					dispose();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+			
+		});
+		panelCerrar.add(botonCerrarSesion);
 		
-		JPanel panel_3 = new JPanel();
-		panelGeneral.add(panel_3);
+		JButton botonSalir = new JButton("Salir");
+		botonSalir.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+			
+		});
 		
-		JButton btnNewButton_3 = new JButton("New button");
-		panel_3.add(btnNewButton_3);
+		panelCerrar.add(botonSalir);
 		
-		JButton btnNewButton_4 = new JButton("New button");
-		panel_3.add(btnNewButton_4);
-		
+		setVisible(true);
 		
 	}
+	
 
 }
