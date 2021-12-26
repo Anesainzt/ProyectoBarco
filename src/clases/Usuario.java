@@ -4,14 +4,14 @@ import java.util.List;
 
 public class Usuario{
 	
-	protected static String nombre;
-	protected static String apellido;
-	protected static String dni;
-	protected static String tarjeta;
-	protected static String login;
-	protected static String contrasenya;
-	protected static String email;
-	protected static List<Viaje> listaViajes;
+	protected String nombre;
+	protected String apellido;
+	protected String dni;
+	protected String tarjeta;
+	protected String login;
+	protected String contrasenya;
+	protected String email;
+	protected List<Viaje> listaViajes;
 
 	
 	public Usuario(String nombre, String apellido, String dni, String tarjeta, String login, String contrasenya, String email, List<Viaje> listaViajes) {
@@ -41,7 +41,7 @@ public class Usuario{
 	}
 
 
-	public static String getNombre() {
+	public String getNombre() {
 		return nombre;
 	}
 
@@ -51,7 +51,7 @@ public class Usuario{
 	}
 
 
-	public static String getApellido() {
+	public String getApellido() {
 		return apellido;
 	}
 
@@ -61,7 +61,7 @@ public class Usuario{
 	}
 
 
-	public static String getDni() {
+	public String getDni() {
 		return dni;
 	}
 
@@ -71,7 +71,7 @@ public class Usuario{
 	}
 
 
-	public static String getTarjeta() {
+	public String getTarjeta() {
 		return tarjeta;
 	}
 
@@ -81,8 +81,8 @@ public class Usuario{
 	}
 
 
-	public static String getLogin() {
-		return login;
+	public String getLogin() {
+		return this.login;
 	}
 
 
@@ -91,7 +91,7 @@ public class Usuario{
 	}
 
 
-	public static String getContrasenya() {
+	public String getContrasenya() {
 		return contrasenya;
 	}
 
@@ -101,7 +101,7 @@ public class Usuario{
 	}
 
 
-	public static String getEmail() {
+	public String getEmail() {
 		return email;
 	}
 
@@ -110,6 +110,7 @@ public class Usuario{
 		this.email = email;
 	}
 	
+
 	public List<Viaje> getListaViajes() {
 		return listaViajes;
 	}

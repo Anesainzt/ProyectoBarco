@@ -11,7 +11,7 @@ class SkiTest {
 		
 		@Test
 		void getCantSkis() {
-			assertEquals(4, Ski.getCantSkis());
+			assertEquals(4, sk.getCantSkis());
 		}
 		
 		@Test

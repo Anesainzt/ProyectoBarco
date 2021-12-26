@@ -2,7 +2,7 @@ package clases;
 
 public class Buceo extends Actividad {
 	
-	protected static int cantBombonas;
+	protected int cantBombonas;
 
 	public Buceo(String codigo, String nombre, int aforo, String instructor, String ubicacion, String descripcion, String imagen, int cantBombonas) {
 		this.cantBombonas = cantBombonas;
@@ -12,7 +12,7 @@ public class Buceo extends Actividad {
 		this.cantBombonas = 0;
 	}
 
-	public static int getCantBombonas() {
+	public int getCantBombonas() {
 		return cantBombonas;
 	}
 

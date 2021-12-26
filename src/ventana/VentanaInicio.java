@@ -89,6 +89,9 @@ public class VentanaInicio extends JFrame {
 				if(bd.comprobarLogin(textoUsuario.getText(), textoContrasenya.getText())) {
 					if(BD.esAdministrador(textoUsuario.getText())){
 						//Ir a otra ventana que sea la parte del administrador.
+						
+						new ventanaAdministrador();
+						
 					}else {
 						try {
 							uActual.setLogin(textoUsuario.getText());

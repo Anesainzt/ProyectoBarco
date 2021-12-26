@@ -231,6 +231,7 @@ public class VentanaPerfil extends JFrame {
 		panel.add(panelApellido);
 		panel.add(panelEmail);
 		panel.add(panelUsuario);
+		//panel.add(panelContrasenya);//HACER
 		panel.add(panelNcuenta);
 		panel.add(panelBotones);
 		

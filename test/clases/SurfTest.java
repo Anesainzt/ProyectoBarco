@@ -10,7 +10,7 @@ class SurfTest {
 	
 	@Test
 	void getCantTablas() {
-		assertEquals(4, Surf.getCantTablas());
+		assertEquals(4, s2.getCantTablas());
 	}
 	
 	@Test

@@ -16,7 +16,7 @@ class BuceoTest {
 		
 		@Test
 		void getCantBombonas() {
-			assertEquals(4, Buceo.getCantBombonas());
+			assertEquals(4, buc.getCantBombonas());
 		}
 		@Test
 		void setCantBombonas() {

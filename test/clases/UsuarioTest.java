@@ -14,7 +14,7 @@ class UsuarioTest {
 	
 	@Test
 	void testGNombre() {
-		assertEquals("", Usuario.getNombre());
+		assertEquals("", u2.getNombre());
 	}
 	
 	@Test
@@ -26,7 +26,7 @@ class UsuarioTest {
 	
 	@Test
 	void testGApellido() {
-		assertEquals("", Usuario.getApellido());
+		assertEquals("", u2.getApellido());
 	}
 	
 	@Test
@@ -38,7 +38,7 @@ class UsuarioTest {
 	
 	@Test
 	void testGDni() {
-		assertEquals("", Usuario.getDni());
+		assertEquals("", u2.getDni());
 	}
 	
 	@Test
@@ -50,7 +50,7 @@ class UsuarioTest {
 	
 	@Test
 	void testGTarjeta() {
-		assertEquals("", Usuario.getTarjeta());
+		assertEquals("", u2.getTarjeta());
 	}
 	
 	@Test
@@ -62,7 +62,7 @@ class UsuarioTest {
 	
 	@Test
 	void testGLogin() {
-		assertEquals("", Usuario.getLogin());
+		assertEquals("", u2.getLogin());
 	}
 	
 	@Test
@@ -74,7 +74,7 @@ class UsuarioTest {
 	
 	@Test
 	void testGContrasenya() {
-		assertEquals("", Usuario.getContrasenya());
+		assertEquals("", u2.getContrasenya());
 	}
 	
 	@Test
@@ -86,7 +86,7 @@ class UsuarioTest {
 	
 	@Test
 	void testGEmail() {
-		assertEquals("", Usuario.getEmail());
+		assertEquals("", u2.getEmail());
 	}
 	
 	@Test

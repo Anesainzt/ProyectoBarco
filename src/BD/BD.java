@@ -26,6 +26,7 @@ public class BD extends JFrame{
 	static Logger logger = Logger.getLogger( "BaseDatos" );
 	private static Handler handler;
 	
+	//No termina de funcionar
 	public static void guardarLogger() {
 		try {
 			handler = new FileHandler("BaseDatos.log");
@@ -39,23 +40,7 @@ public class BD extends JFrame{
 			e.printStackTrace();
 		}
 	}
-
-	//METODO PARA ESCRIBIR EN LOS FICHEROS
-	/*public void escribirFichero(String fichero, String texto) {
-		PrintWriter pw = null;
-		try {
-			pw = new PrintWriter(new BufferedWriter(new FileWriter(fichero, true)));
-			pw.print(texto);
-
-		} catch (IOException e1) {
-			logger.warning(e1.getMessage());
-		} finally {
-			if (pw != null) {
-				pw.close();
-			}
-		}
-	}
-	 */
+	
 	//CONECTA Y DESCONECTAR LA BD
 	public static Connection connect() {
 		try {
@@ -78,49 +63,8 @@ public class BD extends JFrame{
 		}
 	}
 
-
-	//MÉTODO DEVOVLER USUARIO
-	public Usuario devolverUsuario(Usuario uActual) {
-		ResultSet rs;
-		String consulta = "SELECT * FROM usuario WHERE login = " + uActual.getLogin();
-
-		return uActual;
-	}
-	/*
-	//MÉTODO EXISTEUSUARIO 
-	public boolean existeUsuario(Usuario usuario) {
-		try {
-			ResultSet rs;
-
-			//preparamos una sentencia donde la bd selecciona la FILA q tenga AMBOS VALORES q le hemos pasado por parámetro
-			String consulta = "SELECT * FROM usuario WHERE login=? AND contrasenya=?;";
-
-			PreparedStatement ps = conn.prepareStatement(consulta);
-			ps.setString(1, usuario.getLogin());
-			ps.setString(2, usuario.getContrasenya());
-
-			rs = ps.executeQuery();
-			while(rs.next()) {
-				if(rs.getString("login").equals(usuario.getLogin()) && rs.getString("contrasenya").equals(usuario.getContrasenya())) {
-					JOptionPane.showMessageDialog(null, "¡Ya existe este usuario! ", "Error", JOptionPane.ERROR_MESSAGE);
-					return true;
-				}	
-			}
-
-			ps.close();
-			return false;
-
-
-		} catch (Exception e) {
-			//logger
-			logger.warning("No se ha podido comprobar si existe el usuario.");
-			return false; //si no funciona pues devuelve false
-		}	
-	}
-	 */
-
-	//MÉTODO COMPROBARLOGIN
-	public boolean existeUsuario(Usuario usuario) {
+	//MÉTODO COMPROBAR LOGIN Y CONTRASEÑA
+	public static boolean existeUsuario(Usuario usuario) {
 		try {
 			ResultSet rs;
 
@@ -147,18 +91,20 @@ public class BD extends JFrame{
 			return false; //si no funciona pues devuelve false
 		}	
 	} 
-	//MÉTODO COMPARARLOGIN
+	//MÉTODO COMPARAR LOGIN
 	public boolean compararLogin(Usuario usuario) {
 		try {
 			ResultSet rs;
-			String consulta = "SELECT * FROM usuario WHERE login = ?";
+			String consulta = "SELECT * FROM usuario";
 
 			PreparedStatement ps = conn.prepareStatement(consulta); 
-			ps.setString(1, usuario.getLogin()); //así comparamos login
+			
 
 			rs = ps.executeQuery();
 			while (rs.next()) {
+				System.out.println(usuario.getLogin());
 				if(rs.getString("login").equals(usuario.getLogin())) {
+					
 					JOptionPane.showMessageDialog(null, "¡Prueba con otro nombre de usuario!", "Error", JOptionPane.ERROR_MESSAGE);
 					return true;
 				}
@@ -349,7 +295,7 @@ public class BD extends JFrame{
 
 		try {
 
-			PreparedStatement ps = conn.prepareStatement("INSERT INTO cantidadpersonas VALUES('"+ Usuario.getDni()+ "', '"+ cantidadNiyos+ "', '"+ cantidadAdultos+ "')");
+			PreparedStatement ps = conn.prepareStatement("INSERT INTO cantidadpersonas VALUES('"+ uActual.getDni()+ "', '"+ cantidadNiyos+ "', '"+ cantidadAdultos+ "')");
 
 			ps.executeUpdate();
 
