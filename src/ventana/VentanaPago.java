@@ -69,9 +69,6 @@ public class VentanaPago extends JFrame{
         panelBotonAceptar.add(botonAceptar);
         
         JPanel panelBotonCancelar = new JPanel();
-        JButton botonCancelar = new JButton("Cancelar");
-        botonCancelar.setPreferredSize(new Dimension(150, 25));
-        panelBotonCancelar.add(botonCancelar);
 
         panelPrincipal.add(panelArriba, BorderLayout.CENTER);
         panelPrincipal.add(panelAbajo, BorderLayout.SOUTH);
@@ -90,20 +87,51 @@ public class VentanaPago extends JFrame{
         panelArribaDerecha.add(panelTextoContraseña2);
 
         panelAbajo.add(panelBotonCancelar);
-        panelAbajo.add(panelBotonAceptar);
-
-        botonCancelar.addActionListener(new ActionListener() {
-				
+        
+        JButton botonAtras = new JButton("Atras");
+        botonAtras.addActionListener(new ActionListener() {
+			
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 try {
                     new VentanaActividades();
+                    dispose();
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
                 	logger.log(Level.INFO, "");//METER LA INFO DEL ERROR
                 }
             }
         });
+        panelBotonCancelar.add(botonAtras);
+        
+        JButton botonCerrarSesión = new JButton("Cerrar Sesion");
+        botonCerrarSesión.addActionListener(new ActionListener() {
+			
+	        @Override
+	        public void actionPerformed(ActionEvent arg0) {
+	            try {
+	            	 dispose();
+	            	 new VentanaInicio();
+	        
+	            } catch (Exception e) {
+	                // TODO Auto-generated catch block
+	            	logger.log(Level.INFO, "");//METER LA INFO DEL ERROR
+	            }
+	        }
+        });
+        panelBotonCancelar.add(botonCerrarSesión);
+        
+        JButton botonSalir = new JButton("Salir");
+        
+        botonSalir.addActionListener(new ActionListener() {
+			
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+            	dispose();
+            }
+        });
+        panelBotonCancelar.add(botonSalir);
+        panelAbajo.add(panelBotonAceptar);
 
         botonAceptar.addActionListener(new ActionListener() {
 				
@@ -111,6 +139,7 @@ public class VentanaPago extends JFrame{
             public void actionPerformed(ActionEvent arg0) {
                 try {
                     new VentanaTicket();
+                    dispose();
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
                 	logger.log(Level.INFO, "");//METER LA INFO DEL ERROR
@@ -122,10 +151,6 @@ public class VentanaPago extends JFrame{
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
-        //this.pack();
     }
 
-    public static void main(String[] args) throws IOException {
-		new VentanaPago();
-	}
 }

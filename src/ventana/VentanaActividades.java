@@ -29,14 +29,14 @@ public class VentanaActividades extends JFrame{
 		JPanel panelMedio = new JPanel();
 		JPanel panelDerecho = new JPanel();
 		
-		JPanel panel1 = new JPanel();
-		JPanel panel2 = new JPanel();
-		JPanel panel3 = new JPanel();
-		JPanel panel4 = new JPanel();
-		JPanel panel5 = new JPanel();
-		JPanel panel6 = new JPanel();
-		JPanel panel7 = new JPanel();
-		JPanel panel8 = new JPanel();
+		JPanel panelTit = new JPanel();
+		JPanel panelTipo = new JPanel();
+		JPanel panelFecha = new JPanel();
+		JPanel panelNada = new JPanel();
+		JPanel panelCantidad = new JPanel();
+		JPanel panelCantSpinn = new JPanel();
+		JPanel panelTarifa = new JPanel();
+		JPanel panelFoto = new JPanel();
 		
 		
 		JComboBox<String> combobox = new JComboBox<String>();
@@ -47,13 +47,13 @@ public class VentanaActividades extends JFrame{
 		
 		JLabel label3 = new JLabel("Tarifa");
 		//QUITAR Y CUANDO ESCOJA ELEGIR CANTIDAD DE PERSONAS QUE APAREZCA ESA VENTANA Y DESPUES DE SELECIONAR LAS PERSONAS IR A LA VENTANA QUE ESTÁ CREANDO ANDREA
-		JButton boton1 = new JButton("No quiero nada");
+		JButton botonNada = new JButton("No quiero nada");
 		
 		
 		
 		BufferedImage bufferedImage = ImageIO.read(new File("images/yate2.jpg"));
 		Image imagenBarco = bufferedImage.getScaledInstance(400, 200, Image.SCALE_DEFAULT);
-		JLabel label4 = new JLabel(new ImageIcon(imagenBarco));
+		JLabel lblFoto = new JLabel(new ImageIcon(imagenBarco));
 		
 		
 		combobox.addItem("Surf");
@@ -63,14 +63,14 @@ public class VentanaActividades extends JFrame{
 		panelPrincipal.setLayout(new GridLayout(1,3));
 		panelIzquierdo.setLayout(new GridLayout(4,1));
 		panelMedio.setLayout(new GridLayout(4,1));
-		panel1.setLayout(new GridLayout(2,1));
-		panel2.setLayout(new GridLayout(2,1));
-		panel3.setLayout(new GridLayout(2,1));
+		panelTit.setLayout(new GridLayout(2,1));
+		panelTipo.setLayout(new GridLayout(2,1));
+		panelFecha.setLayout(new GridLayout(2,1));
 		
-		panel4.setLayout(new FlowLayout());
-		panel5.setLayout(new FlowLayout());
-		panel6.setLayout(new FlowLayout());
-		panel7.setLayout(new FlowLayout());
+		panelNada.setLayout(new FlowLayout());
+		panelCantidad.setLayout(new FlowLayout());
+		panelCantSpinn.setLayout(new FlowLayout());
+		panelTarifa.setLayout(new FlowLayout());
 		
 		
 		getContentPane().add(panelPrincipal);
@@ -78,36 +78,55 @@ public class VentanaActividades extends JFrame{
 		panelPrincipal.add(panelMedio);
 		panelPrincipal.add(panelDerecho);
 	
-		panelIzquierdo.add(panel1);
-		panelIzquierdo.add(panel2);
-		panelIzquierdo.add(panel3);
-		panelIzquierdo.add(panel4);
+		panelIzquierdo.add(panelTit);
+		panelIzquierdo.add(panelTipo);
+		panelIzquierdo.add(panelFecha);
+		panelIzquierdo.add(panelNada);
 		
-		panelMedio.add(panel5);
-		panelMedio.add(panel6);
-		panelMedio.add(panel7);
+		panelMedio.add(panelCantidad);
+		panelMedio.add(panelCantSpinn);
+		panelMedio.add(panelTarifa);
 		
-		panelDerecho.add(panel8);
+		panelDerecho.add(panelFoto);
 		
-		panel1.add(label1);
-		panel2.add(combobox);
-		panel3.add(VentanaViaje.calendarioActividades);
-		panel4.add(boton1);
+		panelTit.add(label1);
+		panelTipo.add(combobox);
+		panelFecha.add(VentanaViaje.calendarioActividades);
+		panelNada.add(botonNada);
 		
-		panel5.add(label2);
-		panel6.add(VentanaViaje.spinnerAct);
+		panelCantidad.add(label2);
+		panelCantSpinn.add(VentanaViaje.spinnerAct);
 		
-		panel7.add(label3);
+		panelTarifa.add(label3);
 		
-		panel8.add(label4);
+		JPanel panelBtnBien = new JPanel();
+		panelMedio.add(panelBtnBien);
 		
-		boton1.addActionListener(new ActionListener() {
+		JButton botonRegAct = new JButton("RegistrarActividad");
+		botonRegAct.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				dispose();
+				
 				new VentanaPago();
+				dispose();
+			}
+		});
+	
+		
+		panelBtnBien.add(botonRegAct);
+		
+		panelFoto.add(lblFoto);
+		
+		botonNada.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+				new VentanaPago();
+				dispose();
 			}
 		});
 	
@@ -116,11 +135,6 @@ public class VentanaActividades extends JFrame{
 		pack();
 		setVisible(true);
 		
-		
-	}
-	public static void main(String[] args) throws IOException {
-		
-		new VentanaActividades();
 		
 	}
 }

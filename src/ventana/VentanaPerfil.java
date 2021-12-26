@@ -36,7 +36,7 @@ public class VentanaPerfil extends JFrame {
 		//panelPrincip
 		panel = new JPanel();
 		panel.setBorder(new EmptyBorder(14, 14, 14, 14));
-		panel.setLayout(new GridLayout(8,1));
+		panel.setLayout(new GridLayout(9,1));
 		
 		//panelLabel
 		panelLabel = new JPanel();
@@ -47,7 +47,7 @@ public class VentanaPerfil extends JFrame {
 		panelDni = new JPanel();
 		panelDni.setLayout(new GridLayout(2,1));
 		textoDni = new JTextField();
-		textoDni.setPreferredSize(new Dimension (200, 25));
+		textoDni.setPreferredSize(new Dimension (400, 25));
 		textoDni.setText(uActual.getDni());
 		textoDni.setEnabled(false);
 		
@@ -231,7 +231,7 @@ public class VentanaPerfil extends JFrame {
 		panel.add(panelApellido);
 		panel.add(panelEmail);
 		panel.add(panelUsuario);
-		//panel.add(panelContrasenya);//HACER
+		panel.add(panelContrasenya);//HACER
 		panel.add(panelNcuenta);
 		panel.add(panelBotones);
 		
@@ -262,11 +262,9 @@ public class VentanaPerfil extends JFrame {
 		
 		setVisible(true);
 		pack();
-		setSize(350,550);
+		setSize(350,630);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 	}
-	public static void main(String[] args) {
-		new VentanaPerfil(null);
-	}
+	
 }
