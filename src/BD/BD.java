@@ -254,7 +254,7 @@ public class BD extends JFrame{
 			//String instruccion = "UDPATE usuario (nombre, apellido, dni, tarjeta, login, contrasenya, email) VALUES ('" + uActual.getNombre() + "', '" + uActual.getApellido() + "', '" +uActual.getDni() + "', '" +uActual.getTarjeta() + "', '" +uActual.getLogin() + "', '" + uActual.getContrasenya() + "', '" +uActual.getEmail() + "');";
 			int rs2 = stmt.executeUpdate(instruccion);
 
-			uActual = new Usuario(usuario.getNombre(), usuario.getApellido(), usuario.getDni(), usuario.getTarjeta(), usuario.getLogin(), usuario.getContrasenya(), usuario.getEmail(), usuario.getListaViajes());
+			uActual = new Usuario(usuario.getNombre(), usuario.getApellido(), usuario.getDni(), usuario.getTarjeta(), usuario.getLogin(), usuario.getContrasenya(), usuario.getEmail(), usuario.getListaBilletes());
 			logger.warning("El usuario se ha actualizado");
 			JOptionPane.showMessageDialog(null, "¡El usuario se ha actualizado correctamente!");
 		} catch (Exception e) {

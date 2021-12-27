@@ -4,41 +4,41 @@ import java.util.List;
 
 public class Viaje {
 
-    protected String tipo;
+    protected String localizador;
     protected String origen;
     protected String destino;
     protected String fechaIda; // cambiar el string
     protected String fechaVuelta;
-    protected int cantBilletes;
+    protected int aforo;
     protected List<Actividad> listaActividades;
 
-    public Viaje(String tipo, String origen, String destino, String fechaIda, String fechaVuelta, int cantBilletes,
+    public Viaje(String localizador, String origen, String destino, String fechaIda, String fechaVuelta, int aforo,
             List<Actividad> listaActividades) {
-        this.tipo = tipo;
+        this.localizador = localizador;
         this.origen = origen;
         this.destino = destino;
         this.fechaIda = fechaIda;
         this.fechaVuelta = fechaVuelta;
-        this.cantBilletes = cantBilletes;
+        this.aforo = aforo;
         this.listaActividades = listaActividades;
     }
     
     public Viaje() {
-        this.tipo = "";
+        this.localizador = "";
         this.origen = "";
         this.destino = "";
         this.fechaIda = "";
         this.fechaVuelta = "";
-        this.cantBilletes = 0;
+        this.aforo = 0;
         this.listaActividades = null;
     }
 
-    public String getTipo() {
-        return this.tipo;
+    public String getLocalizador() {
+        return this.localizador;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setLocalizador(String localizador) {
+        this.localizador = localizador;
     }
 
     public String getOrigen() {
@@ -73,12 +73,12 @@ public class Viaje {
         this.fechaVuelta = fechaVuelta;
     }
 
-    public int getCantBilletes() {
-        return this.cantBilletes;
+    public int getAforo() {
+        return this.aforo;
     }
 
-    public void setCantBilletes(int cantBilletes) {
-        this.cantBilletes = cantBilletes;
+    public void setAforo(int aforo) {
+        this.aforo = aforo;
     }
 
     public List<Actividad> getListaActividades() {
@@ -92,12 +92,12 @@ public class Viaje {
     @Override
     public String toString() {
         return "{" +
-            " tipo='" + getTipo() + "'" +
+            "localizador='" + getLocalizador() + "'" +
             ", origen='" + getOrigen() + "'" +
             ", destino='" + getDestino() + "'" +
             ", fechaIda='" + getFechaIda() + "'" +
             ", fechaVuelta='" + getFechaVuelta() + "'" +
-            ", cantBilletes='" + getCantBilletes() + "'" +
+            ", aforo='" + getAforo() + "'" +
             ", listaActividades='" + getListaActividades() + "'" +
             "}";
     }   
