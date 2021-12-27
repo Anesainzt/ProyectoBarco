@@ -284,7 +284,29 @@ public class BD extends JFrame{
 
 	}
 	
-
+	/*
+	public static ArrayList<Actividad> getActividades() {
+		try (Statement statement = conn.createStatement()) {
+			ArrayList<Actividad> ret = new ArrayList<>();
+			String sent = "select * from actividad;";
+			logger.log( Level.INFO, "Statement: " + sent );
+			ResultSet rs = statement.executeQuery( sent );
+			while( rs.next() ) { // Leer el resultset
+				String codigo = rs.getString("codigo");
+				String nombre = rs.getString("nombre");
+				int aforo = rs.getInt("aforo");
+				String instructor = rs.getString("instructor");
+				String ubicacion = rs.getString("ubicacion");
+				String descripcion = rs.getString("descripcion");
+				ret.add( new Actividad ( codigo, nombre, aforo, instructor, ubicacion, descripcion ) );
+			}
+			return ret;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return null;
+		}
+	}
+	*/
 	/*
 	public void ponerAlDiaBD() {
 
