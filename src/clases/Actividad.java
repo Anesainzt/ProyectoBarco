@@ -1,6 +1,6 @@
 package clases;
 
-public abstract class Actividad {
+public  class Actividad {
 	
 	protected String codigo;
 	protected String nombre;
@@ -8,8 +8,10 @@ public abstract class Actividad {
 	protected String instructor; //nombre del instructor/a
 	protected String ubicacion;
 	protected String descripcion; 
+	protected String imagen;
+	
 
-	public Actividad(String codigo, String nombre, int aforo, String instructor, String ubicacion, String descripcion) {
+	public Actividad(String codigo, String nombre, int aforo, String instructor, String ubicacion, String descripcion, String imagen) {
 		super();
 		this.codigo = codigo;
 		this.nombre = nombre;
@@ -17,6 +19,8 @@ public abstract class Actividad {
 		this.instructor = instructor;
 		this.ubicacion = ubicacion;
 		this.descripcion = descripcion;
+		this.imagen = imagen;
+		
 	}
 	
 	public Actividad() {
@@ -27,6 +31,8 @@ public abstract class Actividad {
 		this.instructor = "";
 		this.ubicacion = "";
 		this.descripcion = "";
+		this.imagen = "";
+		
 	}
 
 	public String getCodigo() {
@@ -40,6 +46,15 @@ public abstract class Actividad {
 	public String getNombre() {
 		return nombre;
 	}
+
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
+
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
@@ -76,10 +91,6 @@ public abstract class Actividad {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	@Override
-	public String toString() {
-		return "Actividad [codigo=" + codigo + ", nombre=" + nombre + ", aforo=" + aforo + ", instructor=" + instructor
-				+ ", ubicacion=" + ubicacion + ", descripcion=" + descripcion + "]";
-	}
+	
 	
 }

@@ -58,7 +58,7 @@ public class BD extends JFrame{
 		return conn;
 	}
 
-	public void disconnect() {
+	public static void disconnect() {
 		try {
 			conn.close();
 		} catch (SQLException e) {
@@ -284,7 +284,7 @@ public class BD extends JFrame{
 
 	}
 	
-	/*
+	
 	public static ArrayList<Actividad> getActividades() {
 		try (Statement statement = conn.createStatement()) {
 			ArrayList<Actividad> ret = new ArrayList<>();
@@ -298,7 +298,8 @@ public class BD extends JFrame{
 				String instructor = rs.getString("instructor");
 				String ubicacion = rs.getString("ubicacion");
 				String descripcion = rs.getString("descripcion");
-				ret.add( new Actividad ( codigo, nombre, aforo, instructor, ubicacion, descripcion ) );
+				String imagen = rs.getString("imagen");
+				ret.add( new Actividad ( codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen ) );
 			}
 			return ret;
 		} catch (Exception e) {
@@ -306,7 +307,8 @@ public class BD extends JFrame{
 			return null;
 		}
 	}
-	*/
+	
+	
 	/*
 	public void ponerAlDiaBD() {
 
