@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.TreeSet;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -17,10 +19,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import BD.BD;
+
 public class VentanaActividades extends JFrame{
 
 	
 	private static final long serialVersionUID = 1L;
+	BD bd = new BD();
 	public VentanaActividades() throws IOException {
 		
 		JPanel panelPrincipal = new JPanel();
@@ -56,9 +61,16 @@ public class VentanaActividades extends JFrame{
 		JLabel lblFoto = new JLabel(new ImageIcon(imagenBarco));
 		
 		
-		combobox.addItem("Surf");
-		combobox.addItem("Ski Acuático");
-		combobox.addItem("Buceo");
+		TreeSet<String> tsact;
+		try {
+			tsact = bd.obtenerDiferentesActividades();
+			for(String f: tsact)
+				combobox.addItem(f);
+			
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		panelPrincipal.setLayout(new GridLayout(1,3));
 		panelIzquierdo.setLayout(new GridLayout(4,1));

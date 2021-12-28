@@ -2,8 +2,11 @@ package BD;
 
 import java.io.*;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.TreeSet;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -580,4 +583,22 @@ public class BD extends JFrame{
 	// 	}
 	// 	return listaSurf;
 	// }
+	
+	public static TreeSet<String> obtenerDiferentesActividades() throws SQLException{
+		conn = DriverManager.getConnection("jdbc:sqlite:database.db");
+		Statement statement = conn.createStatement();
+		String sent = "SELECT nombre from actividad";
+		TreeSet<String> tsfechas = new TreeSet<>();
+		ResultSet rs = statement.executeQuery(sent);
+		while(rs.next()) {
+			String nombre = rs.getString("nombre");
+			tsfechas.add(nombre);
+		}
+		rs.close();
+		return tsfechas;
+		
+		
+		
+	}
+		
 }
