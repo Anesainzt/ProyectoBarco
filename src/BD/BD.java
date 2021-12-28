@@ -288,7 +288,7 @@ public class BD extends JFrame{
 	public static ArrayList<Actividad> getActividades() {
 		try (Statement statement = conn.createStatement()) {
 			ArrayList<Actividad> ret = new ArrayList<>();
-			String sent = "select * from actividad;";
+			String sent = "select * from actividad ORDER BY codigo ASC;";
 			ResultSet rs = statement.executeQuery( sent );
 			while( rs.next() ) { // Leer el resultset
 				String codigo = rs.getString("codigo");
