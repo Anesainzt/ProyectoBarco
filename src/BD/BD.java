@@ -289,7 +289,6 @@ public class BD extends JFrame{
 		try (Statement statement = conn.createStatement()) {
 			ArrayList<Actividad> ret = new ArrayList<>();
 			String sent = "select * from actividad;";
-			logger.log( Level.INFO, "Statement: " + sent );
 			ResultSet rs = statement.executeQuery( sent );
 			while( rs.next() ) { // Leer el resultset
 				String codigo = rs.getString("codigo");

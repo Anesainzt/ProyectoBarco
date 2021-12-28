@@ -15,6 +15,7 @@ import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -30,6 +31,8 @@ public class VentanaTabla extends JFrame{
 	 ArrayList<Actividad> actividades;
 	 JPanel panelPrincipal;
 	 
+	 BD bd = new BD();
+	 
 	public VentanaTabla() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(640,400);
@@ -38,16 +41,18 @@ public class VentanaTabla extends JFrame{
         JPanel panel = new JPanel();
         getContentPane().add(panel, BorderLayout.CENTER);
 
-
+        tDatos = new JTable();
+        tDatos.setFont( new Font( "Arial", Font.PLAIN, 14 ) );
+        
         addWindowListener( new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
-                BD.connect();
+                bd.connect();
                 //verProductos();  // Según se inicia la ventana se visualizan los productos
             }
             @Override
             public void windowClosed(WindowEvent e) {
-                BD.disconnect();
+                bd.disconnect();
             }
         });
 
@@ -61,17 +66,19 @@ public class VentanaTabla extends JFrame{
         });
 
         panel.add(b);
+        panel.add( new JScrollPane(tDatos), BorderLayout.CENTER );;
         setVisible(true);
 	}
 	
 	
 		private void verActividades() {
+			bd.connect();
 			Vector<String> cabeceras = new Vector<String>( Arrays.asList( "Codigo", "Actividad", "Aforo", "Instructor", "Ubicacion", "Descripcion", "Imagen") );
 			modeloDeDatos = new DefaultTableModel(  // Inicializa el modelo
 					new Vector<Vector<Object>>(),  // Datos de la jtable (vector de vectores) - vacíos de momento
 					cabeceras  // Cabeceras de la jtable
 				);
-			ArrayList<Actividad> actividades = BD.getActividades();
+			ArrayList<Actividad> actividades = bd.getActividades();
 			for (Actividad a : actividades) {
 				modeloDeDatos.addRow( new Object[] { a.getCodigo(), a.getNombre(), a.getAforo(), a.getInstructor(), a.getUbicacion(), a.getDescripcion(), a.getImagen()} );
 			}
@@ -89,6 +96,8 @@ public class VentanaTabla extends JFrame{
 			tDatos.getColumnModel().getColumn(5).setMaxWidth(120);
 			tDatos.getColumnModel().getColumn(6).setMinWidth(40);
 			tDatos.getColumnModel().getColumn(6).setMaxWidth(40);
+			
+			 bd.disconnect();
 			
 			
 	}
