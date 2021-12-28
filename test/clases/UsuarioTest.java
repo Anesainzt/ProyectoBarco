@@ -10,7 +10,7 @@ import clases.Usuario;
 class UsuarioTest {
 
 	Usuario u1 = new Usuario();
-	Usuario u2 = new Usuario("","","","","","","", null);
+	Usuario u2 = new Usuario("","","","","","","",0, null);
 	
 	@Test
 	void testGNombre() {
@@ -94,6 +94,18 @@ class UsuarioTest {
 	    String email = "";
 	    u1.setEmail(u2.getEmail());
 	    assertEquals(u1.getEmail(), email);
+	}
+	
+	@Test
+	void testGAdmin() {
+		assertEquals(0, u2.getEmail());
+	}
+	
+	@Test
+	void testSAdmin() {
+	   int admin = 0;
+	    u1.setAdministrador(u2.getAdministrador());
+	    assertEquals(u1.getAdministrador(), admin);
 	}
 
 }

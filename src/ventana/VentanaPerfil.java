@@ -156,7 +156,7 @@ public class VentanaPerfil extends JFrame {
 				String contrasenya = textoContrasenya.getText();
 				String email = textoEmail.getText();
 				
-				Usuario u = new Usuario(nombre, apellido, dni, tarjeta, login, contrasenya, email, null);
+				Usuario u = new Usuario(nombre, apellido, dni, tarjeta, login, contrasenya, email,0, null);
 				//llamar al método
 				try {
 					bd.editarUsuario(u);

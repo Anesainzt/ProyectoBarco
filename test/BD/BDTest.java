@@ -10,8 +10,8 @@ import clases.Usuario;
 
 class BDTest {
 
-	Usuario u1 = new Usuario("a", "a", "a", "a", "a", "a", "a", null);
-	Usuario u2 = new Usuario("a", "a", "a", "a", "b", "a", "a", null);
+	Usuario u1 = new Usuario("a", "a", "a", "a", "a", "a", "a",0, null);
+	Usuario u2 = new Usuario("a", "a", "a", "a", "b", "a", "a",0, null);
 	
 
 	@Test

@@ -11,9 +11,11 @@ public class Usuario{
 	protected String login;
 	protected String contrasenya;
 	protected String email;
+	protected int administrador;
+	
 	protected List<String> listaBilletes;
 
-	public Usuario(String nombre, String apellido, String dni, String tarjeta, String login, String contrasenya, String email, List<String> listaBilletes) {
+	public Usuario(String nombre, String apellido, String dni, String tarjeta, String login, String contrasenya, String email, int administrador, List<String> listaBilletes) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.dni = dni;
@@ -22,6 +24,7 @@ public class Usuario{
 		this.contrasenya = contrasenya;
 		this.email = email;
 		this.listaBilletes = listaBilletes;
+		this.administrador = administrador;
 	}
 
 	public Usuario() {
@@ -91,6 +94,14 @@ public class Usuario{
 		this.email = email;
 	}
 	
+	public int getAdministrador() {
+		return administrador;
+	}
+
+	public void setAdministrador(int administrador) {
+		this.administrador = administrador;
+	}
+
 	public List<String> getListaBilletes() {
 		return listaBilletes;
 	}

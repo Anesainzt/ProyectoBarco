@@ -32,11 +32,13 @@ import java.awt.event.ActionEvent;
 
 public class VentanaAdministrador extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	JTable tDatos;
 	DefaultTableModel modeloDeDatos;
-	ArrayList<Actividad> actividades;
-	JPanel panelPrincipal;
+	JPanel panelCentral, panelCentralAdmin, panelTitbot, panelbotonUsuarios, panelBotonActividades, panel_1, panelTitulo, panelAbajo, panelOpciones;
+	JButton botonUsuarios, botonActividades, botonCerrarSesion, btnAñadirAct, btnQuitarAct, botonSalir;
+	JTextPane txtpnMenuAdministrador;
 	 
 	BD bd = new BD();
 	
@@ -49,45 +51,46 @@ public class VentanaAdministrador extends JFrame {
 		setContentPane(contentPane);
 	
 		
-		JPanel panelGeneral = new JPanel();
-
-		panelGeneral.setLayout(new GridLayout(1,2)); 
-		
-		contentPane.add(panelGeneral);
+		panelCentral = new JPanel();
+		panelCentral.setLayout(new GridLayout(1,2)); 
 				
-		JPanel panel = new JPanel();
-		panelGeneral.add(panel);
-		JPanel panelTitbot = new JPanel();
-		panel.add(panelTitbot);
+		panelCentralAdmin = new JPanel();
+		panelTitbot = new JPanel();
 		
 		panelTitbot.setLayout(new GridLayout(3,1)); 
 		
-		JPanel panelbotonUsuarios = new JPanel();
-		panel.add(panelbotonUsuarios);
+		panelbotonUsuarios = new JPanel();
 		
-		JButton botonUsuarios = new JButton("Usuarios Registrados");
-		panelbotonUsuarios.add(botonUsuarios);
+		botonUsuarios = new JButton("Usuarios Registrados");
+		botonUsuarios.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				verUsuarios();
+				btnAñadirAct.setEnabled(false);
+				btnQuitarAct.setEnabled(false);
+				
+			}
+		});
+
+		panelBotonActividades = new JPanel();
 		
-		JPanel panelBotonActividades = new JPanel();
-		panel.add(panelBotonActividades);
-		
-		JButton botonActividades = new JButton("Actividades Ofrecidas");
+		botonActividades = new JButton("Actividades Ofrecidas");
 		botonActividades.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
 				
 				verActividades();
+				btnAñadirAct.setEnabled(true);
+				btnQuitarAct.setEnabled(true);
 				
 			}
 		});
-		panelBotonActividades.add(botonActividades);
 						
-		JPanel panel_1 = new JPanel();
-		panel.add(panel_1);
+		panel_1 = new JPanel();
 		
 		tDatos = new JTable();
 	    tDatos.setFont( new Font( "Arial", Font.PLAIN, 14 ) );
-	    panel_1.add(new JScrollPane(tDatos));
 	    addWindowListener( new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
@@ -100,23 +103,18 @@ public class VentanaAdministrador extends JFrame {
             }
         });
 		
-		JPanel panel_2 = new JPanel();
-		contentPane.add(panel_2, BorderLayout.NORTH);
+	    panelTitulo = new JPanel();
 		
-		JTextPane txtpnMenuAdministrador = new JTextPane();
-		panel_2.add(txtpnMenuAdministrador);
+		txtpnMenuAdministrador = new JTextPane();
 		txtpnMenuAdministrador.setText("MENU ADMINISTRADOR");
 		txtpnMenuAdministrador.setBackground(getForeground());
 		txtpnMenuAdministrador.setFont(new Font("Consolas", Font.BOLD, 18));
 		txtpnMenuAdministrador.setForeground(Color.DARK_GRAY);
 		
-		JPanel panel_3 = new JPanel();
-		contentPane.add(panel_3, BorderLayout.SOUTH);
+		panelAbajo = new JPanel();
 		
-		JPanel panelCerrar = new JPanel();
-		panel_3.add(panelCerrar);
-		
-		JButton botonCerrarSesion = new JButton("Cerrar Sesion");
+		panelOpciones = new JPanel();
+		botonCerrarSesion = new JButton("Cerrar Sesion");
 		botonCerrarSesion.addActionListener(new ActionListener() {
 
 			@Override
@@ -132,9 +130,11 @@ public class VentanaAdministrador extends JFrame {
 			}
 			
 		});
-		panelCerrar.add(botonCerrarSesion);
 		
-		JButton botonSalir = new JButton("Salir");
+		btnAñadirAct = new JButton("Añadir Actividad");
+		btnQuitarAct = new JButton("Quitar Actividad");
+		
+		botonSalir = new JButton("Salir");
 		botonSalir.addActionListener(new ActionListener() {
 
 			@Override
@@ -143,15 +143,39 @@ public class VentanaAdministrador extends JFrame {
 			}
 			
 		});
+		contentPane.add(panelTitulo, BorderLayout.NORTH);
+		contentPane.add(panelCentral);
+		contentPane.add(panelAbajo, BorderLayout.SOUTH);
 		
-		panelCerrar.add(botonSalir);
+		panelTitulo.add(txtpnMenuAdministrador);
+		
+		panelCentral.add(panelCentralAdmin);
+		
+		panelCentralAdmin.add(panelTitbot);
+		panelCentralAdmin.add(panelbotonUsuarios);
+		panelCentralAdmin.add(panelBotonActividades);
+		panelCentralAdmin.add(panel_1);
+		
+		panelbotonUsuarios.add(botonUsuarios);
+		panelBotonActividades.add(botonActividades);
+		panel_1.add(new JScrollPane(tDatos));
+		
+		panelAbajo.add(panelOpciones);
+		
+		panelOpciones.add(btnAñadirAct);
+		panelOpciones.add(btnQuitarAct);
+		btnAñadirAct.setEnabled(false);
+		btnQuitarAct.setEnabled(false);
+		
+		panelOpciones.add(botonCerrarSesion);
+		panelOpciones.add(botonSalir);
 		
 		setVisible(true);
 		
 	}
 	
 	private void verActividades() {
-		bd.connect();
+		
 		Vector<String> cabeceras = new Vector<String>( Arrays.asList( "Codigo", "Actividad", "Aforo", "Instructor", "Ubicacion", "Descripcion", "Imagen") );
 		modeloDeDatos = new DefaultTableModel(  // Inicializa el modelo
 				new Vector<Vector<Object>>(),  // Datos de la jtable (vector de vectores) - vacíos de momento
@@ -178,7 +202,35 @@ public class VentanaAdministrador extends JFrame {
 		tDatos.getColumnModel().getColumn(6).setMinWidth(110);
 		tDatos.getColumnModel().getColumn(6).setMaxWidth(110);
 		
-		 bd.disconnect();	
+	}
+	private void verUsuarios() {
+		
+		Vector<String> cabeceras = new Vector<String>( Arrays.asList( "Nombre", "Apellido", "Dni", "Tarjeta", "Login", "Contrasenya", "Email") );
+		modeloDeDatos = new DefaultTableModel(  // Inicializa el modelo
+				new Vector<Vector<Object>>(),  // Datos de la jtable (vector de vectores) - vacíos de momento
+				cabeceras  // Cabeceras de la jtable
+			);
+		ArrayList<Usuario> usuarios = bd.getUsuarios();
+		for (Usuario u : usuarios) {
+			modeloDeDatos.addRow( new Object[] { u.getNombre(), u.getApellido(), u.getDni(), u.getTarjeta(), u.getLogin(), u.getContrasenya(), u.getEmail()} );
+		}
+		tDatos.setModel(modeloDeDatos);
+		// Pone tamaños a las columnas de la tabla
+		tDatos.getColumnModel().getColumn(0).setMinWidth(50);
+		tDatos.getColumnModel().getColumn(0).setMaxWidth(50);
+		tDatos.getColumnModel().getColumn(1).setMinWidth(55);
+		tDatos.getColumnModel().getColumn(1).setMaxWidth(55);
+		tDatos.getColumnModel().getColumn(2).setMinWidth(60);
+		tDatos.getColumnModel().getColumn(2).setMaxWidth(60);
+		tDatos.getColumnModel().getColumn(3).setMinWidth(60);
+		tDatos.getColumnModel().getColumn(3).setMaxWidth(60);		
+		tDatos.getColumnModel().getColumn(4).setMinWidth(60);
+		tDatos.getColumnModel().getColumn(4).setMaxWidth(60);
+		tDatos.getColumnModel().getColumn(5).setMinWidth(60);
+		tDatos.getColumnModel().getColumn(5).setMaxWidth(60);
+		tDatos.getColumnModel().getColumn(6).setMinWidth(110);
+		tDatos.getColumnModel().getColumn(6).setMaxWidth(110);
+		
 	}
 	
 
