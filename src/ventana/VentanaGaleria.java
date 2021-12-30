@@ -48,7 +48,7 @@ public class VentanaGaleria extends JFrame{
     private List<Surf> listaSurf;
     private List<Ski> listaSki;
     private List<Buceo> listaBuceo;
-    private List<Actividad> listaActividad;
+    private ArrayList<Actividad> listaActividades;
 
     static Logger logger = Logger.getLogger(VentanaGaleria.class.getName());
 
@@ -65,16 +65,12 @@ public class VentanaGaleria extends JFrame{
         contentPane = new JPanel();
         setContentPane(contentPane);
       
-        listaSki = new ArrayList<Ski>();
-        listaSki = bd.getListaSki();
-
-        for (Ski a : listaSki) {
-            System.out.println(a.getNombre());
-        }
-
+        listaActividades = new ArrayList<Actividad>();
+        listaActividades = bd.getActividades();
+        
         // panel 1
 
-        int numFotos = 6; // calculará el número de fotos que haya en la bd
+        int numFotos = listaActividades.size(); // calculará el número de fotos que haya en la bd
 
         panel1 = new JPanel(new BorderLayout());
         panel1Arriba = new JPanel(new GridLayout(numFotos / 2, 2));
@@ -82,15 +78,14 @@ public class VentanaGaleria extends JFrame{
         scroll.setPreferredSize(new Dimension(990, 600));
         panel1Abajo = new JPanel(new BorderLayout());
 
-        for (int i = 1; i <= numFotos; i++) {
-
-            BufferedImage bufferedImage = ImageIO.read(new File("images/barco" + i + ".jpg"));
+        for (int i = 0; i < numFotos; i++) {
+            BufferedImage bufferedImage = ImageIO.read(new File(listaActividades.get(i).getImagen() + ".jpg"));
             Image image = bufferedImage.getScaledInstance(400, 200, Image.SCALE_DEFAULT);
 
             JLabel labelImagen = new JLabel(new ImageIcon(image));
 
             JPanel panelBotonTitulo = new JPanel();
-            JButton botonTitulo = new JButton("Título"); //bd.getActividades
+            JButton botonTitulo = new JButton(listaActividades.get(i).getNombre()); //bd.getActividades
             botonTitulo.setPreferredSize(new Dimension(200, 40));
             panelBotonTitulo.add(botonTitulo);
 
@@ -137,7 +132,6 @@ public class VentanaGaleria extends JFrame{
 					e1.printStackTrace();
 				}
             }
-			
 		});
 
         panel1Abajo.add(panelBotonVolver);
