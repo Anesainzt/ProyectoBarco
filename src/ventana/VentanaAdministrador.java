@@ -1,7 +1,5 @@
 package ventana;
 
-
-
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -109,6 +107,7 @@ public class VentanaAdministrador extends JFrame {
 	    panelTitulo = new JPanel();
 		
 		txtpnMenuAdministrador = new JTextPane();
+		txtpnMenuAdministrador.setEditable(false);
 		txtpnMenuAdministrador.setText("MENU ADMINISTRADOR");
 		txtpnMenuAdministrador.setBackground(getForeground());
 		txtpnMenuAdministrador.setFont(new Font("Consolas", Font.BOLD, 18));
@@ -261,6 +260,10 @@ public class VentanaAdministrador extends JFrame {
 			}
 		});
 		
+	}
+	
+	public static void main(String[] args) {
+		new VentanaAdministrador(null);
 	}
 	
 

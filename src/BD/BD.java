@@ -339,32 +339,6 @@ public class BD extends JFrame{
 		String sent = "update usuario set nombre='"+nom+"',apellido="+apellido+", dni="+dni+", tarjeta="+tarjeta+", login="+login+", contrasenya="+contrasenya+", email="+email+", administrador="+administrador+";";
 		statement.executeUpdate(sent);
 	}
-	
-	/*
-	public void ponerAlDiaBD() {
-
-		try(Statement stmt = (Statement) conn.createStatement();){
-			//CAMBIAR CADA DIA LA FECHA
-			JCalendar calendario = new JCalendar();
-			String year = Integer.toString(calendario.getCalendar().get(java.util.Calendar.YEAR));
-			String mes = Integer.toString(calendario.getCalendar().get(java.util.Calendar.MONTH) + 1);
-			String dia = Integer.toString(calendario.getCalendar().get(java.util.Calendar.DATE));
-			String hoy = "";
-
-			if (Integer.parseInt(mes) < 10 && Integer.parseInt(dia) < 10) {
-				hoy = year + "0" + mes + "0" + dia;
-			} else if (Integer.parseInt(mes) < 10 && Integer.parseInt(dia) >= 10) {
-				hoy = year + "0" + mes + "" + dia;
-			} else if (Integer.parseInt(mes) >= 10 && Integer.parseInt(dia) < 10) {
-				hoy = year + "" + mes + "0" + dia;
-			} else {
-				hoy = year + "" + mes + "" + dia;
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}*/
 
 
 	//OBTENEMOS LOS DATOS DEL CLIENTE
@@ -607,5 +581,4 @@ public class BD extends JFrame{
 		
 		
 	}
-		
 }
