@@ -1,5 +1,6 @@
 package BD;
 
+
 import java.io.*;
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -331,6 +332,12 @@ public class BD extends JFrame{
 			logger.log( Level.SEVERE, "Excepción", e );
 			return null;
 		}
+	}
+	
+	public static void modificarUsuario(String nom, String apellido, String dni, String tarjeta, String login, String contrasenya, String email, int administrador) throws SQLException {
+		Statement statement = conn.createStatement();
+		String sent = "update usuario set nombre='"+nom+"',apellido="+apellido+", dni="+dni+", tarjeta="+tarjeta+", login="+login+", contrasenya="+contrasenya+", email="+email+", administrador="+administrador+";";
+		statement.executeUpdate(sent);
 	}
 	
 	/*

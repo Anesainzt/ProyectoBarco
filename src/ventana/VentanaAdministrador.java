@@ -1,7 +1,8 @@
 package ventana;
 
+
+
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
 
@@ -10,14 +11,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
 import BD.BD;
 import clases.Actividad;
 import clases.Usuario;
 
-import javax.swing.JLabel;
-import javax.swing.UIManager;
 import javax.swing.JTextPane;
 import java.awt.Color;
 import javax.swing.JButton;
@@ -25,10 +26,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
+import java.awt.Rectangle;
 
 public class VentanaAdministrador extends JFrame {
 
@@ -44,7 +47,7 @@ public class VentanaAdministrador extends JFrame {
 	
 	public VentanaAdministrador(Usuario uActual) {
 		
-		setSize(600,400);
+		setSize(700,500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -158,7 +161,8 @@ public class VentanaAdministrador extends JFrame {
 		
 		panelbotonUsuarios.add(botonUsuarios);
 		panelBotonActividades.add(botonActividades);
-		panel_1.add(new JScrollPane(tDatos));
+		JScrollPane scrollPane = new JScrollPane(tDatos);
+		panel_1.add(scrollPane);
 		
 		panelAbajo.add(panelOpciones);
 		
@@ -205,14 +209,14 @@ public class VentanaAdministrador extends JFrame {
 	}
 	private void verUsuarios() {
 		
-		Vector<String> cabeceras = new Vector<String>( Arrays.asList( "Nombre", "Apellido", "Dni", "Tarjeta", "Login", "Contrasenya", "Email") );
+		Vector<String> cabeceras = new Vector<String>( Arrays.asList( "Nombre", "Apellido", "Dni", "Tarjeta", "Login", "Contrasenya", "Email", "Administrador") );
 		modeloDeDatos = new DefaultTableModel(  // Inicializa el modelo
 				new Vector<Vector<Object>>(),  // Datos de la jtable (vector de vectores) - vacíos de momento
 				cabeceras  // Cabeceras de la jtable
 			);
 		ArrayList<Usuario> usuarios = bd.getUsuarios();
 		for (Usuario u : usuarios) {
-			modeloDeDatos.addRow( new Object[] { u.getNombre(), u.getApellido(), u.getDni(), u.getTarjeta(), u.getLogin(), u.getContrasenya(), u.getEmail()} );
+			modeloDeDatos.addRow( new Object[] { u.getNombre(), u.getApellido(), u.getDni(), u.getTarjeta(), u.getLogin(), u.getContrasenya(), u.getEmail(), u.getAdministrador()} );
 		}
 		tDatos.setModel(modeloDeDatos);
 		// Pone tamaños a las columnas de la tabla
@@ -226,10 +230,36 @@ public class VentanaAdministrador extends JFrame {
 		tDatos.getColumnModel().getColumn(3).setMaxWidth(60);		
 		tDatos.getColumnModel().getColumn(4).setMinWidth(60);
 		tDatos.getColumnModel().getColumn(4).setMaxWidth(60);
-		tDatos.getColumnModel().getColumn(5).setMinWidth(60);
-		tDatos.getColumnModel().getColumn(5).setMaxWidth(60);
-		tDatos.getColumnModel().getColumn(6).setMinWidth(110);
-		tDatos.getColumnModel().getColumn(6).setMaxWidth(110);
+		tDatos.getColumnModel().getColumn(5).setMinWidth(30);
+		tDatos.getColumnModel().getColumn(5).setMaxWidth(30);
+		tDatos.getColumnModel().getColumn(6).setMinWidth(100);
+		tDatos.getColumnModel().getColumn(6).setMaxWidth(100);
+		tDatos.getColumnModel().getColumn(7).setMinWidth(40);
+		tDatos.getColumnModel().getColumn(7).setMaxWidth(40);
+		
+		tDatos.getModel().addTableModelListener(new TableModelListener() {
+			
+			@Override
+			public void tableChanged(TableModelEvent e) {
+				// TODO Auto-generated method stub
+				int fil = e.getFirstRow();
+				String nom = (String) modeloDeDatos.getValueAt(fil, 0);
+				String apellido = (String) modeloDeDatos.getValueAt(fil, 1);
+				String dni = (String) modeloDeDatos.getValueAt(fil, 2);
+				String tarjeta = (String) modeloDeDatos.getValueAt(fil, 3);
+				String login = (String) modeloDeDatos.getValueAt(fil, 4);
+				String contrasenya = (String) modeloDeDatos.getValueAt(fil, 5);
+				String email = (String) modeloDeDatos.getValueAt(fil, 6);
+				int administrador = (int) modeloDeDatos.getValueAt(fil, 7);
+				
+				try {
+					bd.modificarUsuario(nom, apellido, dni, tarjeta, login, contrasenya, email, administrador);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		
 	}
 	
