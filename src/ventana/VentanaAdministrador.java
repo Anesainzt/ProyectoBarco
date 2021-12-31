@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -16,7 +17,6 @@ import javax.swing.table.DefaultTableModel;
 import BD.BD;
 import clases.Actividad;
 import clases.Usuario;
-
 import javax.swing.JTextPane;
 import java.awt.Color;
 import javax.swing.JButton;
@@ -135,6 +135,29 @@ public class VentanaAdministrador extends JFrame {
 		
 		btnAñadirAct = new JButton("Añadir Actividad");
 		btnQuitarAct = new JButton("Quitar Actividad");
+		btnQuitarAct.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				bd.connect();
+				int fill = tDatos.getSelectedRow();
+				if(fill!=-1) {
+					String codi = (String) modeloDeDatos.getValueAt(fill, 0);
+					try {
+						bd.borrarActividad(codi);
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					modeloDeDatos.removeRow(fill);
+					
+				}
+				bd.disconnect();
+				
+				
+			}
+			
+		});
 		
 		botonSalir = new JButton("Salir");
 		botonSalir.addActionListener(new ActionListener() {
@@ -178,17 +201,50 @@ public class VentanaAdministrador extends JFrame {
 	}
 	
 	private void verActividades() {
-		
+		bd.connect();
 		Vector<String> cabeceras = new Vector<String>( Arrays.asList( "Codigo", "Actividad", "Aforo", "Instructor", "Ubicacion", "Descripcion", "Imagen") );
 		modeloDeDatos = new DefaultTableModel(  // Inicializa el modelo
 				new Vector<Vector<Object>>(),  // Datos de la jtable (vector de vectores) - vacíos de momento
 				cabeceras  // Cabeceras de la jtable
-			);
+			){
+			public boolean isCellEditable(int row, int column) {
+				if(column==0)
+					return false;
+				return true;
+			}
+		};
 		ArrayList<Actividad> actividades = bd.getActividades();
 		for (Actividad a : actividades) {
 			modeloDeDatos.addRow( new Object[] { a.getCodigo(), a.getNombre(), a.getAforo(), a.getInstructor(), a.getUbicacion(), a.getDescripcion(), a.getImagen()} );
 		}
 		tDatos.setModel(modeloDeDatos);
+		
+		tDatos.getModel().addTableModelListener(new TableModelListener() {
+			
+			@Override
+			public void tableChanged(TableModelEvent e) {
+				// TODO Auto-generated method stub
+				
+				int fil = e.getFirstRow();
+				String cod = (String) modeloDeDatos.getValueAt(fil, 0);
+				String nombre = (String) modeloDeDatos.getValueAt(fil, 1);
+				int aforo = (int) modeloDeDatos.getValueAt(fil, 2);
+				String instructor = (String) modeloDeDatos.getValueAt(fil, 3);
+				String ubicacion = (String) modeloDeDatos.getValueAt(fil, 4);
+				String descripcion = (String) modeloDeDatos.getValueAt(fil, 5);
+				String imagen = (String) modeloDeDatos.getValueAt(fil, 6);
+				
+				try {
+					bd.modificarActividad(cod, nombre, aforo, instructor, ubicacion, descripcion, imagen);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+		
+		
 		// Pone tamaños a las columnas de la tabla
 		tDatos.getColumnModel().getColumn(0).setMinWidth(60);
 		tDatos.getColumnModel().getColumn(0).setMaxWidth(60);
@@ -204,20 +260,52 @@ public class VentanaAdministrador extends JFrame {
 		tDatos.getColumnModel().getColumn(5).setMaxWidth(65);
 		tDatos.getColumnModel().getColumn(6).setMinWidth(110);
 		tDatos.getColumnModel().getColumn(6).setMaxWidth(110);
+		bd.disconnect();
 		
 	}
 	private void verUsuarios() {
-		
+		bd.connect();
 		Vector<String> cabeceras = new Vector<String>( Arrays.asList( "Nombre", "Apellido", "Dni", "Tarjeta", "Login", "Contrasenya", "Email", "Administrador") );
 		modeloDeDatos = new DefaultTableModel(  // Inicializa el modelo
 				new Vector<Vector<Object>>(),  // Datos de la jtable (vector de vectores) - vacíos de momento
 				cabeceras  // Cabeceras de la jtable
-			);
+			){
+			public boolean isCellEditable(int row, int column) {
+				if(column==7)
+					return false;
+				return true;
+			}
+		};
 		ArrayList<Usuario> usuarios = bd.getUsuarios();
 		for (Usuario u : usuarios) {
 			modeloDeDatos.addRow( new Object[] { u.getNombre(), u.getApellido(), u.getDni(), u.getTarjeta(), u.getLogin(), u.getContrasenya(), u.getEmail(), u.getAdministrador()} );
 		}
 		tDatos.setModel(modeloDeDatos);
+		
+		tDatos.getModel().addTableModelListener(new TableModelListener() {
+			
+			@Override
+			public void tableChanged(TableModelEvent e) {
+				// TODO Auto-generated method stub
+				 bd.connect();
+				int fil = e.getFirstRow();
+				String nom = (String) modeloDeDatos.getValueAt(fil, 0);
+				String apellido = (String) modeloDeDatos.getValueAt(fil, 1);
+				String dni = (String) modeloDeDatos.getValueAt(fil, 2);
+				String tarjeta = (String) modeloDeDatos.getValueAt(fil, 3);
+				String login = (String) modeloDeDatos.getValueAt(fil, 4);
+				String contrasenya = (String) modeloDeDatos.getValueAt(fil, 5);
+				String email = (String) modeloDeDatos.getValueAt(fil, 6);
+				
+				try {
+					bd.modificarUsuario(nom, apellido, dni, tarjeta, login, contrasenya, email);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				bd.disconnect();
+			}
+		});
 		// Pone tamaños a las columnas de la tabla
 		tDatos.getColumnModel().getColumn(0).setMinWidth(50);
 		tDatos.getColumnModel().getColumn(0).setMaxWidth(50);
@@ -235,30 +323,7 @@ public class VentanaAdministrador extends JFrame {
 		tDatos.getColumnModel().getColumn(6).setMaxWidth(100);
 		tDatos.getColumnModel().getColumn(7).setMinWidth(40);
 		tDatos.getColumnModel().getColumn(7).setMaxWidth(40);
-		
-		tDatos.getModel().addTableModelListener(new TableModelListener() {
-			
-			@Override
-			public void tableChanged(TableModelEvent e) {
-				// TODO Auto-generated method stub
-				int fil = e.getFirstRow();
-				String nom = (String) modeloDeDatos.getValueAt(fil, 0);
-				String apellido = (String) modeloDeDatos.getValueAt(fil, 1);
-				String dni = (String) modeloDeDatos.getValueAt(fil, 2);
-				String tarjeta = (String) modeloDeDatos.getValueAt(fil, 3);
-				String login = (String) modeloDeDatos.getValueAt(fil, 4);
-				String contrasenya = (String) modeloDeDatos.getValueAt(fil, 5);
-				String email = (String) modeloDeDatos.getValueAt(fil, 6);
-				int administrador = (int) modeloDeDatos.getValueAt(fil, 7);
-				
-				try {
-					bd.modificarUsuario(nom, apellido, dni, tarjeta, login, contrasenya, email, administrador);
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		});
+		bd.disconnect();
 		
 	}
 	

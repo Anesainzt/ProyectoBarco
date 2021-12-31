@@ -196,6 +196,14 @@ public class BD extends JFrame{
 		String borrar = "DELETE FROM usuario where login='" + uActual.getLogin() + "';";
 		int rs = stmt.executeUpdate(borrar); //update --> borrar o editar, query --> añadir o consultar
 	}
+	
+	//MÉTODO BORRAR ACTIVIDAD
+	public void borrarActividad(String codigo) throws SQLException {
+		Connection conn = DriverManager.getConnection("jdbc:sqlite:database.db");
+		Statement stmt = (Statement) conn.createStatement();
+		String borrar = "DELETE FROM actividad where codigo='"+codigo+"';";
+		int rs = stmt.executeUpdate(borrar);
+	}
 
 
 	//MÉTODO CREAR USUARIO
@@ -334,12 +342,30 @@ public class BD extends JFrame{
 		}
 	}
 	
-	public static void modificarUsuario(String nom, String apellido, String dni, String tarjeta, String login, String contrasenya, String email, int administrador) throws SQLException {
+	/**
+	 * Este método deja que el administrador edite los datos de los usuario o de las actividades desde la tabla que se le ofrece en la ventana
+	 * @param nom
+	 * @param apellido
+	 * @param dni
+	 * @param tarjeta
+	 * @param login
+	 * @param contrasenya
+	 * @throws SQLException
+	 */
+	public static void modificarUsuario(String nom, String apellido, String dni, String tarjeta, String login, String contrasenya, String email) throws SQLException {
 		Statement statement = conn.createStatement();
-		String sent = "update usuario set nombre='"+nom+"',apellido="+apellido+", dni="+dni+", tarjeta="+tarjeta+", login="+login+", contrasenya="+contrasenya+", email="+email+", administrador="+administrador+";";
+		String sent = "update usuario set nombre='"+nom+"',apellido='"+apellido+"', dni='"+dni+"', tarjeta='"+tarjeta+"', login='"+login+"', contrasenya='"+contrasenya+"', email='"+email+"'where dni= '"+dni+"'; ";
 		statement.executeUpdate(sent);
 	}
-
+	
+	public static void modificarActividad(String codigo, String nombre, int aforo, String instructor, String ubicacion, String descripcion, String imagen) throws SQLException {
+		Statement statement = conn.createStatement();
+		String sent = "update actividad set codigo='"+codigo+"',nombre='"+nombre+"', aforo='"+aforo+"', instructor='"+instructor+"', ubicacion='"+ubicacion+"', descripcion='"+descripcion+"', imagen='"+imagen+"'where codigo= '"+codigo+"'; ";
+		statement.executeUpdate(sent);
+	}
+	
+	
+	
 
 	//OBTENEMOS LOS DATOS DEL CLIENTE
 	public Usuario usuario(String u, String contraseña) {
