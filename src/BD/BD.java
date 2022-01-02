@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
 import clases.Actividad;
 import clases.Ski;
 import clases.Usuario;
-import ventana.VentanaInicio;
+import ventanas.VentanaInicio;
 
 public class BD extends JFrame{
 

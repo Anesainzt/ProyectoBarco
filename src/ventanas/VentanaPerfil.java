@@ -1,4 +1,4 @@
-package ventana;
+package ventanas;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
