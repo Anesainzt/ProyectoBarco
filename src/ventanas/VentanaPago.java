@@ -37,7 +37,7 @@ public class VentanaPago extends JFrame{
     	addWindowListener( new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
-            	bd.guardarLogger();
+            	bd.ficheroLogger();
             }
           
         });

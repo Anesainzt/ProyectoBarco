@@ -30,10 +30,9 @@ public class BD extends JFrame{
 	static Logger logger = Logger.getLogger( "BaseDatos" );
 	private static Handler handler;
 	
-	//No termina de funcionar
-	public static void guardarLogger() {
+	public static void ficheroLogger() {
 		try {
-			handler = new FileHandler("BaseDatos.txt");
+			handler = new FileHandler("BaseDatos.txt", true);
 			handler.setFormatter(new SimpleFormatter());
 			logger.addHandler(handler);
 		} catch (SecurityException e) {
@@ -44,7 +43,6 @@ public class BD extends JFrame{
 			logger.log( Level.INFO, "No se ha podido guardar" );
 		}
 	}
-	
 	/**
 	 * Metodo para conectar y desconectar la conexión a la base de datos
 	 * @return
@@ -315,7 +313,7 @@ public class BD extends JFrame{
 				String ubicacion = rs.getString("ubicacion");
 				String descripcion = rs.getString("descripcion");
 				String imagen = rs.getString("imagen");
-				ret.add( new Actividad ( codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen ) );
+				ret.add( new Actividad( codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen ) );
 			}
 			return ret;
 		} catch (Exception e) {

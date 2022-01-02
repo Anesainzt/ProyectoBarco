@@ -1,6 +1,6 @@
 package clases;
 
-public  class Actividad {
+public class Actividad {
 	
 	protected String codigo;
 	protected String nombre;

@@ -15,6 +15,8 @@ import java.util.logging.Level;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import BD.BD;
 import clases.Actividad;
@@ -29,9 +31,17 @@ public class VentanaGaleriaEspecifica extends JFrame {
 	private JPanel panel2Izquierda;
 	
 	static Logger logger = Logger.getLogger(VentanaGaleriaEspecifica.class.getName());
+	BD bd = new BD();
 
 	public VentanaGaleriaEspecifica(Actividad actividad) throws IOException {
 		
+		addWindowListener( new WindowAdapter() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+            	bd.ficheroLogger();
+            }
+          
+        });
 		setTitle("Galería de fotos");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(1000, 690));

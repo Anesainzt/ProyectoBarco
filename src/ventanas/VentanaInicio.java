@@ -39,8 +39,18 @@ public class VentanaInicio extends JFrame {
 		addWindowListener( new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
-            	bd.guardarLogger();
+            	bd.ficheroLogger();
             }
+            	/*@Override
+                public void windowClosed(WindowEvent e) {
+                    try {
+						bd.cerrarFichero();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+                }
+            	*/
           
         });
 		

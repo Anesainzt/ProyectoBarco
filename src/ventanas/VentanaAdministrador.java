@@ -98,7 +98,7 @@ public class VentanaAdministrador extends JFrame {
 	    addWindowListener( new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
-            	bd.guardarLogger();
+            	bd.ficheroLogger();
                 bd.connect();
                 //verProductos();  // Según se inicia la ventana se visualizan los productos
             }

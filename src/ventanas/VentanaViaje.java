@@ -54,7 +54,7 @@ public class VentanaViaje extends JFrame {
 		addWindowListener( new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
-            	bd.guardarLogger();
+            	bd.ficheroLogger();
             }
           
         });
@@ -184,27 +184,9 @@ public class VentanaViaje extends JFrame {
 			}
 			
 		});
-		JRadioButton rbViajesProgramados = new JRadioButton("Viajes Programados");
-		rbViajesProgramados.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				calendarioIda.setVisible(true);
-				btnSeleccionarIda.setVisible(true);
-				calendarioVuelta.setVisible(true);
-				btnSeleccionarVuelta.setVisible(true);
-				scrollListaViajes.setVisible(true);
-				spinner.setVisible(true);
-				btnIraActividad.setVisible(true);
-				btnIrATicket.setVisible(false);
-				
-			}
-			
-		});
 		rg = new ButtonGroup();
 		rg.add(rbIda);
 		rg.add(rbIdaVuelta);
-		rg.add(rbViajesProgramados);
 		
 		
 		JLabel lblOrigen = new JLabel("Origen:");
@@ -316,7 +298,6 @@ public class VentanaViaje extends JFrame {
 		
 		panelRadioB.add(rbIda);
 		panelRadioB.add(rbIdaVuelta);
-		panelRadioB.add(rbViajesProgramados);
 		
 		panelOpciones.add(panelDYO);
 		panelOpciones.add(panelCalendario);

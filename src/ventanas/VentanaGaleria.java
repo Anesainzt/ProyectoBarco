@@ -15,6 +15,8 @@ import java.util.logging.Level;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import BD.BD;
 import clases.Actividad;
@@ -46,6 +48,13 @@ public class VentanaGaleria extends JFrame {
 
     public VentanaGaleria() throws IOException {
 
+    	addWindowListener( new WindowAdapter() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+            	bd.ficheroLogger();
+            }
+          
+        });
         bd.connect();
 
         setTitle("Galería de fotos");

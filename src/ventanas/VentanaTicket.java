@@ -7,6 +7,7 @@ import BD.BD;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 
 public class VentanaTicket extends JFrame {
 
@@ -22,7 +23,7 @@ public class VentanaTicket extends JFrame {
     	 addWindowListener( new WindowAdapter() {
              @Override
              public void windowOpened(WindowEvent e) {
-                 bd.guardarLogger();
+            	 bd.ficheroLogger();
              }
 
          });
