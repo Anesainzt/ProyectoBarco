@@ -33,15 +33,15 @@ public class BD extends JFrame{
 	//No termina de funcionar
 	public static void guardarLogger() {
 		try {
-			handler = new FileHandler("BaseDatos.log");
+			handler = new FileHandler("BaseDatos.txt");
 			handler.setFormatter(new SimpleFormatter());
 			logger.addHandler(handler);
 		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.log( Level.INFO, "No se ha podido guardar" );
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.log( Level.INFO, "No se ha podido guardar" );
 		}
 	}
 	
@@ -65,6 +65,7 @@ public class BD extends JFrame{
 	public static void disconnect() {
 		try {
 			conn.close();
+			logger.log( Level.INFO, "Se ha desconectado de la BD" );
 		} catch (SQLException e) {
 			logger.warning("No se ha podido desconectar");
 		}
@@ -97,7 +98,6 @@ public class BD extends JFrame{
             return false;
         } catch (Exception e) {
             logger.warning("No se ha podido comparar el login.");
-            e.printStackTrace();
             return false;
         }
 	}
@@ -146,17 +146,12 @@ public class BD extends JFrame{
 						VentanaInicio.textoUsuario.setText("");
 						VentanaInicio.textoContrasenya.setText("");
 					} catch (Exception e) {
-						
-						logger.info("No se ha podido comprobar");
+						logger.warning("No se ha podido comprobar");
 					}
 				}
-				
-
 				ps.close();
 				return false;
 			} catch (Exception e) {
-
-				//logger
 				logger.warning("Ha habido un error al hacer el login.");
 			}
 			return true;
@@ -181,23 +176,30 @@ public class BD extends JFrame{
 				esAdmin = rs.getBoolean("administrador");
 				}         
 			} catch (SQLException e) {             
-				// TODO Auto-generated catch block             
-				e.printStackTrace();         
+				
+				logger.warning( "No se ha podido comprobar el administrador" );
 				}                  
 		return esAdmin;
 		
 		}
 
-	//MÉTODO BORRAR USUARIO
+	/**
+	 * Método para borrar un Usuario
+	 * @param uActual
+	 * @throws SQLException
+	 */
 	public void borrarUsuario(Usuario uActual) throws SQLException {
 		Connection conn = DriverManager.getConnection("jdbc:sqlite:database.db");
 		Statement stmt = (Statement) conn.createStatement();
 
 		String borrar = "DELETE FROM usuario where login='" + uActual.getLogin() + "';";
-		int rs = stmt.executeUpdate(borrar); //update --> borrar o editar, query --> añadir o consultar
+		int rs = stmt.executeUpdate(borrar);
 	}
-	
-	//MÉTODO BORRAR ACTIVIDAD
+	/**
+	 * Método para borrar actividad
+	 * @param codigo
+	 * @throws SQLException
+	 */
 	public void borrarActividad(String codigo) throws SQLException {
 		Connection conn = DriverManager.getConnection("jdbc:sqlite:database.db");
 		Statement stmt = (Statement) conn.createStatement();
@@ -205,8 +207,16 @@ public class BD extends JFrame{
 		int rs = stmt.executeUpdate(borrar);
 	}
 
-
-	//MÉTODO CREAR USUARIO
+	/**
+	 * Método para crear un usuario nuevo
+	 * @param loginText
+	 * @param contrasenyaText
+	 * @param nombreText
+	 * @param apellidoText
+	 * @param dniText
+	 * @param tarjetaText
+	 * @param emailText
+	 */
 	public void crearUsuario(JTextField loginText, JTextField contrasenyaText, JTextField nombreText, JTextField apellidoText, JTextField dniText, JTextField tarjetaText, JTextField emailText) {
 
 		try {
@@ -233,10 +243,7 @@ public class BD extends JFrame{
 				JOptionPane.showMessageDialog(null, "¡Este usuario ya existe!");
 				logger.warning("Usuario ya existe");
 			}
-
-
 		} catch (SQLException e) {
-			System.out.println("Se ha ejecutado el metodo de crear usuario a pesar del error");
 			logger.warning("No se ha creado el usuario");
 		}	
 
@@ -286,9 +293,7 @@ public class BD extends JFrame{
 		try {
 
 			PreparedStatement ps = conn.prepareStatement("INSERT INTO cantidadpersonas VALUES('"+ uActual.getDni()+ "', '"+ cantidadNiyos+ "', '"+ cantidadAdultos+ "')");
-
 			ps.executeUpdate();
-
 			conn.close();
 		} catch (SQLException e2) {
 			logger.warning("No se ha podido insertar");
@@ -314,7 +319,7 @@ public class BD extends JFrame{
 			}
 			return ret;
 		} catch (Exception e) {
-			logger.log( Level.SEVERE, "Excepción", e );
+			logger.warning("No se han podido obtener las actividades");
 			return null;
 		}
 	}
@@ -337,7 +342,7 @@ public class BD extends JFrame{
 			}
 			return ret;
 		} catch (Exception e) {
-			logger.log( Level.SEVERE, "Excepción", e );
+			logger.warning("No se han podido obtener los usuarios");
 			return null;
 		}
 	}
@@ -365,9 +370,13 @@ public class BD extends JFrame{
 	}
 	
 	
+	/**
+	 * Obtener los datos del usuario
+	 * @param u
+	 * @param contraseña
+	 * @return
+	 */
 	
-
-	//OBTENEMOS LOS DATOS DEL CLIENTE
 	public Usuario usuario(String u, String contraseña) {
 		Usuario cl = new Usuario();
 		try(Statement stmt = (Statement) conn.createStatement()) {
@@ -394,8 +403,12 @@ public class BD extends JFrame{
 		}
 		return cl;
 	}
+	/**
+	 * Mirar en la bd cuales han sido sus reservas anteriores
+	 * @param usuario
+	 * @param modelo
+	 */
 
-	//MIRAR EN LA BD CUALES HAN SIDO SUS RESERVAS ANTERIORES
 	public void historial(Usuario usuario, DefaultTableModel modelo) {
 		try(Statement stmt = (Statement) conn.createStatement()) {	
 
@@ -405,9 +418,7 @@ public class BD extends JFrame{
 			while (res1.next()) {
 				numFilas = res1.getInt("numero");
 			}
-
 			String [] tabla = new String[3];
-
 
 			int i = 0;
 			ResultSet res2 = stmt.executeQuery("SELECT fechaEntrada, fechaSalida, tipo FROM historialregistros WHERE login = '"+ usuario.getLogin() +"'");
@@ -425,133 +436,58 @@ public class BD extends JFrame{
 			}
 
 		} catch (SQLException e2) {
-			logger.warning("Ha habido un error al hacer el login.");
-		}
-	}
-
-	//MIRA QUE DIAS SE QUEDA EL CLIENTE EN EL BARCO Y SOLO DEJA COGER LA ACTIVIDAD DENTRO DE LAS FECHAS
-	public void reservaActividad(String fecha, Actividad tipo, Usuario usuario) {
-		try(Statement stmt = (Statement) conn.createStatement()) {	
-			int res2 = stmt.executeUpdate("INSERT INTO registroActividad VALUES('"+tipo.getNombre() +"' ,  '"+ fecha +"', '"+ usuario.getDni() +"'");
-		} catch (SQLException e2) {
-			logger.warning("No se ha podido reservar la actividad");
-			
-		}
-	}
-
-	//EN EL CASO DE QUE RESERVES UNA ACTIVIDAD INTRODUCIR EN LA TABLA ACTIVIDAD LOS DATOS
-	//FALTA HACER QUE EL ADMIN PUEDA BORRAR O AÑADIR ACTIVIDADES Y MODIFICAR SU PRECIO
-	public void actividad(int precio, Actividad tipo) {
-
-		try {
-			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO actividades VALUES(?, ?);");
-
-			pstmt.setString(1, tipo.getNombre());
-			pstmt.setInt(2, precio);
-
-			pstmt.execute();
-		} catch (Exception e) {
-			logger.warning("No se ha podido reservar la actividad");
+			logger.warning("Ha habido un error al mirar el historial");
 		}
 	}
 
 	/*
 	//MIRAR QUE ACTIVIDADES ESTÁN RESEVADAS PARA HOY PARA EL ADMIN
-	public void actividadesHoy(DefaultTableModel modelo2) {
+	*/
+/*
 
-		JCalendar calendario = new JCalendar();
-		String year = Integer.toString(calendario.getCalendar().get(java.util.Calendar.YEAR));
-		String mes = Integer.toString(calendario.getCalendar().get(java.util.Calendar.MONTH) + 1);
-		String dia = Integer.toString(calendario.getCalendar().get(java.util.Calendar.DATE));
-		String hoy = "";
-		String text = "";
-		if (Integer.parseInt(mes) < 10 && Integer.parseInt(dia) < 10) {
-			hoy = year + "-0" + mes + "-0" + dia;
-		} else if (Integer.parseInt(mes) < 10 && Integer.parseInt(dia) >= 10) {
-			hoy = year + "-0" + mes + "-" + dia;
-		} else if (Integer.parseInt(mes) >= 10 && Integer.parseInt(dia) < 10) {
-			hoy = year + "-" + mes + "-0" + dia;
-		} else {
-			hoy = year + "-" + mes + "-" + dia;
-		}
-		try(Statement stmt = (Statement) conn.createStatement()) {	
+	public List<Buceo> getListaBuceo(){
 
-			String [] tabla = new String[2];
+	 	List<Buceo> listaBuceo = new ArrayList<Buceo>();
 
-			ResultSet res = stmt.executeQuery("SELECT login, tipo FROM actividades WHERE fechaActividad = '"+ hoy +"'");
-			while (res.next()) {
+	 	try(Statement stmt = (Statement) conn.createStatement()) {
 
-				String fila =  res.getString("login");
-				tabla[0] = fila;
-				fila = res.getString("tipo");
-				tabla[1] = fila;
-				modelo2.addRow(tabla);
+	 		ResultSet buceo = stmt.executeQuery("SELECT * FROM actividad WHERE nombre = Buceo");
 
-			}
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
+	 		while(buceo.next()) {
 
-	}*/
+	 			Buceo actividad = new Buceo(buceo.getString("codigo"), buceo.getString("nombre"), buceo.getInt("aforo"), buceo.getString("instructor"), buceo.getString("ubicacion"), buceo.getString("descripcion"), buceo.getString("imagen"), buceo.getInt("cantMaterial"));
+	 			listaBuceo.add(actividad);
+	 		}	
+	 	}catch (Exception e) {
+	 		e.printStackTrace();
+	 	}
+	 	return listaBuceo;
+	 }
+*/
+	/*
+	 public List<Ski> getListaSki(){
 
-	// public List<Actividad> getListaActividades(){
-	// 	List<Actividad> listaActividades = new ArrayList();
+	 	List<Ski> listaSki = new ArrayList<Ski>();
 
-	// 	try(Statement stmt = (Statement) conn.createStatement()){
+	 	try(Statement stmt = conn.createStatement()) {
 
-	// 		ResultSet actividad = stmt.executeQuery("SELECT * FROM actividad;");
+	 		ResultSet rs = stmt.executeQuery("SELECT * FROM actividad");
 
-	// 		while(actividad.next()){
+	 		while(rs.next()) {
 
-	// 			Actividad actividad1 = new Actividad(actividad.getString("codigo"), actividad.getString("nombre"), actividad.getInt("aforo"), actividad.getString("instructor"), actividad.getString("ubicacion"), actividad.getString("descripcion"), actividad.getString("imagen"));
-	// 			listaActividades.add(actividad1);
-	// 		}
-	// 	} catch (Exception e) {
-	// 		//TODO: handle exception
-	// 	}
-	// }
-
-	// public List<Buceo> getListaBuceo(){
-
-	// 	List<Buceo> listaBuceo = new ArrayList<Buceo>();
-
-	// 	try(Statement stmt = (Statement) conn.createStatement()) {
-
-	// 		ResultSet buceo = stmt.executeQuery("SELECT * FROM actividad WHERE nombre = Buceo");
-
-	// 		while(buceo.next()) {
-
-	// 			Buceo actividad = new Buceo(buceo.getString("codigo"), buceo.getString("nombre"), buceo.getInt("aforo"), buceo.getString("instructor"), buceo.getString("ubicacion"), buceo.getString("descripcion"), buceo.getString("imagen"), buceo.getInt("cantMaterial"));
-	// 			listaBuceo.add(actividad);
-	// 		}	
-	// 	}catch (Exception e) {
-	// 		e.printStackTrace();
-	// 	}
-	// 	return listaBuceo;
-	// }
-
-	// public List<Ski> getListaSki(){
-
-	// 	List<Ski> listaSki = new ArrayList<Ski>();
-
-	// 	try(Statement stmt = conn.createStatement()) {
-
-	// 		ResultSet rs = stmt.executeQuery("SELECT * FROM actividad");
-
-	// 		while(rs.next()) {
-
-	// 			Ski actividad = new Ski(rs.getString("codigo"), rs.getString("nombre"), rs.getInt("aforo"),
-	// 					rs.getString("instructor"), rs.getString("ubicacion"), rs.getString("descripcion"),
-	// 					rs.getString("imagen"), rs.getInt("cantMaterial"));
-	// 			if (actividad.getNombre() == "Ski") {
-	// 				listaSki.add(actividad);
-	// 			}
-	// 		}
-	// 	} catch (Exception e) {
-	// 		e.printStackTrace();
-	// 	}
-	// 	return listaSki;
-	// }
+	 			Ski actividad = new Ski(rs.getString("codigo"), rs.getString("nombre"), rs.getInt("aforo"),
+	 					rs.getString("instructor"), rs.getString("ubicacion"), rs.getString("descripcion"),
+	 					rs.getString("imagen"), rs.getInt("cantMaterial"));
+	 			if (actividad.getNombre() == "Ski") {
+	 				listaSki.add(actividad);
+	 			}
+	 		}
+	 	} catch (Exception e) {
+	 		e.printStackTrace();
+	 	}
+	 	 	return listaSki;
+	 }
+*/
 
 	public List<Ski> getListaSki(){
 
@@ -572,26 +508,28 @@ public class BD extends JFrame{
 		return listaSki;
 	}
 
-	// public List<Surf> getListaSurf(){
+/*
+	 public List<Surf> getListaSurf(){
 
-	// 	List<Surf> listaSurf = new ArrayList<Surf>();
+	 	List<Surf> listaSurf = new ArrayList<Surf>();
 
-	// 	try(Statement stmt = (Statement) conn.createStatement()) {
+	 	try(Statement stmt = (Statement) conn.createStatement()) {
 
-	// 		ResultSet surf = stmt.executeQuery("SELECT * FROM actividad WHERE nombre = Surf");
+	 		ResultSet surf = stmt.executeQuery("SELECT * FROM actividad WHERE nombre = Surf");
 
-	// 		while(surf.next()) {
+	 		while(surf.next()) {
 
-	// 			Surf actividad = new Surf(surf.getString("codigo"), surf.getString("nombre"), surf.getInt("aforo"), surf.getString("instructor"), surf.getString("ubicacion"), surf.getString("descripcion"), surf.getString("imagen"), surf.getInt("cantMaterial"));
-	// 			listaSurf.add(actividad);
-	// 		}
-	// 	} catch (Exception e) {
-	// 		e.printStackTrace();
-	// 	}
-	// 	return listaSurf;
-	// }
-	
+	 			Surf actividad = new Surf(surf.getString("codigo"), surf.getString("nombre"), surf.getInt("aforo"), surf.getString("instructor"), surf.getString("ubicacion"), surf.getString("descripcion"), surf.getString("imagen"), surf.getInt("cantMaterial"));
+				listaSurf.add(actividad);
+	 		}
+	 	} catch (Exception e) {
+	 		e.printStackTrace();
+	 	}
+	 	return listaSurf;
+	 }
+*/
 	public static TreeSet<String> obtenerDiferentesActividades() throws SQLException{
+		
 		conn = DriverManager.getConnection("jdbc:sqlite:database.db");
 		Statement statement = conn.createStatement();
 		String sent = "SELECT nombre from actividad";

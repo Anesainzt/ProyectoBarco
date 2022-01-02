@@ -1,0 +1,6 @@
+ene. 02, 2022 12:53:15 P. M. BD.BD connect
+INFO: Se ha conectado con la BBDD
+ene. 02, 2022 12:53:16 P. M. BD.BD disconnect
+INFO: Se ha desconectado de la BD
+ene. 02, 2022 12:53:19 P. M. BD.BD connect
+INFO: Se ha conectado con la BBDD

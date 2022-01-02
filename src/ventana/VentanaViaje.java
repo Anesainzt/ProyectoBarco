@@ -7,14 +7,20 @@ import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
 
+import BD.BD;
 import clases.Usuario;
 public class VentanaViaje extends JFrame {
 	
@@ -38,14 +44,20 @@ public class VentanaViaje extends JFrame {
 	JMenuBar menuBar;
 	JMenu menu;
 	JMenuItem itemPerfil, itemGaleria, itemSesion, itemSalir;
+	static Logger logger = Logger.getLogger( "VentanaViaje" );
 	
 	ButtonGroup rg;
-	
-	public static void main(String[] args) {
-		new VentanaViaje(null);
-	}
-	
+	BD bd = new BD();
+		
 	public VentanaViaje(Usuario uActual) {
+		
+		addWindowListener( new WindowAdapter() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+            	bd.guardarLogger();
+            }
+          
+        });
 				
 		sdf = new SimpleDateFormat("dd-MM-yyyy");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -82,8 +94,7 @@ public class VentanaViaje extends JFrame {
 					new VentanaGaleria();
 					dispose();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					logger.log(Level.INFO, "No se ha podido ejecutar la ventana");
 				}
 				
 			}
@@ -100,7 +111,7 @@ public class VentanaViaje extends JFrame {
 					new VentanaInicio();
 					dispose();
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.log(Level.INFO, "No se ha podido ejecutar la ventana");
 				}
 
 			}
@@ -116,7 +127,7 @@ public class VentanaViaje extends JFrame {
 					JOptionPane.showMessageDialog(null, "¡Nos vemos pronto!");
 					dispose();
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.log(Level.INFO, "No se ha podido cargar el JOptionPane");
 				}
 
 			}
@@ -273,8 +284,7 @@ public class VentanaViaje extends JFrame {
 				try {
 					new VentanaActividades();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					logger.log(Level.INFO, "No se ha podido ejecutar la ventana");
 				}
 				
 				cact.setMinSelectableDate(calendarioIda.getDate());

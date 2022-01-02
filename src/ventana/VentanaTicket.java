@@ -1,7 +1,12 @@
 package ventana;
 
 import javax.swing.*;
+
+import BD.BD;
+
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class VentanaTicket extends JFrame {
 
@@ -11,8 +16,16 @@ public class VentanaTicket extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private Container cp;
     private JPanel panelPrincipal;
+    BD bd = new BD();
 
     public VentanaTicket(){
+    	 addWindowListener( new WindowAdapter() {
+             @Override
+             public void windowOpened(WindowEvent e) {
+                 bd.guardarLogger();
+             }
+
+         });
 
         cp = this.getContentPane();
         this.setTitle("Ticket");
@@ -35,10 +48,5 @@ public class VentanaTicket extends JFrame {
         this.setVisible(true);
 
     }
-
-    public static void main(String[] args) {
-		new VentanaTicket();
-
-	}
     
 }

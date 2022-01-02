@@ -3,6 +3,8 @@ package ventana;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 
 import javax.swing.*;
@@ -38,8 +40,17 @@ public class VentanaRegistro extends JFrame {
 	protected JButton botonRegistro;
 	JProgressBar barraProgreso;
 	private JPanel panel_1;
+	
+	BD bd = new BD();
 
 	public VentanaRegistro() {
+		addWindowListener( new WindowAdapter() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+            	bd.guardarLogger();
+            }
+          
+        });
 
 		//ContentPane
 		cp = this.getContentPane();
@@ -181,6 +192,7 @@ public class VentanaRegistro extends JFrame {
 								}
 							} catch (Exception e2) {
 								// TODO: handle exception
+								logger.log( Level.INFO, "No se ha podido ejecutar el hilo" );
 							}	
 							}
 						});
@@ -195,7 +207,7 @@ public class VentanaRegistro extends JFrame {
 								new VentanaViaje(usuario);
 								dispose();
 							} catch (Exception e) {
-								logger.log(Level.INFO, "");//METER LA INFO DEL ERROR
+								logger.log(Level.INFO, "No se ha podido ejecutar la ventana");
 							}
 						} 
 						bd.disconnect();
@@ -218,8 +230,7 @@ public class VentanaRegistro extends JFrame {
 				try {
 					new VentanaInicio();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					logger.log(Level.INFO, "No se ha podido ejecutar la ventana");
 				}
 				dispose();
 
@@ -288,10 +299,6 @@ public class VentanaRegistro extends JFrame {
 		setSize(550, 450);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-	}
-
-	public static void main(String[] args) {
-		new VentanaRegistro();
 	}
 
 }

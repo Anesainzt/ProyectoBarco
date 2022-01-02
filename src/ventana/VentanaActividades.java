@@ -6,12 +6,17 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -23,10 +28,18 @@ import BD.BD;
 
 public class VentanaActividades extends JFrame{
 
+	static Logger logger = Logger.getLogger( "VentanaActividades" );
 	
 	private static final long serialVersionUID = 1L;
 	BD bd = new BD();
 	public VentanaActividades() throws IOException {
+		addWindowListener( new WindowAdapter() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+            	bd.guardarLogger();
+            }
+          
+        });
 		
 		JPanel panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(4, 15, 15, 15));
@@ -69,7 +82,7 @@ public class VentanaActividades extends JFrame{
 			
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			logger.log( Level.INFO, "No se ha podido carga el combobox" );
 		}
 		
 		panelPrincipal.setLayout(new GridLayout(1,3));
@@ -150,4 +163,3 @@ public class VentanaActividades extends JFrame{
 		
 	}
 }
-

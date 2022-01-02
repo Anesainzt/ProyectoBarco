@@ -1,11 +1,16 @@
 package ventana;
 
 import javax.swing.*;
+
+import BD.BD;
+
 import java.awt.*;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 
 public class VentanaPago extends JFrame{
@@ -26,8 +31,16 @@ public class VentanaPago extends JFrame{
     private JPanel panelAbajo;
     
     static Logger logger = Logger.getLogger(VentanaPago.class.getName());
+    BD bd = new BD();
 
     public VentanaPago() {
+    	addWindowListener( new WindowAdapter() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+            	bd.guardarLogger();
+            }
+          
+        });
 
         cp = this.getContentPane();
         this.setTitle("Pago");
@@ -98,7 +111,7 @@ public class VentanaPago extends JFrame{
                     dispose();
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
-                	logger.log(Level.INFO, "");//METER LA INFO DEL ERROR
+                	logger.log(Level.INFO, "No se ha podido abrir la VentanaPago");
                 }
             }
         });
@@ -115,7 +128,7 @@ public class VentanaPago extends JFrame{
 	        
 	            } catch (Exception e) {
 	                // TODO Auto-generated catch block
-	            	logger.log(Level.INFO, "");//METER LA INFO DEL ERROR
+	            	logger.log(Level.INFO, "No se ha podido abrir la VentanaPago");
 	            }
 	        }
         });
@@ -142,7 +155,7 @@ public class VentanaPago extends JFrame{
                     dispose();
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
-                	logger.log(Level.INFO, "");//METER LA INFO DEL ERROR
+                	logger.log(Level.INFO, "No se ha podido abrir la ventana");
                 }
             }
         });

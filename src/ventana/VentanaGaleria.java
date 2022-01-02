@@ -15,6 +15,8 @@ import java.util.logging.Level;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import BD.BD;
 import clases.Actividad;
@@ -53,6 +55,13 @@ public class VentanaGaleria extends JFrame{
     static Logger logger = Logger.getLogger(VentanaGaleria.class.getName());
 
     public VentanaGaleria() throws IOException {
+    	addWindowListener( new WindowAdapter() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+            	bd.guardarLogger();
+            }
+          
+        });
 
         bd.connect();
 
@@ -108,8 +117,7 @@ public class VentanaGaleria extends JFrame{
                         panel1.setVisible(false);
                         panel2.setVisible(true);
                     } catch (Exception e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
+                    	logger.log( Level.INFO, "No se ha podido ejecutar el boton" );
                     }
                 }
             });
@@ -128,8 +136,7 @@ public class VentanaGaleria extends JFrame{
 					new VentanaViaje(bd.getuActual());
                     dispose();
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					logger.log( Level.INFO, "No se ha podido cargar la VentanaViaje" );
 				}
             }
 		});
@@ -212,7 +219,7 @@ public class VentanaGaleria extends JFrame{
                     panel2.setVisible(false);
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
-                	logger.log(Level.INFO, "");//METER LA INFO DEL ERROR
+                	logger.log(Level.INFO, "No se ha podido ejecutar el boton");//METER LA INFO DEL ERROR
                 }
             }
         });
@@ -242,7 +249,7 @@ public class VentanaGaleria extends JFrame{
 		   VentanaGaleria frame = new VentanaGaleria();
 		   frame.setVisible(true);
 		  } catch (Exception e) {
-		   e.printStackTrace();
+			  logger.log( Level.INFO, "No se ha podido hacer visible la ventana" );
 		  }
 		 }
 		});

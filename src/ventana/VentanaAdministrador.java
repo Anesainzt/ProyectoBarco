@@ -28,6 +28,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.awt.event.ActionEvent;
 import java.awt.Rectangle;
 
@@ -40,6 +42,7 @@ public class VentanaAdministrador extends JFrame {
 	JPanel panelCentral, panelCentralAdmin, panelTitbot, panelbotonUsuarios, panelBotonActividades, panel_1, panelTitulo, panelAbajo, panelOpciones;
 	JButton botonUsuarios, botonActividades, botonCerrarSesion, btnAñadirAct, btnQuitarAct, botonSalir;
 	JTextPane txtpnMenuAdministrador;
+	static Logger logger = Logger.getLogger( "VentanaAdministrador" );
 	 
 	BD bd = new BD();
 	
@@ -95,6 +98,7 @@ public class VentanaAdministrador extends JFrame {
 	    addWindowListener( new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
+            	bd.guardarLogger();
                 bd.connect();
                 //verProductos();  // Según se inicia la ventana se visualizan los productos
             }
@@ -125,8 +129,7 @@ public class VentanaAdministrador extends JFrame {
 					new VentanaInicio();
 					dispose();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					logger.log( Level.INFO, "No se ha podido cargar la VentanaInicio" );
 				}
 				
 			}
@@ -146,8 +149,7 @@ public class VentanaAdministrador extends JFrame {
 					try {
 						bd.borrarActividad(codi);
 					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						logger.log( Level.INFO, "No se ha podido borrar la actividad de la tabla" );
 					}
 					modeloDeDatos.removeRow(fill);
 					
@@ -237,8 +239,7 @@ public class VentanaAdministrador extends JFrame {
 				try {
 					bd.modificarActividad(cod, nombre, aforo, instructor, ubicacion, descripcion, imagen);
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					logger.log( Level.INFO, "No se ha podido modificar la actividad" );
 				}
 			}
 		});
@@ -300,8 +301,7 @@ public class VentanaAdministrador extends JFrame {
 				try {
 					bd.modificarUsuario(nom, apellido, dni, tarjeta, login, contrasenya, email);
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					logger.log( Level.INFO, "No se ha podido modificar el usuario" );
 				}
 				bd.disconnect();
 			}
@@ -326,10 +326,4 @@ public class VentanaAdministrador extends JFrame {
 		bd.disconnect();
 		
 	}
-	
-	public static void main(String[] args) {
-		new VentanaAdministrador(null);
-	}
-	
-
 }

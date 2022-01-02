@@ -3,6 +3,8 @@ package ventana;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +32,13 @@ public class VentanaPerfil extends JFrame {
 
 	@SuppressWarnings("static-access")
 	public VentanaPerfil(Usuario uActual) {
+		addWindowListener( new WindowAdapter() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+            	bd.guardarLogger();
+            }
+          
+        });
 		
 		cp = this.getContentPane();
 		this.setTitle("Mi Perfil");
@@ -170,7 +179,7 @@ public class VentanaPerfil extends JFrame {
 					
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
-					logger.log(Level.INFO, "");//METER LA INFO DEL ERROR
+					logger.log(Level.INFO, "No se ha podido editar el usuario");
 				}
 				
 			}
@@ -199,8 +208,7 @@ public class VentanaPerfil extends JFrame {
 					
 					JOptionPane.showConfirmDialog(null, "¡Su perfil ha sido eliminado con éxito!");
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					logger.log( Level.INFO, "No se ha podido borrar su perfil" );
 					JOptionPane.showMessageDialog(null, "No se ha podido borrar su perfil");
 				}
 				

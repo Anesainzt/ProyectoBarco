@@ -3,6 +3,8 @@ package ventana;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.logging.Level;
@@ -33,6 +35,15 @@ public class VentanaInicio extends JFrame {
 	static Logger logger = Logger.getLogger(VentanaInicio.class.getName());
 	
 	public VentanaInicio() throws IOException {
+		
+		addWindowListener( new WindowAdapter() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+            	bd.guardarLogger();
+            }
+          
+        });
+		
 		//crear usuarioActual
 		Usuario uActual = new Usuario();
 		
@@ -95,12 +106,10 @@ public class VentanaInicio extends JFrame {
 					}else {
 						try {
 							uActual.setLogin(textoUsuario.getText());
-				
-							//He modificado un poco el inicio de sesión de la bd
 							new VentanaViaje(bd.getuActual());
 							dispose();
 						} catch (Exception e) {
-							logger.log(Level.INFO, "");//METER LA INFO DEL ERROR
+							logger.log(Level.INFO, "No se ha podido abrir la ventana");//METER LA INFO DEL ERROR
 						}
 						
 					}
