@@ -40,7 +40,6 @@ public class VentanaGaleriaEspecifica extends JFrame {
             public void windowOpened(WindowEvent e) {
             	bd.ficheroLogger();
             }
-          
         });
 		setTitle("Galería de fotos");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -57,28 +56,32 @@ public class VentanaGaleriaEspecifica extends JFrame {
 
         JPanel panelLabelNombre = new JPanel();
         JLabel labelNombre = new JLabel(actividad.getNombre());
-        labelNombre.setFont(new Font("Serif", Font.PLAIN, 20));
+        labelNombre.setFont(new Font("Arial", Font.PLAIN, 30));
         panelLabelNombre.add(labelNombre);
 
         JPanel panelLabelCodigo = new JPanel();
-        
-        JLabel labelCodigo = new JLabel(actividad.getCodigo());
+        JLabel labelCodigo = new JLabel("Código: " + actividad.getCodigo());
+        labelCodigo.setFont(new Font("Arial", Font.PLAIN, 20));
         panelLabelCodigo.add(labelCodigo);
 
         JPanel panelLabelAforo = new JPanel();
-        JLabel labelAforo = new JLabel(String.valueOf(actividad.getAforo()));
+        JLabel labelAforo = new JLabel("Aforo: " + String.valueOf(actividad.getAforo()));
+        labelAforo.setFont(new Font("Arial", Font.PLAIN, 20));
         panelLabelAforo.add(labelAforo);
 
         JPanel panelLabelInstructor = new JPanel();
         JLabel labelInstructor = new JLabel("Instructor: " + actividad.getInstructor());
+        labelInstructor.setFont(new Font("Arial", Font.PLAIN, 20));
         panelLabelInstructor.add(labelInstructor);
 
         JPanel panelLabelUbicacion = new JPanel();
-        JLabel labelUbicacion = new JLabel(actividad.getUbicacion());
+        JLabel labelUbicacion = new JLabel("Ubicación: " + actividad.getUbicacion());
+        labelUbicacion.setFont(new Font("Arial", Font.PLAIN, 20));
         panelLabelUbicacion.add(labelUbicacion);
 
         JPanel panelLabelCantidadMaterial = new JPanel();
-        JLabel labelCantidadMaterial= new JLabel("Cantidad material : ");
+        JLabel labelCantidadMaterial= new JLabel("Cantidad material: ");
+        labelCantidadMaterial.setFont(new Font("Arial", Font.PLAIN, 20));
         panelLabelCantidadMaterial.add(labelCantidadMaterial);
 
         panel2Izquierda.add(panelLabelNombre);
@@ -88,17 +91,18 @@ public class VentanaGaleriaEspecifica extends JFrame {
         panel2Izquierda.add(panelLabelUbicacion);
         panel2Izquierda.add(panelLabelCantidadMaterial);
 
-        JPanel panelLabelDescripcion = new JPanel();
-        //panelLabelDescripcion.setSize(30, 20);
-        JLabel labelDescripcion = new JLabel("Descripción:" /*En náutica, el barco es un navío de gran tamaño para navegación costera y fluvial. Tiene construcción cóncava y fusiforme, de madera, metal, fibra de vidrio u otro material que, por su forma, es capaz de flotar en el agua y que se utiliza para navegar como medio de transporte.*/);
-        panelLabelDescripcion.add(labelDescripcion);
+        JPanel panelTextDescripcion = new JPanel();
+        JTextArea textDescripcion = new JTextArea(10, 45);
+        textDescripcion.setEditable(false);
+        textDescripcion.setText("Descripción: " + actividad.getDescripcion());
+        panelTextDescripcion.add(textDescripcion);
 
-        Border border2 = panelLabelDescripcion.getBorder();
-        Border margin2 = new EmptyBorder(80, 0, 0, 0);
-        panelLabelDescripcion.setBorder(new CompoundBorder(border2, margin2));
+        Border border2 = panelTextDescripcion.getBorder();
+        Border margin2 = new EmptyBorder(80, 295, 0, 0);
+        panelTextDescripcion.setBorder(new CompoundBorder(border2, margin2));
 
         BufferedImage bufferedImage = ImageIO.read(new File(actividad.getImagen() + ".jpg"));
-        Image image = bufferedImage.getScaledInstance(400, 200, Image.SCALE_DEFAULT);
+        Image image = bufferedImage.getScaledInstance(450, 250, Image.SCALE_DEFAULT);
         JLabel labelImagen = new JLabel(new ImageIcon(image));
 
         Border border1 = labelImagen.getBorder();
@@ -106,12 +110,12 @@ public class VentanaGaleriaEspecifica extends JFrame {
         labelImagen.setBorder(new CompoundBorder(border1, margin1));
 
         JPanel panelBotonAtras = new JPanel();
-        JButton botonAtras = new JButton("Atrás"); //bd.getActividades
+        JButton botonAtras = new JButton("Atrás");
         botonAtras.setPreferredSize(new Dimension(200, 40));
         panelBotonAtras.add(botonAtras);
 
         Border border = panelBotonAtras.getBorder();
-        Border margin = new EmptyBorder(120, 480, 10, 0);
+        Border margin = new EmptyBorder(30, 480, 10, 0);
         panelBotonAtras.setBorder(new CompoundBorder(border, margin));
 
         botonAtras.addActionListener(new ActionListener() {
@@ -128,19 +132,15 @@ public class VentanaGaleriaEspecifica extends JFrame {
             }
         });
 
-        panel2Derecha.add(panelLabelDescripcion);
+        panel2Derecha.add(panelTextDescripcion);
         panel2Derecha.add(labelImagen);
         panel2Derecha.add(panelBotonAtras);
 
         panel2.add(panel2Izquierda, BorderLayout.WEST);
         panel2.add(panel2Derecha, BorderLayout.EAST);
 
-        //
-
         contentPane.setVisible(true);
         panel2.setVisible(true);
         contentPane.add(panel2);
-    
 	}
-	
 }

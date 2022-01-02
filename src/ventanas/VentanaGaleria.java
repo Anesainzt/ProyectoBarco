@@ -53,7 +53,6 @@ public class VentanaGaleria extends JFrame {
             public void windowOpened(WindowEvent e) {
             	bd.ficheroLogger();
             }
-          
         });
         bd.connect();
 
@@ -69,8 +68,6 @@ public class VentanaGaleria extends JFrame {
         listaActividades = new ArrayList<Actividad>();
         listaActividades = bd.getActividades();
 
-        // panel 1
-
         int numFotos = listaActividades.size(); // calculará el número de fotos que haya en la bd
 
         panel1 = new JPanel(new BorderLayout());
@@ -81,7 +78,6 @@ public class VentanaGaleria extends JFrame {
 
         for (int i = 0; i < numFotos; i++) {
             Actividad actividad = listaActividades.get(i);
-
 
             BufferedImage bufferedImage = ImageIO.read(new File(actividad.getImagen() + ".jpg"));
             Image image = bufferedImage.getScaledInstance(400, 200, Image.SCALE_DEFAULT);
@@ -161,4 +157,3 @@ public class VentanaGaleria extends JFrame {
 		});
 	}
 }
-

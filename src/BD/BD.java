@@ -1,6 +1,5 @@
 package BD;
 
-
 import java.io.*;
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -438,30 +437,11 @@ public class BD extends JFrame{
 		}
 	}
 
-	/*
+	
 	//MIRAR QUE ACTIVIDADES ESTÁN RESEVADAS PARA HOY PARA EL ADMIN
-	*/
-/*
+	
 
-	public List<Buceo> getListaBuceo(){
-
-	 	List<Buceo> listaBuceo = new ArrayList<Buceo>();
-
-	 	try(Statement stmt = (Statement) conn.createStatement()) {
-
-	 		ResultSet buceo = stmt.executeQuery("SELECT * FROM actividad WHERE nombre = Buceo");
-
-	 		while(buceo.next()) {
-
-	 			Buceo actividad = new Buceo(buceo.getString("codigo"), buceo.getString("nombre"), buceo.getInt("aforo"), buceo.getString("instructor"), buceo.getString("ubicacion"), buceo.getString("descripcion"), buceo.getString("imagen"), buceo.getInt("cantMaterial"));
-	 			listaBuceo.add(actividad);
-	 		}	
-	 	}catch (Exception e) {
-	 		e.printStackTrace();
-	 	}
-	 	return listaBuceo;
-	 }
-*/
+	
 	/*
 	 public List<Ski> getListaSki(){
 
@@ -506,26 +486,7 @@ public class BD extends JFrame{
 		return listaSki;
 	}
 
-/*
-	 public List<Surf> getListaSurf(){
 
-	 	List<Surf> listaSurf = new ArrayList<Surf>();
-
-	 	try(Statement stmt = (Statement) conn.createStatement()) {
-
-	 		ResultSet surf = stmt.executeQuery("SELECT * FROM actividad WHERE nombre = Surf");
-
-	 		while(surf.next()) {
-
-	 			Surf actividad = new Surf(surf.getString("codigo"), surf.getString("nombre"), surf.getInt("aforo"), surf.getString("instructor"), surf.getString("ubicacion"), surf.getString("descripcion"), surf.getString("imagen"), surf.getInt("cantMaterial"));
-				listaSurf.add(actividad);
-	 		}
-	 	} catch (Exception e) {
-	 		e.printStackTrace();
-	 	}
-	 	return listaSurf;
-	 }
-*/
 	public static TreeSet<String> obtenerDiferentesActividades() throws SQLException{
 		
 		conn = DriverManager.getConnection("jdbc:sqlite:database.db");
