@@ -38,7 +38,7 @@ public class VentanaGaleriaEspecifica extends JFrame {
 		addWindowListener( new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
-            	bd.ficheroLogger();
+            	//bd.ficheroLogger();
             }
         });
 		setTitle("Galería de fotos");

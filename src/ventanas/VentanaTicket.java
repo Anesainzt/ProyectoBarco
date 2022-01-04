@@ -23,7 +23,7 @@ public class VentanaTicket extends JFrame {
     	 addWindowListener( new WindowAdapter() {
              @Override
              public void windowOpened(WindowEvent e) {
-            	 bd.ficheroLogger();
+            	 //bd.ficheroLogger();
              }
 
          });

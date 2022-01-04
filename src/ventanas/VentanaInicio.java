@@ -39,7 +39,7 @@ public class VentanaInicio extends JFrame {
 		addWindowListener( new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
-            	bd.ficheroLogger();
+            	//bd.ficheroLogger();
             }
             	/*@Override
                 public void windowClosed(WindowEvent e) {
