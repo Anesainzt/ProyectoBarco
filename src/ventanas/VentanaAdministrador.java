@@ -1,5 +1,6 @@
 package ventanas;
 
+
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -17,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 import BD.BD;
 import clases.Actividad;
 import clases.Usuario;
+
 import javax.swing.JTextPane;
 import java.awt.Color;
 import javax.swing.JButton;
@@ -137,6 +139,17 @@ public class VentanaAdministrador extends JFrame {
 		});
 		
 		btnAñadirAct = new JButton("Añadir Actividad");
+		btnAñadirAct.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				aniadirActividad();
+				verActividades();
+				
+			}
+			
+		});
+		
 		btnQuitarAct = new JButton("Quitar Actividad");
 		btnQuitarAct.addActionListener(new ActionListener() {
 
@@ -151,11 +164,11 @@ public class VentanaAdministrador extends JFrame {
 					} catch (SQLException e1) {
 						logger.log( Level.INFO, "No se ha podido borrar la actividad de la tabla" );
 					}
-					modeloDeDatos.removeRow(fill);
 					
+					//modeloDeDatos.removeRow(fill);
+					verActividades();
 				}
 				bd.disconnect();
-				
 				
 			}
 			
@@ -325,5 +338,84 @@ public class VentanaAdministrador extends JFrame {
 		tDatos.getColumnModel().getColumn(7).setMaxWidth(40);
 		bd.disconnect();
 		
+	}
+	
+	private void aniadirActividad() {
+		bd.connect();
+		String cod = JOptionPane.showInputDialog("Introduce el codigo de la nueva actividad: ");
+		String nom = "";
+		int aforo =0;
+		String instructor="";
+		String ubicacion="";
+		String descripcion="";
+		String imagen="";
+		String cantMat="";
+		
+		boolean cancel=false;
+		if(cod == null) {
+			cancel= true;
+		}
+		if(cancel == false) {
+			nom = JOptionPane.showInputDialog("Introduce el nombre de la nueva actividad: ");
+			if(nom == null) {
+				cancel= true;
+			}
+		}
+		
+		if(cancel == false) {
+			String a= JOptionPane.showInputDialog("Introduce el número del aforo: ");
+			
+			if (a !=null) {
+				aforo = Integer.parseInt(a);
+			}
+			if(a == null) {
+				cancel= true;
+			}
+		}
+		if(cancel == false) {
+			instructor = JOptionPane.showInputDialog("Introduce el nombre del instructor: ");
+			if(instructor == null) {
+				cancel= true;
+			}
+		}
+		if(cancel == false) {
+			ubicacion = JOptionPane.showInputDialog("Introduce la ubicación de la actividad: ");
+			if(ubicacion == null) {
+				cancel= true;
+			}
+		}
+		if(cancel == false) {
+			descripcion = JOptionPane.showInputDialog("Introduce la descripcion de la actividad: ");
+			if(descripcion == null) {
+				cancel= true;
+			}
+		}
+		if(cancel == false) {
+			imagen = JOptionPane.showInputDialog("Introduce la ruta de la imagen: ");
+			if(imagen == null) {
+				cancel= true;
+			}
+		}
+		if(cancel == false) {
+			cantMat = JOptionPane.showInputDialog("Introduce la cantidad de material disponible: ");
+			if(cantMat == null) {
+				cancel= true;
+			}
+		}
+		
+		if(cancel == false) {
+			try {
+				if(!bd.existeActividadMismoCodigoYNombre(cod, nom))
+					bd.insertarNuevaActividad(cod, nom, aforo,instructor,ubicacion, descripcion, imagen, cantMat);
+				else 
+					JOptionPane.showMessageDialog(null, "Ya existe un producto igual");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			bd.disconnect();
+		}else {
+			//PONER QUE NO SE HA PODIDO AÑADIR
+		}
 	}
 }

@@ -198,10 +198,10 @@ public class BD extends JFrame{
 	 * @throws SQLException
 	 */
 	public void borrarActividad(String codigo) throws SQLException {
-		Connection conn = DriverManager.getConnection("jdbc:sqlite:database.db");
-		Statement stmt = (Statement) conn.createStatement();
-		String borrar = "DELETE FROM actividad where codigo='"+codigo+"';";
-		int rs = stmt.executeUpdate(borrar);
+		Statement statement = conn.createStatement();
+		String borrar = "DELETE FROM actividad where codigo='"+codigo+"'";
+		statement.executeUpdate(borrar);
+		
 	}
 
 	/**
@@ -487,7 +487,7 @@ public class BD extends JFrame{
 	}
 
 
-	public static TreeSet<String> obtenerDiferentesActividades() throws SQLException{
+public static TreeSet<String> obtenerDiferentesActividades() throws SQLException{
 		
 		conn = DriverManager.getConnection("jdbc:sqlite:database.db");
 		Statement statement = conn.createStatement();
@@ -501,7 +501,22 @@ public class BD extends JFrame{
 		rs.close();
 		return tsfechas;
 		
-		
+	}
+	
+	public static void insertarNuevaActividad(String cod, String nombre, int aforo, String instructor, String ubicacion, String descripcion, String imagen, String cantMat) throws SQLException {
+		Statement statement = conn.createStatement();
+		String sent = "insert into actividad (codigo,nombre,aforo,instructor,ubicacion,descripcion,imagen,cantMaterial) values('"+cod+"','"+nombre+"','"+aforo+"','"+instructor+"','"+ubicacion+"','"+descripcion+"', '"+imagen+"','"+cantMat+"')";
+		statement.executeUpdate(sent);
 		
 	}
+	public static boolean existeActividadMismoCodigoYNombre(String cod, String nombre) throws SQLException {
+		String sent = "select * from actividad where codigo='"+cod+"' or nombre='"+nombre+"'";
+		Statement statement = conn.createStatement();
+		ResultSet rs = statement.executeQuery(sent);
+		boolean existe = false;
+		if(rs.next())
+			existe = true;
+		rs.close();
+		return existe;
+}
 }
