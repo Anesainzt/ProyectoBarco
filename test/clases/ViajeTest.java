@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 class ViajeTest {
 
-	ArrayList<Actividad> listaActi;
+	List<Actividad> listaActi;
 	
 	@Before
     public void SetUp() {

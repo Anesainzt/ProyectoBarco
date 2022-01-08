@@ -12,9 +12,9 @@ public class Usuario{
 	protected String contrasenya;
 	protected String email;
 	protected int administrador;
-	protected List<String> listaBilletes;
+	protected List<Billete> listaBilletes;
 
-	public Usuario(String nombre, String apellido, String dni, String tarjeta, String login, String contrasenya, String email, int administrador, List<String> listaBilletes) {
+	public Usuario(String nombre, String apellido, String dni, String tarjeta, String login, String contrasenya, String email, int administrador, List<Billete> listaBilletes) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.dni = dni;
@@ -102,11 +102,11 @@ public class Usuario{
 		this.administrador = administrador;
 	}
 	
-	public List<String> getListaBilletes() {
+	public List<Billete> getListaBilletes() {
 		return listaBilletes;
 	}
 
-	public void setListaBilletes(List<String> listaBilletes) {
+	public void setListaBilletes(List<Billete> listaBilletes) {
 		this.listaBilletes = listaBilletes;
 	}
 
