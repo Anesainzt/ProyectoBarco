@@ -12,7 +12,6 @@ public class Usuario{
 	protected String contrasenya;
 	protected String email;
 	protected int administrador;
-	
 	protected List<String> listaBilletes;
 
 	public Usuario(String nombre, String apellido, String dni, String tarjeta, String login, String contrasenya, String email, int administrador, List<String> listaBilletes) {
@@ -23,8 +22,8 @@ public class Usuario{
 		this.login = login;
 		this.contrasenya = contrasenya;
 		this.email = email;
-		this.listaBilletes = listaBilletes;
 		this.administrador = administrador;
+		this.listaBilletes = listaBilletes;
 	}
 
 	public Usuario() {
@@ -35,6 +34,7 @@ public class Usuario{
 		this.login = "";
 		this.contrasenya = "";
 		this.email = "";
+		this.administrador= 0;
 		this.listaBilletes = null;
 	}
 
@@ -71,7 +71,7 @@ public class Usuario{
 	}
 
 	public String getLogin() {
-		return this.login;
+		return login;
 	}
 
 	public void setLogin(String login) {
@@ -93,7 +93,7 @@ public class Usuario{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public int getAdministrador() {
 		return administrador;
 	}
@@ -101,12 +101,14 @@ public class Usuario{
 	public void setAdministrador(int administrador) {
 		this.administrador = administrador;
 	}
-
+	
 	public List<String> getListaBilletes() {
 		return listaBilletes;
 	}
 
 	public void setListaBilletes(List<String> listaBilletes) {
 		this.listaBilletes = listaBilletes;
-	}	
+	}
+
+
 }

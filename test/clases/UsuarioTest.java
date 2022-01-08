@@ -1,5 +1,6 @@
 package clases;
 
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -98,7 +99,7 @@ class UsuarioTest {
 	
 	@Test
 	void testGAdmin() {
-		assertEquals(0, u2.getEmail());
+		assertEquals(0, u2.getAdministrador());
 	}
 	
 	@Test
