@@ -107,7 +107,7 @@ public class VentanaPago extends JFrame{
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 try {
-                    new VentanaActividades();
+                    //new VentanaActividades();
                     dispose();
                 } catch (Exception e) {
                     // TODO Auto-generated catch block

@@ -7,18 +7,16 @@ public class Viaje {
     protected String localizador;
     protected String origen;
     protected String destino;
-    protected String fechaIda; // cambiar el string
-    protected String fechaVuelta;
+    protected String fecha; // cambiar el string
     protected int aforo;
     protected List<Actividad> listaActividades;
 
-    public Viaje(String localizador, String origen, String destino, String fechaIda, String fechaVuelta, int aforo,
+    public Viaje(String localizador, String origen, String destino, String fecha, int aforo,
             List<Actividad> listaActividades) {
         this.localizador = localizador;
         this.origen = origen;
         this.destino = destino;
-        this.fechaIda = fechaIda;
-        this.fechaVuelta = fechaVuelta;
+        this.fecha = fecha;
         this.aforo = aforo;
         this.listaActividades = listaActividades;
     }
@@ -27,8 +25,7 @@ public class Viaje {
         this.localizador = "";
         this.origen = "";
         this.destino = "";
-        this.fechaIda = "";
-        this.fechaVuelta = "";
+        this.fecha = "";;
         this.aforo = 0;
         this.listaActividades = null;
     }
@@ -57,20 +54,12 @@ public class Viaje {
         this.destino = destino;
     }
 
-    public String getFechaIda() {
-        return this.fechaIda;
+    public String getFecha() {
+        return this.fecha;
     }
 
-    public void setFechaIda(String fechaIda) {
-        this.fechaIda = fechaIda;
-    }
-
-    public String getFechaVuelta() {
-        return this.fechaVuelta;
-    }
-
-    public void setFechaVuelta(String fechaVuelta) {
-        this.fechaVuelta = fechaVuelta;
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 
     public int getAforo() {
@@ -95,8 +84,7 @@ public class Viaje {
             "localizador='" + getLocalizador() + "'" +
             ", origen='" + getOrigen() + "'" +
             ", destino='" + getDestino() + "'" +
-            ", fechaIda='" + getFechaIda() + "'" +
-            ", fechaVuelta='" + getFechaVuelta() + "'" +
+            ", fecha='" + getFecha() + "'" +
             ", aforo='" + getAforo() + "'" +
             ", listaActividades='" + getListaActividades() + "'" +
             "}";

@@ -123,7 +123,7 @@ public class VentanaInicio extends JFrame {
 						}
 						
 					}
-					
+	
 					bd.disconnect();
 				}
 			}

@@ -25,6 +25,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import BD.BD;
+import clases.Usuario;
+import clases.Viaje;
 
 public class VentanaActividades extends JFrame{
 
@@ -32,7 +34,7 @@ public class VentanaActividades extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
 	BD bd = new BD();
-	public VentanaActividades() throws IOException {
+	public VentanaActividades(Usuario uActual, Viaje viajeIda, Viaje viajeVuelta, int numeroPersonas) throws IOException {
 		addWindowListener( new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {

@@ -1,6 +1,5 @@
 package ventanas;
 
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -22,6 +21,7 @@ import com.toedter.calendar.JDateChooser;
 
 import BD.BD;
 import clases.Usuario;
+import clases.Viaje;
 public class VentanaViaje extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
@@ -162,7 +162,6 @@ public class VentanaViaje extends JFrame {
 				spinner.setVisible(true);
 				btnIraActividad.setVisible(false);
 				btnIrATicket.setVisible(true);
-				
 			}
 			
 		});
@@ -240,7 +239,6 @@ public class VentanaViaje extends JFrame {
 		
 		JPanel panelVPersonas = new JPanel();
 		
-		
 		lista = new DefaultListModel<>();
 		listaViajes =  new JList<String>(lista);
 		scrollListaViajes = new JScrollPane(listaViajes);
@@ -258,30 +256,61 @@ public class VentanaViaje extends JFrame {
 		JPanel panelBotones = new JPanel();
 		
 		btnIraActividad = new JButton("Aceptar billete");
+
+		//
+		// Falta crear metodo public Viaje getViaje(String origen, String destino, String fecha) en la bd.
+		//
+		
+		//
+		// Falta que el calendario devuelva la fecha en TimiMillis
+		//
 		
 		btnIraActividad.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					new VentanaActividades();
+					if (rbIda.isSelected()) {
+						Viaje viajeIda = new Viaje();
+						int numeroPersonas = (int)spinner.getValue();
+						// viajeIda = bd.getViaje(cbOrigen.getSelectedItem(), cbDestino.getSelectedItem(),
+						// 		calIda.getDate());
+						
+						if (viajeIda.getLocalizador() != "") {
+							new VentanaActividades(uActual, viajeIda, null, numeroPersonas);
+						} else {
+							JOptionPane.showMessageDialog(null, "No existe un vuelo para esa fecha.");
+							logger.log(Level.INFO, "No existe un vuelo para esa fecha");
+						}
+					} else {
+						Viaje viajeIda = new Viaje();
+						Viaje viajeVuelta = new Viaje();
+						int numeroPersonas = (int)spinner.getValue();
+						// viajeIda = bd.getViaje((String)cbOrigen.getSelectedItem(), (String)cbDestino.getSelectedItem(),
+						// 		calIda.getDate());
+						// viajeVuelta = bd.getViaje((String)cbDestino.getSelectedItem(), (String)cbOrigen.getSelectedItem(),
+						// 		calVuelta.getDate());
+						
+						if (viajeIda.getLocalizador() != "" && viajeVuelta.getLocalizador() != "") {
+							new VentanaActividades(uActual, viajeIda, viajeVuelta, numeroPersonas);
+						}else{
+							JOptionPane.showMessageDialog(null, "No existen vuelos para esas fechas.");
+							logger.log(Level.INFO, "No existe un vuelo para esa fecha");
+						}
+					}
 				} catch (IOException e1) {
-					logger.log(Level.INFO, "No se ha podido ejecutar la ventana");
+					logger.log(Level.INFO, "No se ha podido ejecutar la ventana actividades");
 				}
-				
 				cact.setMinSelectableDate(calendarioIda.getDate());
 				cact.setMaxSelectableDate(calendarioVuelta.getDate());
 				spinnerAct.setModel(new SpinnerNumberModel(0, 0,(Comparable<?>) spinner.getValue(), 1));
 				
-				dispose();
-				
+				dispose();	
 			}
-			
 		});
 	
 		calendarioActividades = new JDateChooser();
 		cact = calendarioActividades.getJCalendar();
-		
 		
 		setVisible(true);
 		

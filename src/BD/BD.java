@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import clases.Actividad;
 import clases.Ski;
 import clases.Usuario;
+import clases.Viaje;
 import ventanas.VentanaInicio;
 
 public class BD extends JFrame{
@@ -519,4 +520,7 @@ public static TreeSet<String> obtenerDiferentesActividades() throws SQLException
 		rs.close();
 		return existe;
 }
+    public Viaje getViaje(String origen, String destino, Date fecha) {
+        return null;
+    }
 }
