@@ -6,9 +6,9 @@ public class Billete {
 
     protected String localizadorBillete;
     protected String localizadorViaje;
-    protected List<String> listaActividades; 
+    protected List<Actividad> listaActividades;
 
-    public Billete(String localizadorBillete, String localizadorViaje, List<String> listaActividades) {
+    public Billete(String localizadorBillete, String localizadorViaje, List<Actividad> listaActividades) {
         this.localizadorBillete = localizadorBillete;
         this.localizadorViaje = localizadorViaje;
         this.listaActividades = listaActividades;
@@ -36,11 +36,11 @@ public class Billete {
         this.localizadorViaje = localizadorViaje;
     }
 
-    public List<String> getListaActividades() {
+    public List<Actividad> getListaActividades() {
         return this.listaActividades;
     }
 
-    public void setListaActividades(List<String> listaActividades) {
+    public void setListaActividades(List<Actividad> listaActividades) {
         this.listaActividades = listaActividades;
     }
 
@@ -54,7 +54,7 @@ public class Billete {
         return this;
     }
 
-    public Billete listaActividades(List<String> listaActividades) {
+    public Billete listaActividades(List<Actividad> listaActividades) {
         setListaActividades(listaActividades);
         return this;
     }
