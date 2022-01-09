@@ -165,7 +165,6 @@ public class VentanaAdministrador extends JFrame {
 						logger.log( Level.INFO, "No se ha podido borrar la actividad de la tabla" );
 					}
 					
-					//modeloDeDatos.removeRow(fill);
 					verActividades();
 				}
 				bd.disconnect();
@@ -285,7 +284,7 @@ public class VentanaAdministrador extends JFrame {
 				cabeceras  // Cabeceras de la jtable
 			){
 			public boolean isCellEditable(int row, int column) {
-				if(column==7)
+				if(column==7 || column ==0 || column ==1 || column ==3|| column ==4|| column ==5|| column ==6)
 					return false;
 				return true;
 			}
@@ -310,9 +309,8 @@ public class VentanaAdministrador extends JFrame {
 				String login = (String) modeloDeDatos.getValueAt(fil, 4);
 				String contrasenya = (String) modeloDeDatos.getValueAt(fil, 5);
 				String email = (String) modeloDeDatos.getValueAt(fil, 6);
-				
 				try {
-					bd.modificarUsuario(nom, apellido, dni, tarjeta, login, contrasenya, email);
+					bd.modificarUsuario(dni,login);
 				} catch (SQLException e1) {
 					logger.log( Level.INFO, "No se ha podido modificar el usuario" );
 				}

@@ -337,9 +337,10 @@ public class BD extends JFrame{
 	 * @param contrasenya
 	 * @throws SQLException
 	 */
-	public static void modificarUsuario(String nom, String apellido, String dni, String tarjeta, String login, String contrasenya, String email) throws SQLException {
+	
+	public static void modificarUsuario(String dni, String login) throws SQLException {
 		Statement statement = conn.createStatement();
-		String sent = "update usuario set nombre='"+nom+"',apellido='"+apellido+"', dni='"+dni+"', tarjeta='"+tarjeta+"', login='"+login+"', contrasenya='"+contrasenya+"', email='"+email+"'where dni= '"+dni+"'; ";
+		String sent = "update usuario set dni='"+dni+"'where login= '"+login+"'; ";
 		statement.executeUpdate(sent);
 	}
 	

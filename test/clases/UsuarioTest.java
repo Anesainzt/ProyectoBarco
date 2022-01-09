@@ -17,8 +17,7 @@ class UsuarioTest {
 	List<Billete> listaBilletes;
 	List<Actividad> listaActi;
 	
-	@Before
-    public void SetUp() {
+	void SetUp() {
 		
        listaBilletes =new ArrayList<Billete>();
        listaActi =new ArrayList<Actividad>();

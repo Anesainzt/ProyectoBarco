@@ -13,8 +13,8 @@ class ViajeTest {
 
 	List<Actividad> listaActi;
 	
-	@Before
-    public void SetUp() {
+	
+	void rellenar() {
 		
         listaActi =new ArrayList<Actividad>();
         
@@ -88,7 +88,7 @@ class ViajeTest {
 	@Test
 	void testGListaActividades() {
 		
-		SetUp();
+		rellenar();
 		Viaje v3 = new Viaje("", "", "","", 0, listaActi);
 		assertEquals(listaActi, v3.getListaActividades());
 		
@@ -104,7 +104,7 @@ class ViajeTest {
         listaActividades.add(a1);
         listaActividades.add(a2);
 		
-        SetUp();
+        rellenar();
         
 	    v1.setListaActividades(listaActi);
 	    

@@ -16,8 +16,6 @@ class BDTest {
 	Usuario u3 = new Usuario("olatz","arenas","876567822y","1111111111111112", "o","o","olatz@gadlkf.com", 0, null);
 	Usuario u4 = new Usuario();
 	
-	
-	
 
 	@Test
 	void compararLoginTest() {
@@ -28,6 +26,7 @@ class BDTest {
 			existeu1 = bd.compararLogin(u1);
 		} catch (Exception e) {
 		}
+		
 		boolean existeu2 = false;
 		try {
 			existeu2 = bd.compararLogin(u2);
@@ -39,7 +38,7 @@ class BDTest {
 	}
 	
 	@Test
-	void testComprobarLogin() {
+	void comprobarLoginTest() {
 		BD bd = new BD();
 		bd.connect();
 		boolean existeu1 = false;
@@ -53,7 +52,7 @@ class BDTest {
 	}
 	
 	@Test
-	void testEsAdministrador() {
+	void esAdministradorTest() {
 		BD bd = new BD();
 		bd.connect();
 		boolean esAdmin1 = false;
@@ -73,7 +72,7 @@ class BDTest {
 	}
 	
 	@Test
-	public void testGetActividades() {
+	public void getActividadesTest() {
 		BD bd = new BD();
 		bd.connect();
 		assertNotNull(bd.getActividades());
@@ -81,49 +80,24 @@ class BDTest {
 	
 	
 	@Test
-	public void testGetUsuarios() {
+	public void getUsuariosTest() {
 		BD bd = new BD();
 		bd.connect();
 		assertNotNull(bd.getUsuarios());
 	}
 	
 	@Test
-	public void testGetUActual() {
+	public void getUActualTest() {
 		BD bd = new BD();
 		bd.connect();
 		assertNotNull(bd.getuActual());
 	}
 	
 	@Test
-	void testSUactual() {
+	void sUactualTest() {
 		BD bd = new BD();
 		bd.connect();
 		bd.setuActual(u4);
 		assertEquals(bd.getuActual(), u4);
-	}
-	
-	@Test
-	void usuarioTest() {
-		
-	}
-	
-	@Test
-	void historial() {
-		
-	}
-	
-	@Test
-	void reservaActividad() {
-		
-	}
-	
-	@Test
-	void actividad() {
-		
-	}
-	
-	@Test
-	void getListaSki() {
-		
 	}
 }
