@@ -346,7 +346,7 @@ public class BD extends JFrame{
 	
 	public static void modificarActividad(String codigo, String nombre,  String instructor, String ubicacion, String descripcion, String imagen) throws SQLException {
 		Statement statement = conn.createStatement();
-		String sent = "update actividad set instructor='"+instructor+"'where codigo= '"+codigo+"'; ";
+		String sent = "update actividad set nombre='"+nombre+"',instructor='"+instructor+"', ubicacion='"+ubicacion+"', descripcion='"+descripcion+"', imagen='"+imagen+"'where codigo= '"+codigo+"'; ";
 		statement.executeUpdate(sent);
 	}
 	
