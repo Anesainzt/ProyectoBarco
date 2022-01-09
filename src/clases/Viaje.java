@@ -77,16 +77,4 @@ public class Viaje {
     public void setListaActividades(List<Actividad> listaActividades) {
         this.listaActividades = listaActividades;
     }
-
-    @Override
-    public String toString() {
-        return "{" +
-            "localizador='" + getLocalizador() + "'" +
-            ", origen='" + getOrigen() + "'" +
-            ", destino='" + getDestino() + "'" +
-            ", fecha='" + getFecha() + "'" +
-            ", aforo='" + getAforo() + "'" +
-            ", listaActividades='" + getListaActividades() + "'" +
-            "}";
-    }   
 }

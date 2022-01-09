@@ -43,28 +43,4 @@ public class Billete {
     public void setListaActividades(List<Actividad> listaActividades) {
         this.listaActividades = listaActividades;
     }
-
-    public Billete localizadorBillete(String localizadorBillete) {
-        setLocalizadorBillete(localizadorBillete);
-        return this;
-    }
-
-    public Billete localizadorViaje(String localizadorViaje) {
-        setLocalizadorViaje(localizadorViaje);
-        return this;
-    }
-
-    public Billete listaActividades(List<Actividad> listaActividades) {
-        setListaActividades(listaActividades);
-        return this;
-    }
-
-    @Override
-    public String toString() {
-        return "{" +
-            " localizadorBillete='" + getLocalizadorBillete() + "'" +
-            ", localizadorViaje='" + getLocalizadorViaje() + "'" +
-            ", listaActividades='" + getListaActividades() + "'" +
-            "}";
-    }
 }
