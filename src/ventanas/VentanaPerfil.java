@@ -196,22 +196,22 @@ public class VentanaPerfil extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					textoDni.setText("");
-					textoNombre.setText("");
-					textoApellido.setText("");
-					textoEmail.setText("");
-					textoUsuario.setText("");
-					textoContrasenya.setText("");
-					textoNcuenta.setText("");
-					
-					bd.borrarUsuario(uActual);
-					
-					JOptionPane.showConfirmDialog(null, "¡Su perfil ha sido eliminado con éxito!");
-				} catch (SQLException e) {
-					logger.log( Level.INFO, "No se ha podido borrar su perfil" );
-					JOptionPane.showMessageDialog(null, "No se ha podido borrar su perfil");
-				}
+				dispose();
+                try {
+                    JOptionPane.showMessageDialog(null, "¡Su perfil ha sido borrado con exito!");
+                    bd.borrarUsuario(uActual);
+                    try {
+                        new VentanaInicio();
+
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+
+                } catch (SQLException e) {
+                    logger.log( Level.INFO, "No se ha podido borrar su perfil" );
+                    JOptionPane.showMessageDialog(null, "No se ha podido borrar su perfil");
+                }
 				
 			}
 		});
