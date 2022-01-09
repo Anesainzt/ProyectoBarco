@@ -100,59 +100,60 @@ public class BD extends JFrame{
         }
 	}
 	
+	
 	/**
 	 * Metodo para comprobar si los datos introducidos por el usuario(login y contraseña) están en la base de datos 
 	 * Se usa en la ventana Inicio
 	 * @param login
 	 * @param contrasenya
 	 * @return
+	 * @throws SQLException 
 	 */
-		public boolean comprobarLogin(String login, String contrasenya) {
+	
+	public boolean comprobarLogin(String login, String contrasenya){
 
-			//LAS BD SE EMPIEZAN SIEMPRE CON TRYCATCH
-			try {
-				ResultSet rs;
+		try {
+			ResultSet rs;
+			//preparamos una sentencia donde la bd selecciona la FILA q tenga AMBOS VALORES q le hemos pasado por parámetro
+			String consulta = "SELECT * FROM usuario WHERE login=? AND contrasenya=?;";
 
-				//preparamos una sentencia donde la bd selecciona la FILA q tenga AMBOS VALORES q le hemos pasado por parámetro
-				String consulta = "SELECT * FROM usuario WHERE login=? AND contrasenya=?;";
+			PreparedStatement ps = conn.prepareStatement(consulta);
+			ps.setString(1, login);
+			ps.setString(2, contrasenya);
 
-				PreparedStatement ps = conn.prepareStatement(consulta);
-				ps.setString(1, login);
-				ps.setString(2, contrasenya);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				if(rs.getString("login").equals(login) && rs.getString("contrasenya").equals(contrasenya)) {
+						
+					String nombre = rs.getString("nombre");
+					String apellido = rs.getString("apellido");
+					String dni = rs.getString("dni");
+					String tarjeta = rs.getString("tarjeta");
+					String log = rs.getString("login");
+					String contr = rs.getString("contrasenya");
+					String email = rs.getString("email");
 
-				rs = ps.executeQuery();
-				while(rs.next()) {
-					if(rs.getString("login").equals(login) && rs.getString("contrasenya").equals(contrasenya)) {
-							
-						String nombre = rs.getString("nombre");
-						String apellido = rs.getString("apellido");
-						String dni = rs.getString("dni");
-						String tarjeta = rs.getString("tarjeta");
-						String log = rs.getString("login");
-						String contr = rs.getString("contrasenya");
-						String email = rs.getString("email");
+					uActual = new Usuario(nombre, apellido, dni, tarjeta, log, contr, email, 0, null);
 
-						uActual = new Usuario(nombre, apellido, dni, tarjeta, log, contr, email, 0, null);
-
-						return true;
-					}	
-				}if (VentanaInicio.textoUsuario.getText().equals("")|| VentanaInicio.textoContrasenya.getText().equals("")) {
-					JOptionPane.showMessageDialog(null, "¡No has introducido la contraseña o el usuario!", "Error", JOptionPane.ERROR_MESSAGE);
-				}else{
-					JOptionPane.showMessageDialog(null, "¡Contraseña o usuario incorrectos!", "Error", JOptionPane.ERROR_MESSAGE);
-					try {
-						VentanaInicio.textoUsuario.setText("");
-						VentanaInicio.textoContrasenya.setText("");
-					} catch (Exception e) {
-						logger.warning("No se ha podido comprobar");
-					}
-				}
+					return true;
+				}	
+			}if (VentanaInicio.textoUsuario.getText().equals("")|| VentanaInicio.textoContrasenya.getText().equals("")) {
+				JOptionPane.showMessageDialog(null, "¡No has introducido la contraseña o el usuario!", "Error", JOptionPane.ERROR_MESSAGE);
+			}else{
+				JOptionPane.showMessageDialog(null, "¡Contraseña o usuario incorrectos!", "Error", JOptionPane.ERROR_MESSAGE);
+				
+				VentanaInicio.textoUsuario.setText("");
+				VentanaInicio.textoContrasenya.setText("");
+				
 				ps.close();
 				return false;
-			} catch (Exception e) {
-				logger.warning("Ha habido un error al hacer el login.");
 			}
-			return true;
+			
+		} catch (Exception e) {
+			logger.warning("No se ha podido comprobar");
+		}
+		return true;
+		
 		}
 		
 	/**
@@ -162,10 +163,10 @@ public class BD extends JFrame{
 	 * @return
 	 */
 
-	public static boolean esAdministrador(String usuario){
+	public static boolean esAdministrador(String dni){
 		
 		Statement st = null;         
-		String sentSQL = "select administrador from usuario where nombre = '"+ usuario+"'";
+		String sentSQL = "select administrador from usuario where dni = '"+ dni+"'";
 		boolean esAdmin = false;         
 		try {             
 			st = conn.createStatement();             
@@ -174,9 +175,8 @@ public class BD extends JFrame{
 				esAdmin = rs.getBoolean("administrador");
 				}         
 			} catch (SQLException e) {             
-				
 				logger.warning( "No se ha podido comprobar el administrador" );
-				}                  
+		}                  
 		return esAdmin;
 		
 		}
@@ -189,7 +189,6 @@ public class BD extends JFrame{
 	public void borrarUsuario(Usuario uActual) throws SQLException {
 		Connection conn = DriverManager.getConnection("jdbc:sqlite:database.db");
 		Statement stmt = (Statement) conn.createStatement();
-
 		String borrar = "DELETE FROM usuario where login='" + uActual.getLogin() + "';";
 		int rs = stmt.executeUpdate(borrar);
 	}
@@ -282,23 +281,6 @@ public class BD extends JFrame{
 
 
 	}
-
-
-	//En vez de en la BD hacer un hashmap en la ventana de cantidadPersonasBillete y cantidadPersonasActividad
-	// los atributos de usuario no son static
-	public void registrarCantidad(int cantidadNiyos, int cantidadAdultos) {
-
-		try {
-
-			PreparedStatement ps = conn.prepareStatement("INSERT INTO cantidadpersonas VALUES('"+ uActual.getDni()+ "', '"+ cantidadNiyos+ "', '"+ cantidadAdultos+ "')");
-			ps.executeUpdate();
-			conn.close();
-		} catch (SQLException e2) {
-			logger.warning("No se ha podido insertar");
-		}
-
-	}
-	
 	
 	public static ArrayList<Actividad> getActividades() {
 		try (Statement statement = conn.createStatement()) {
@@ -488,7 +470,7 @@ public class BD extends JFrame{
 	}
 
 
-public static TreeSet<String> obtenerDiferentesActividades() throws SQLException{
+	public static TreeSet<String> obtenerDiferentesActividades() throws SQLException{
 		
 		conn = DriverManager.getConnection("jdbc:sqlite:database.db");
 		Statement statement = conn.createStatement();
@@ -503,6 +485,7 @@ public static TreeSet<String> obtenerDiferentesActividades() throws SQLException
 		return tsfechas;
 		
 	}
+
 	
 	public static void insertarNuevaActividad(String cod, String nombre, int aforo, String instructor, String ubicacion, String descripcion, String imagen, String cantMat) throws SQLException {
 		Statement statement = conn.createStatement();
@@ -520,7 +503,9 @@ public static TreeSet<String> obtenerDiferentesActividades() throws SQLException
 		rs.close();
 		return existe;
 }
+	
     public Viaje getViaje(String origen, String destino, Date fecha) {
         return null;
     }
+    
 }

@@ -7,6 +7,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,6 +34,7 @@ public class VentanaInicio extends JFrame {
 	protected static BD bd = new BD();
 	
 	static Logger logger = Logger.getLogger(VentanaInicio.class.getName());
+	
 	
 	public VentanaInicio() throws IOException {
 		
@@ -84,6 +86,7 @@ public class VentanaInicio extends JFrame {
 		textoUsuario = new JTextField();
 		textoUsuario.setPreferredSize(new Dimension(200, 25));
 		
+		
 		panel2.setBackground(Color.white);
 		
 		//panel3
@@ -123,9 +126,10 @@ public class VentanaInicio extends JFrame {
 						}
 						
 					}
-	
+
 					bd.disconnect();
 				}
+				
 			}
 		});
 		
