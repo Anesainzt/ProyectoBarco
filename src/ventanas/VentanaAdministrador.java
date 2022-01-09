@@ -222,7 +222,7 @@ public class VentanaAdministrador extends JFrame {
 				cabeceras  // Cabeceras de la jtable
 			){
 			public boolean isCellEditable(int row, int column) {
-				if(column==0)
+				if(column==0 || column == 2)
 					return false;
 				return true;
 			}
@@ -237,26 +237,26 @@ public class VentanaAdministrador extends JFrame {
 			
 			@Override
 			public void tableChanged(TableModelEvent e) {
-				// TODO Auto-generated method stub
 				
 				int fil = e.getFirstRow();
 				String cod = (String) modeloDeDatos.getValueAt(fil, 0);
 				String nombre = (String) modeloDeDatos.getValueAt(fil, 1);
-				int aforo = (int) modeloDeDatos.getValueAt(fil, 2);
 				String instructor = (String) modeloDeDatos.getValueAt(fil, 3);
 				String ubicacion = (String) modeloDeDatos.getValueAt(fil, 4);
 				String descripcion = (String) modeloDeDatos.getValueAt(fil, 5);
 				String imagen = (String) modeloDeDatos.getValueAt(fil, 6);
 				
+				bd.disconnect();
+				bd.connect();
+			
 				try {
-					bd.modificarActividad(cod, nombre, aforo, instructor, ubicacion, descripcion, imagen);
+					bd.modificarActividad(cod, nombre, instructor, ubicacion, descripcion, imagen);
 				} catch (SQLException e1) {
 					logger.log( Level.INFO, "No se ha podido modificar la actividad" );
 				}
+				
 			}
 		});
-		
-		
 		
 		// Pone tamaños a las columnas de la tabla
 		tDatos.getColumnModel().getColumn(0).setMinWidth(60);

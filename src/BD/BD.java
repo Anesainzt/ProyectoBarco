@@ -344,12 +344,11 @@ public class BD extends JFrame{
 		statement.executeUpdate(sent);
 	}
 	
-	public static void modificarActividad(String codigo, String nombre, int aforo, String instructor, String ubicacion, String descripcion, String imagen) throws SQLException {
+	public static void modificarActividad(String codigo, String nombre,  String instructor, String ubicacion, String descripcion, String imagen) throws SQLException {
 		Statement statement = conn.createStatement();
-		String sent = "update actividad set codigo='"+codigo+"',nombre='"+nombre+"', aforo='"+aforo+"', instructor='"+instructor+"', ubicacion='"+ubicacion+"', descripcion='"+descripcion+"', imagen='"+imagen+"'where codigo= '"+codigo+"'; ";
+		String sent = "update actividad set instructor='"+instructor+"'where codigo= '"+codigo+"'; ";
 		statement.executeUpdate(sent);
 	}
-	
 	
 	/**
 	 * Obtener los datos del usuario
