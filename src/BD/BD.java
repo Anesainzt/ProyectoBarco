@@ -27,12 +27,12 @@ public class BD extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private static Connection conn = null;
 	private static Usuario uActual = new Usuario();
-	static Logger logger = Logger.getLogger( "BaseDatos" );
+	public static Logger logger = Logger.getLogger( "Proyecto" );
 	private static Handler handler;
 	
 	public static void ficheroLogger() {
 		try {
-			handler = new FileHandler("BaseDatos.txt", true);
+			handler = new FileHandler("Proyecto.txt", true);
 			handler.setFormatter(new SimpleFormatter());
 			logger.addHandler(handler);
 		} catch (SecurityException e) {

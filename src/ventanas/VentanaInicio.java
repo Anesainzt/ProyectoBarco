@@ -14,6 +14,8 @@ import java.util.logging.Logger;
 import javax.imageio.*;
 import javax.swing.*;
 
+import com.formdev.flatlaf.FlatLightLaf;
+
 import BD.BD;
 import clases.Usuario;
 
@@ -33,11 +35,12 @@ public class VentanaInicio extends JFrame {
 	protected JButton botonLogin, botonRegistro;
 	protected static BD bd = new BD();
 	
-	static Logger logger = Logger.getLogger(VentanaInicio.class.getName());
+	//static Logger logger = Logger.getLogger(VentanaInicio.class.getName());
 	
 	
 	public VentanaInicio() throws IOException {
-		
+		FlatLightLaf.setup();
+		bd.ficheroLogger();
 		addWindowListener( new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
@@ -119,10 +122,12 @@ public class VentanaInicio extends JFrame {
 					}else {
 						try {
 							uActual.setLogin(textoUsuario.getText());
+							bd.logger.log(Level.INFO, "Bienvenido");//METER LA INFO DEL ERROR
 							new VentanaViaje(bd.getuActual());
 							dispose();
 						} catch (Exception e) {
-							logger.log(Level.INFO, "No se ha podido abrir la ventana");//METER LA INFO DEL ERROR
+							
+							bd.logger.log(Level.INFO, "No se ha podido abrir la ventana");//METER LA INFO DEL ERROR
 						}
 						
 					}

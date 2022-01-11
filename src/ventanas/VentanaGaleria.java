@@ -42,7 +42,7 @@ public class VentanaGaleria extends JFrame {
 
     private ArrayList<Actividad> listaActividades;
 
-    static Logger logger = Logger.getLogger(VentanaGaleria.class.getName());
+   // static Logger logger = Logger.getLogger(VentanaGaleria.class.getName());
 
     private Actividad actividad;
 
@@ -99,7 +99,7 @@ public class VentanaGaleria extends JFrame {
                         dispose();
                     } catch (Exception e) {
                         // TODO Auto-generated catch block
-                        logger.log(Level.INFO, "");
+                        BD.logger.log(Level.INFO, "");
                     }
                 }
             });
