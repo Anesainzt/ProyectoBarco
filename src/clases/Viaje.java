@@ -9,15 +9,17 @@ public class Viaje {
     protected String destino;
     protected String fecha; // cambiar el string
     protected int aforo;
+    protected double precio;
     protected List<Actividad> listaActividades;
 
-    public Viaje(String localizador, String origen, String destino, String fecha, int aforo,
+    public Viaje(String localizador, String origen, String destino, String fecha, int aforo, double precio,
             List<Actividad> listaActividades) {
         this.localizador = localizador;
         this.origen = origen;
         this.destino = destino;
         this.fecha = fecha;
         this.aforo = aforo;
+        this.precio = precio;
         this.listaActividades = listaActividades;
     }
     
@@ -27,6 +29,7 @@ public class Viaje {
         this.destino = "";
         this.fecha = "";;
         this.aforo = 0;
+        this.precio = 0.00;
         this.listaActividades = null;
     }
 
@@ -68,6 +71,14 @@ public class Viaje {
 
     public void setAforo(int aforo) {
         this.aforo = aforo;
+    }
+
+    public double getPrecio() {
+        return this.precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
     }
 
     public List<Actividad> getListaActividades() {
