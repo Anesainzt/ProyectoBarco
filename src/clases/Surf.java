@@ -4,7 +4,7 @@ public class Surf extends Actividad {
 
 	protected int cantTablas;
 
-	public Surf(String codigo, String nombre, int aforo, String instructor, String ubicacion, String descripcion, String imagen, int cantTablas) {
+	public Surf(String codigo, String nombre, int aforo, String instructor, String ubicacion, String descripcion, String imagen, int precio, int cantTablas) {
 		this.cantTablas = cantTablas;
 	}
 	

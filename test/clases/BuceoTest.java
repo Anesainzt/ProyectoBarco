@@ -12,7 +12,7 @@ import clases.Buceo;
 class BuceoTest {
 
 	Buceo bu = new Buceo();
-	Buceo buc = new Buceo("","",5,"","","","",4);
+	Buceo buc = new Buceo("","",5,"","","","",4,4);
 		
 		@Test
 		void getCantBombonas() {

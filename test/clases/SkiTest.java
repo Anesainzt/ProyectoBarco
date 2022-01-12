@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 class SkiTest {
 	
 	Ski s = new Ski();
-	Ski sk = new Ski("","",5,"","","","",4);
+	Ski sk = new Ski("","",5,"","","","",4,4);
 		
 		@Test
 		void getCantSkis() {

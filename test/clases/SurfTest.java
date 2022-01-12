@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 class SurfTest {
 	Surf s1 = new Surf();
-	Surf s2 = new Surf("","",0, "","","","",4);
+	Surf s2 = new Surf("","",0, "","","","",4,4);
 	
 	@Test
 	void getCantTablas() {

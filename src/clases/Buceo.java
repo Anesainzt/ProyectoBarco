@@ -4,7 +4,7 @@ public class Buceo extends Actividad {
 	
 	protected int cantBombonas;
 
-	public Buceo(String codigo, String nombre, int aforo, String instructor, String ubicacion, String descripcion, String imagen, int cantBombonas) {
+	public Buceo(String codigo, String nombre, int aforo, String instructor, String ubicacion, String descripcion, String imagen, int precio, int cantBombonas) {
 		this.cantBombonas = cantBombonas;
 	}
 	
