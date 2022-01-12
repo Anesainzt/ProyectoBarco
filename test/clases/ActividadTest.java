@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 class ActividadTest {
 	
 	Actividad a1 = new Actividad();
-	Actividad a2 = new Actividad("008","Natación",5,"Maria","En la piscina del barco","Curso de natacion para principiantes","pc.PNG");
+	Actividad a2 = new Actividad("008","Natación",5,"Maria","En la piscina del barco","Curso de natacion para principiantes","pc.PNG", 20);
 	
 	@Test
 	void testGCodigo() {
@@ -88,6 +88,17 @@ class ActividadTest {
 	    
 	}
 
+	@Test
+	void testGPrecio() {
+		assertEquals(20, a2.getPrecio());
+	}
+	@Test
+	void testSPrecio() {
+	    int precio = 20;
+	    a1.setPrecio(a2.getPrecio());
+	    assertEquals(a1.getPrecio(), precio);
+	    
+	}
 	
 	
 }

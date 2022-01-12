@@ -9,9 +9,9 @@ public class Actividad {
 	protected String ubicacion;
 	protected String descripcion; 
 	protected String imagen;
-	protected double precio;
+	protected int precio;
 
-	public Actividad(String codigo, String nombre, int aforo, String instructor, String ubicacion, String descripcion, String imagen, double precio) {
+	public Actividad(String codigo, String nombre, int aforo, String instructor, String ubicacion, String descripcion, String imagen, int precio) {
 		super();
 		this.codigo = codigo;
 		this.nombre = nombre;
@@ -32,7 +32,7 @@ public class Actividad {
 		this.ubicacion = "";
 		this.descripcion = "";
 		this.imagen = "";
-		this.precio = 0.00;
+		this.precio = 0;
 	}
 
 	public String getCodigo() {
@@ -92,11 +92,11 @@ public class Actividad {
 		this.descripcion = descripcion;
 	}
 	
-	public double getPrecio() {
+	public int getPrecio() {
 		return this.precio;
 	}
 
-	public void setPrecio(double precio) {
+	public void setPrecio(int precio) {
 		this.precio = precio;
 	}
 }

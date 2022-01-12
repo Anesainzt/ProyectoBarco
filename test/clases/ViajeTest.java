@@ -18,8 +18,8 @@ class ViajeTest {
 		
         listaActi =new ArrayList<Actividad>();
         
-        Actividad a1 = new Actividad("008","Natación",5,"Maria","En la piscina del barco","Curso de natacion para principiantes","pc.PNG");
-        Actividad a2 = new Actividad("009","Buceo",3,"Olatz","En la piscina del barco","Curso de natacion para principiantes","pc.PNG");
+        Actividad a1 = new Actividad("008","Natación",5,"Maria","En la piscina del barco","Curso de natacion para principiantes","pc.PNG", 20);
+        Actividad a2 = new Actividad("009","Buceo",3,"Olatz","En la piscina del barco","Curso de natacion para principiantes","pc.PNG", 40);
         
         listaActi.add(a1);
         listaActi.add(a2);
@@ -27,7 +27,7 @@ class ViajeTest {
     }
 
 	Viaje v1 = new Viaje();
-	Viaje v2 = new Viaje("9109", "Bilbao", "Vigo","22-05-2022", 100, listaActi);
+	Viaje v2 = new Viaje("9109", "Bilbao", "Vigo","22-05-2022", 100, 40, listaActi);
 	
 	@Test
 	void testGLocalizador() {
@@ -86,10 +86,22 @@ class ViajeTest {
 	}
 	
 	@Test
+	void testGPrecio() {
+		assertEquals(40, v2.getPrecio());
+	}
+	@Test
+	void testSPrecio() {
+	    int precio = 40;
+	    v1.setPrecio(v2.getPrecio());
+	    assertEquals(v1.getPrecio(), precio);
+	    
+	}
+	
+	@Test
 	void testGListaActividades() {
 		
 		rellenar();
-		Viaje v3 = new Viaje("", "", "","", 0, listaActi);
+		Viaje v3 = new Viaje("", "", "","", 0,0, listaActi);
 		assertEquals(listaActi, v3.getListaActividades());
 		
 	}
@@ -98,8 +110,8 @@ class ViajeTest {
 	   
 		ArrayList<Actividad> listaActividades = new ArrayList<Actividad>();
 	        
-		Actividad a1 = new Actividad("008","Natación",5,"Maria","En la piscina del barco","Curso de natacion para principiantes","pc.PNG");
-		Actividad a2 = new Actividad("009","Buceo",3,"Olatz","En la piscina del barco","Curso de natacion para principiantes","pc.PNG");
+		Actividad a1 = new Actividad("008","Natación",5,"Maria","En la piscina del barco","Curso de natacion para principiantes","pc.PNG", 20);
+		Actividad a2 = new Actividad("009","Buceo",3,"Olatz","En la piscina del barco","Curso de natacion para principiantes","pc.PNG", 40);
 	        
         listaActividades.add(a1);
         listaActividades.add(a2);

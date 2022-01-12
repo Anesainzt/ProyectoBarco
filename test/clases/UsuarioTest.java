@@ -22,8 +22,8 @@ class UsuarioTest {
        listaBilletes =new ArrayList<Billete>();
        listaActi =new ArrayList<Actividad>();
        
-       Actividad a1 = new Actividad("008","Natación",5,"Maria","En la piscina del barco","Curso de natacion para principiantes","pc.PNG");
-       Actividad a2 = new Actividad("009","Buceo",3,"Olatz","En la piscina del barco","Curso de natacion para principiantes","pc.PNG");
+       Actividad a1 = new Actividad("008","Natación",5,"Maria","En la piscina del barco","Curso de natacion para principiantes","pc.PNG", 20);
+       Actividad a2 = new Actividad("009","Buceo",3,"Olatz","En la piscina del barco","Curso de natacion para principiantes","pc.PNG", 30);
        
        listaActi.add(a1);
        listaActi.add(a2);

@@ -16,8 +16,8 @@ class BilleteTest {
 		
 	    listaActi =new ArrayList<Actividad>();
 	    
-	    Actividad a1 = new Actividad("008","Natación",5,"Maria","En la piscina del barco","Curso de natacion para principiantes","pc.PNG");
-	    Actividad a2 = new Actividad("009","Buceo",3,"Olatz","En la piscina del barco","Curso de natacion para principiantes","pc.PNG");
+	    Actividad a1 = new Actividad("008","Natación",5,"Maria","En la piscina del barco","Curso de natacion para principiantes","pc.PNG", 20);
+	    Actividad a2 = new Actividad("009","Buceo",3,"Olatz","En la piscina del barco","Curso de natacion para principiantes","pc.PNG", 40);
 	    
 	    listaActi.add(a1);
 	    listaActi.add(a2);
@@ -54,7 +54,7 @@ class BilleteTest {
 	void testGListaActividades() {
 		
 		SetUp();
-		Viaje v3 = new Viaje("", "", "","", 0, listaActi);
+		Viaje v3 = new Viaje("", "", "","", 0,0, listaActi);
 		assertEquals(listaActi, v3.getListaActividades());
 		
 	}
@@ -63,8 +63,8 @@ class BilleteTest {
 	   
 		ArrayList<Actividad> listaActividades = new ArrayList<Actividad>();
 	        
-		Actividad a1 = new Actividad("008","Natación",5,"Maria","En la piscina del barco","Curso de natacion para principiantes","pc.PNG");
-		Actividad a2 = new Actividad("009","Buceo",3,"Olatz","En la piscina del barco","Curso de natacion para principiantes","pc.PNG");
+		Actividad a1 = new Actividad("008","Natación",5,"Maria","En la piscina del barco","Curso de natacion para principiantes","pc.PNG", 20);
+		Actividad a2 = new Actividad("009","Buceo",3,"Olatz","En la piscina del barco","Curso de natacion para principiantes","pc.PNG", 40);
 	        
         listaActividades.add(a1);
         listaActividades.add(a2);
