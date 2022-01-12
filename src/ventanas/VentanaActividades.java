@@ -37,7 +37,10 @@ public class VentanaActividades extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
 	BD bd = new BD();
-	double tarifaTotal = 0.00;
+	protected double tarifaTotal = 0.00;
+	protected List<Actividad> listaActividadesSeleccionadas = new ArrayList<Actividad>();
+	protected List<Actividad> listaActividades = new ArrayList<Actividad>();
+	protected List<Actividad> listaActividadesViajeVuelta = new ArrayList<Actividad>();
 
 	public VentanaActividades(Usuario uActual, Viaje viajeIda, Viaje viajeVuelta, int numeroPersonas) throws IOException {
 		addWindowListener( new WindowAdapter() {
@@ -73,17 +76,20 @@ public class VentanaActividades extends JFrame{
 		Image imagenBarco = bufferedImage.getScaledInstance(400, 200, Image.SCALE_DEFAULT);
 		JLabel lblFoto = new JLabel(new ImageIcon(imagenBarco));
 
-		List<Actividad> listaActividadesSeleccionadas = new ArrayList<Actividad>();
+		try {
+			listaActividadesSeleccionadas = new ArrayList<Actividad>();
+			listaActividades = viajeIda.getListaActividades();
+			listaActividadesViajeVuelta = viajeVuelta.getListaActividades();
 
-		List<Actividad> listaActividades = viajeIda.getListaActividades();
-		List<Actividad> listaActividadesViajeVuelta = viajeVuelta.getListaActividades();
+			for (Actividad actividad : listaActividadesViajeVuelta) {
+				listaActividades.add(actividad);
+			}
 
-		for (Actividad actividad : listaActividadesViajeVuelta) {
-			listaActividades.add(actividad);
-		}
-
-		for (Actividad actividad : listaActividades) {
-			combobox.addItem(actividad.getNombre() + " - " + actividad.getUbicacion());
+			for (Actividad actividad : listaActividades) {
+				combobox.addItem(actividad.getNombre() + " - " + actividad.getUbicacion());
+			}
+		} catch (Exception e) {
+			logger.log(Level.INFO, "No se han guardado correctamente las actividades.");
 		}
 		
 		panelPrincipal.setLayout(new GridLayout(1,3));
@@ -136,7 +142,7 @@ public class VentanaActividades extends JFrame{
 		});
 		
 		panelBtnBien.add(botonRegAct);
-		
+
 		panelFoto.add(lblFoto);
 		
 		botonSiguiente.addActionListener(new ActionListener() {
