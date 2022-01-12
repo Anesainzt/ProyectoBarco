@@ -32,10 +32,11 @@ public class VentanaGaleria extends JFrame {
     private JPanel contentPane;
 
     private JScrollPane scroll;
-    private JPanel panel1;
-    private JPanel panel1Arriba;
-    private JPanel panel1Abajo;
+    private JPanel panel;
+    private JPanel panelArriba;
+    private JPanel panelAbajo;
     private JPanel panelFotoBoton;
+    private JPanel panelFotoBoton2;
 
     private String nombre = "NOMBRE ACTIVIDAD";
     private String instructor = "Instructor";
@@ -67,18 +68,20 @@ public class VentanaGaleria extends JFrame {
 
         listaActividades = new ArrayList<Actividad>();
         listaActividades = bd.getActividades();
-
-        int numFotos = listaActividades.size(); // calculará el número de fotos que haya en la bd
-
-        panel1 = new JPanel(new BorderLayout());
-        panel1Arriba = new JPanel(new GridLayout(numFotos / 2, 2));
-        scroll = new JScrollPane(panel1Arriba);
+       
+        double numFotos = listaActividades.size();
+        panel = new JPanel(new BorderLayout());
+        
+        double layoutY = Math.ceil(numFotos / 2);
+        panelArriba = new JPanel(new GridLayout((int)layoutY, 2));
+        
+        scroll = new JScrollPane(panelArriba);
         scroll.setPreferredSize(new Dimension(990, 600));
-        panel1Abajo = new JPanel(new BorderLayout());
+        panelAbajo = new JPanel(new BorderLayout());
 
         for (int i = 0; i < numFotos; i++) {
             Actividad actividad = listaActividades.get(i);
-
+            
             BufferedImage bufferedImage = ImageIO.read(new File(actividad.getImagen() + ".jpg"));
             Image image = bufferedImage.getScaledInstance(400, 200, Image.SCALE_DEFAULT);
 
@@ -103,7 +106,7 @@ public class VentanaGaleria extends JFrame {
                     }
                 }
             });
-        
+
             panelFotoBoton = new JPanel(new GridLayout(2, 1));
 
             Border border = panelFotoBoton.getBorder();
@@ -113,7 +116,8 @@ public class VentanaGaleria extends JFrame {
             panelFotoBoton.add(labelImagen);
             panelFotoBoton.add(panelBotonActividad);
 
-            panel1Arriba.add(panelFotoBoton);
+            panelArriba.add(panelFotoBoton);
+
         }
 
         JPanel panelBotonVolver = new JPanel();
@@ -135,12 +139,12 @@ public class VentanaGaleria extends JFrame {
             }
         });
 
-        panel1Abajo.add(panelBotonVolver);
-        panel1.add(scroll, BorderLayout.NORTH);
-        panel1.add(panel1Abajo, BorderLayout.SOUTH);
+        panelAbajo.add(panelBotonVolver);
+        panel.add(scroll, BorderLayout.NORTH);
+        panel.add(panelAbajo, BorderLayout.SOUTH);
         contentPane.setVisible(true);
-        panel1.setVisible(true);
-        contentPane.add(panel1);
+        panel.setVisible(true);
+        contentPane.add(panel);
     }
 
     public static void main(String[] args) {
