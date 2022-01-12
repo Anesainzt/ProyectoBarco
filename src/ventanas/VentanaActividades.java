@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +27,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import BD.BD;
+import clases.Actividad;
 import clases.Usuario;
 import clases.Viaje;
 
@@ -34,13 +37,14 @@ public class VentanaActividades extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
 	BD bd = new BD();
+	double tarifaTotal = 0.00;
+
 	public VentanaActividades(Usuario uActual, Viaje viajeIda, Viaje viajeVuelta, int numeroPersonas) throws IOException {
 		addWindowListener( new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
             	//bd.ficheroLogger();
             }
-          
         });
 		
 		JPanel panelPrincipal = new JPanel();
@@ -52,39 +56,34 @@ public class VentanaActividades extends JFrame{
 		JPanel panelTit = new JPanel();
 		JPanel panelTipo = new JPanel();
 		JPanel panelFecha = new JPanel();
-		JPanel panelNada = new JPanel();
+		JPanel panelSiguiente = new JPanel();
 		JPanel panelCantidad = new JPanel();
 		JPanel panelCantSpinn = new JPanel();
 		JPanel panelTarifa = new JPanel();
 		JPanel panelFoto = new JPanel();
 		
-		
 		JComboBox<String> combobox = new JComboBox<String>();
 		JLabel label1 = new JLabel("¿Desea alguna actividad? ");
-		
 		JLabel label2 = new JLabel("Cantidad de Personas");
-		
-		
-		JLabel label3 = new JLabel("Tarifa");
+		JLabel label3 = new JLabel("Tarifa: " + tarifaTotal + "€");
 		//QUITAR Y CUANDO ESCOJA ELEGIR CANTIDAD DE PERSONAS QUE APAREZCA ESA VENTANA Y DESPUES DE SELECIONAR LAS PERSONAS IR A LA VENTANA QUE ESTÁ CREANDO ANDREA
-		JButton botonNada = new JButton("No quiero nada");
-		
-		
+		JButton botonSiguiente = new JButton("Ir a pago");
 		
 		BufferedImage bufferedImage = ImageIO.read(new File("images/yate2.jpg"));
 		Image imagenBarco = bufferedImage.getScaledInstance(400, 200, Image.SCALE_DEFAULT);
 		JLabel lblFoto = new JLabel(new ImageIcon(imagenBarco));
-		
-		
-		TreeSet<String> tsact;
-		try {
-			tsact = bd.obtenerDiferentesActividades();
-			for(String f: tsact)
-				combobox.addItem(f);
-			
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			logger.log( Level.INFO, "No se ha podido carga el combobox" );
+
+		List<Actividad> listaActividadesSeleccionadas = new ArrayList<Actividad>();
+
+		List<Actividad> listaActividades = viajeIda.getListaActividades();
+		List<Actividad> listaActividadesViajeVuelta = viajeVuelta.getListaActividades();
+
+		for (Actividad actividad : listaActividadesViajeVuelta) {
+			listaActividades.add(actividad);
+		}
+
+		for (Actividad actividad : listaActividades) {
+			combobox.addItem(actividad.getNombre() + " - " + actividad.getUbicacion());
 		}
 		
 		panelPrincipal.setLayout(new GridLayout(1,3));
@@ -94,11 +93,10 @@ public class VentanaActividades extends JFrame{
 		panelTipo.setLayout(new GridLayout(2,1));
 		panelFecha.setLayout(new GridLayout(2,1));
 		
-		panelNada.setLayout(new FlowLayout());
+		panelSiguiente.setLayout(new FlowLayout());
 		panelCantidad.setLayout(new FlowLayout());
 		panelCantSpinn.setLayout(new FlowLayout());
 		panelTarifa.setLayout(new FlowLayout());
-		
 		
 		getContentPane().add(panelPrincipal);
 		panelPrincipal.add(panelIzquierdo);
@@ -108,7 +106,7 @@ public class VentanaActividades extends JFrame{
 		panelIzquierdo.add(panelTit);
 		panelIzquierdo.add(panelTipo);
 		panelIzquierdo.add(panelFecha);
-		panelIzquierdo.add(panelNada);
+		panelIzquierdo.add(panelSiguiente);
 		
 		panelMedio.add(panelCantidad);
 		panelMedio.add(panelCantSpinn);
@@ -118,41 +116,36 @@ public class VentanaActividades extends JFrame{
 		
 		panelTit.add(label1);
 		panelTipo.add(combobox);
-		panelFecha.add(VentanaViaje.calendarioActividades);
-		panelNada.add(botonNada);
-		
-		panelCantidad.add(label2);
-		panelCantSpinn.add(VentanaViaje.spinnerAct);
+		// panelFecha.add(VentanaViaje.calendarioActividades);
+		panelSiguiente.add(botonSiguiente);
 		
 		panelTarifa.add(label3);
 		
 		JPanel panelBtnBien = new JPanel();
 		panelMedio.add(panelBtnBien);
 		
-		JButton botonRegAct = new JButton("RegistrarActividad");
+		JButton botonRegAct = new JButton("Registrar actividad");
 		botonRegAct.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
-				new VentanaPago();
-				dispose();
+				listaActividadesSeleccionadas.add(listaActividades.get(combobox.getSelectedIndex()));
+				tarifaTotal += listaActividades.get(combobox.getSelectedIndex()).getPrecio();
 			}
 		});
-	
 		
 		panelBtnBien.add(botonRegAct);
 		
 		panelFoto.add(lblFoto);
 		
-		botonNada.addActionListener(new ActionListener() {
+		botonSiguiente.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				new VentanaPago();
+				new VentanaPago(uActual, viajeIda, viajeVuelta, numeroPersonas, listaActividadesSeleccionadas);
 				dispose();
 			}
 		});
@@ -161,7 +154,15 @@ public class VentanaActividades extends JFrame{
 		setTitle("Ventana Actividades");
 		pack();
 		setVisible(true);
-		
-		
+	}
+
+	// main de prueba
+	public static void main(String[] args) {
+		try {
+			new VentanaActividades(null, null, null, 0);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

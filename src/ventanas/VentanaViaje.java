@@ -279,8 +279,8 @@ public class VentanaViaje extends JFrame {
 						if (viajeIda.getLocalizador() != "") {
 							new VentanaActividades(uActual, viajeIda, null, numeroPersonas);
 						} else {
-							JOptionPane.showMessageDialog(null, "No existe un vuelo para esa fecha.");
-							logger.log(Level.INFO, "No existe un vuelo para esa fecha");
+							JOptionPane.showMessageDialog(null, "No existe un viaje para esa fecha.");
+							logger.log(Level.INFO, "No existe un viaje para esa fecha");
 						}
 					} else {
 						Viaje viajeIda = new Viaje();
@@ -294,8 +294,8 @@ public class VentanaViaje extends JFrame {
 						if (viajeIda.getLocalizador() != "" && viajeVuelta.getLocalizador() != "") {
 							new VentanaActividades(uActual, viajeIda, viajeVuelta, numeroPersonas);
 						}else{
-							JOptionPane.showMessageDialog(null, "No existen vuelos para esas fechas.");
-							logger.log(Level.INFO, "No existe un vuelo para esa fecha");
+							JOptionPane.showMessageDialog(null, "No existen viajes para esas fechas.");
+							logger.log(Level.INFO, "No existe un viaje para esa fecha");
 						}
 					}
 				} catch (IOException e1) {
@@ -305,7 +305,7 @@ public class VentanaViaje extends JFrame {
 				cact.setMaxSelectableDate(calendarioVuelta.getDate());
 				spinnerAct.setModel(new SpinnerNumberModel(0, 0,(Comparable<?>) spinner.getValue(), 1));
 				
-				dispose();	
+				//dispose();	
 			}
 		});
 	

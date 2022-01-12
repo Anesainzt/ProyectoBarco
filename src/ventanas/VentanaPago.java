@@ -3,6 +3,8 @@ package ventanas;
 import javax.swing.*;
 
 import BD.BD;
+import clases.Usuario;
+import clases.Viaje;
 
 import java.awt.*;
 import java.io.IOException;
@@ -12,6 +14,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
+
+import clases.Actividad;
+import java.util.List;
 
 public class VentanaPago extends JFrame{
 
@@ -33,13 +38,12 @@ public class VentanaPago extends JFrame{
     static Logger logger = Logger.getLogger(VentanaPago.class.getName());
     BD bd = new BD();
 
-    public VentanaPago() {
+    public VentanaPago(Usuario uActual, Viaje viajeIda, Viaje viajeVuelta, int numeroPersonas, List<Actividad> listaActividades) {
     	addWindowListener( new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
             	//bd.ficheroLogger();
             }
-          
         });
 
         cp = this.getContentPane();
@@ -107,7 +111,7 @@ public class VentanaPago extends JFrame{
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 try {
-                    //new VentanaActividades();
+                    new VentanaActividades(uActual, viajeIda, viajeVuelta, numeroPersonas);
                     dispose();
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
@@ -115,6 +119,7 @@ public class VentanaPago extends JFrame{
                 }
             }
         });
+        
         panelBotonCancelar.add(botonAtras);
         
         JButton botonCerrarSesión = new JButton("Cerrar Sesion");
