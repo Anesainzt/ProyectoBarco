@@ -297,16 +297,16 @@ public class BD extends JFrame{
 				String ubicacion = rs.getString("ubicacion");
 				String descripcion = rs.getString("descripcion");
 				String imagen = rs.getString("imagen");
-				double precio = rs.getDouble("precio");
+				int precio = rs.getInt("precio");
 				String fecha = rs.getString("fecha");
 				int cant = rs.getInt("cantMaterial");
 				Actividad a ;
 				if(codigo.substring(0, 2).equals("BU")) {
-					a = new Buceo(codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen, cant);
+					a = new Buceo(codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen, precio, cant);
 				}else if(codigo.substring(0, 2).equals("SK")) {
-					a = new Ski(codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen, cant);
+					a = new Ski(codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen, precio, cant);
 				}else { //Surf que empieza por SU
-					a = new Surf(codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen, cant);
+					a = new Surf(codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen, precio, cant);
 				}
 				//ret.add(new Actividad(codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen, precio, fecha) );
 				ret.add(a);
@@ -474,7 +474,7 @@ public class BD extends JFrame{
 
 			while(ski.next()) {
 
-				Ski actividad = new Ski(ski.getString("codigo"), ski.getString("nombre"), ski.getInt("aforo"), ski.getString("instructor"), ski.getString("ubicacion"), ski.getString("descripcion"), ski.getString("imagen"), ski.getInt("cantMaterial"));
+				Ski actividad = new Ski(ski.getString("codigo"), ski.getString("nombre"), ski.getInt("aforo"), ski.getString("instructor"), ski.getString("ubicacion"), ski.getString("descripcion"), ski.getString("imagen"), ski.getInt("precio"), ski.getInt("cantMaterial"));
 				listaSki.add(actividad);
 			}
 		} catch (Exception e) {
