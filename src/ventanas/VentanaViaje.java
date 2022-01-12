@@ -277,6 +277,9 @@ public class VentanaViaje extends JFrame {
 						// 		calIda.getDate());
 						
 						if (viajeIda.getLocalizador() != "") {
+							//Mientras la fecha seleccionada esté en la base de datos y tenga el mismo orgen y destino se mostrará el ticket
+							
+							
 							new VentanaActividades(uActual, viajeIda, null, numeroPersonas);
 						} else {
 							JOptionPane.showMessageDialog(null, "No existe un viaje para esa fecha.");
@@ -292,6 +295,10 @@ public class VentanaViaje extends JFrame {
 						// 		calVuelta.getDate());
 						
 						if (viajeIda.getLocalizador() != "" && viajeVuelta.getLocalizador() != "") {
+							//Mientras las fechas seleccionadas estén en la base de datos y tenga el mismo orgen y destino se mostrará la ventana actividades.
+							
+							
+							
 							new VentanaActividades(uActual, viajeIda, viajeVuelta, numeroPersonas);
 						}else{
 							JOptionPane.showMessageDialog(null, "No existen viajes para esas fechas.");

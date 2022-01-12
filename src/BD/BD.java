@@ -17,7 +17,9 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import clases.Actividad;
+import clases.Buceo;
 import clases.Ski;
+import clases.Surf;
 import clases.Usuario;
 import clases.Viaje;
 import ventanas.VentanaInicio;
@@ -297,7 +299,17 @@ public class BD extends JFrame{
 				String imagen = rs.getString("imagen");
 				double precio = rs.getDouble("precio");
 				String fecha = rs.getString("fecha");
-				ret.add(new Actividad(codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen, precio, fecha) );
+				int cant = rs.getInt("cantMaterial");
+				Actividad a ;
+				if(codigo.substring(0, 2).equals("BU")) {
+					a = new Buceo(codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen, cant);
+				}else if(codigo.substring(0, 2).equals("SK")) {
+					a = new Ski(codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen, cant);
+				}else { //Surf que empieza por SU
+					a = new Surf(codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen, cant);
+				}
+				//ret.add(new Actividad(codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen, precio, fecha) );
+				ret.add(a);
 			}
 			return ret;
 		} catch (Exception e) {
