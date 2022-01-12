@@ -295,7 +295,9 @@ public class BD extends JFrame{
 				String ubicacion = rs.getString("ubicacion");
 				String descripcion = rs.getString("descripcion");
 				String imagen = rs.getString("imagen");
-				ret.add( new Actividad( codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen ) );
+				double precio = rs.getDouble("precio");
+				String fecha = rs.getString("fecha");
+				ret.add(new Actividad(codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen, precio, fecha) );
 			}
 			return ret;
 		} catch (Exception e) {

@@ -9,9 +9,10 @@ public class Actividad {
 	protected String ubicacion;
 	protected String descripcion; 
 	protected String imagen;
-	
+	protected double precio;
+	protected String fecha;
 
-	public Actividad(String codigo, String nombre, int aforo, String instructor, String ubicacion, String descripcion, String imagen) {
+	public Actividad(String codigo, String nombre, int aforo, String instructor, String ubicacion, String descripcion, String imagen, double precio, String fecha) {
 		super();
 		this.codigo = codigo;
 		this.nombre = nombre;
@@ -20,7 +21,8 @@ public class Actividad {
 		this.ubicacion = ubicacion;
 		this.descripcion = descripcion;
 		this.imagen = imagen;
-		
+		this.precio = precio;
+		this.fecha = fecha;
 	}
 	
 	public Actividad() {
@@ -32,7 +34,8 @@ public class Actividad {
 		this.ubicacion = "";
 		this.descripcion = "";
 		this.imagen = "";
-		
+		this.precio = 0.00;
+		this.fecha = "";
 	}
 
 	public String getCodigo() {
@@ -92,5 +95,19 @@ public class Actividad {
 		this.descripcion = descripcion;
 	}
 	
-	
+	public double getPrecio() {
+		return this.precio;
+	}
+
+	public void setPrecio(double precio) {
+		this.precio = precio;
+	}
+
+	public String getFecha() {
+		return this.fecha;
+	}
+
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
+	}
 }
