@@ -44,9 +44,8 @@ public class VentanaAdministrador extends JFrame {
 	JPanel panelCentral, panelCentralAdmin, panelTitbot, panelbotonUsuarios, panelBotonActividades, panel_1, panelTitulo, panelAbajo, panelOpciones;
 	JButton botonUsuarios, botonActividades, botonCerrarSesion, btnAñadirAct, btnQuitarAct, botonSalir;
 	JTextPane txtpnMenuAdministrador;
-	static Logger logger = Logger.getLogger( "VentanaAdministrador" );
 	 
-	BD bd = new BD();
+	protected static BD bd = new BD();
 	
 	public VentanaAdministrador(Usuario uActual) {
 		
@@ -87,6 +86,7 @@ public class VentanaAdministrador extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				verActividades();
+				bd.logger.log(Level.INFO, "----------------------------------");
 				btnAñadirAct.setEnabled(true);
 				btnQuitarAct.setEnabled(true);
 				
@@ -131,7 +131,7 @@ public class VentanaAdministrador extends JFrame {
 					new VentanaInicio();
 					dispose();
 				} catch (IOException e1) {
-					logger.log( Level.INFO, "No se ha podido cargar la VentanaInicio" );
+					bd.logger.log( Level.INFO, "No se ha podido cargar la VentanaInicio" );
 				}
 				
 			}
@@ -162,7 +162,7 @@ public class VentanaAdministrador extends JFrame {
 					try {
 						bd.borrarActividad(codi);
 					} catch (SQLException e1) {
-						logger.log( Level.INFO, "No se ha podido borrar la actividad de la tabla" );
+						bd.logger.log( Level.INFO, "No se ha podido borrar la actividad de la tabla" );
 					}
 					
 					verActividades();
@@ -252,7 +252,7 @@ public class VentanaAdministrador extends JFrame {
 				try {
 					bd.modificarActividad(cod, nombre, instructor, ubicacion, descripcion, imagen);
 				} catch (SQLException e1) {
-					logger.log( Level.INFO, "No se ha podido modificar la actividad" );
+					bd.logger.log( Level.INFO, "No se ha podido modificar la actividad" );
 				}
 				
 			}
@@ -312,7 +312,7 @@ public class VentanaAdministrador extends JFrame {
 				try {
 					bd.modificarUsuario(dni,login);
 				} catch (SQLException e1) {
-					logger.log( Level.INFO, "No se ha podido modificar el usuario" );
+					bd.logger.log( Level.INFO, "No se ha podido modificar el usuario" );
 				}
 				bd.disconnect();
 			}

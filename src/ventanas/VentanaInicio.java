@@ -41,23 +41,6 @@ public class VentanaInicio extends JFrame {
 	public VentanaInicio() throws IOException {
 		FlatLightLaf.setup();
 		bd.ficheroLogger();
-		addWindowListener( new WindowAdapter() {
-            @Override
-            public void windowOpened(WindowEvent e) {
-            	//bd.ficheroLogger();
-            }
-            	/*@Override
-                public void windowClosed(WindowEvent e) {
-                    try {
-						bd.cerrarFichero();
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-                }
-            	*/
-          
-        });
 		
 		//crear usuarioActual
 		Usuario uActual = new Usuario();
@@ -115,6 +98,7 @@ public class VentanaInicio extends JFrame {
 			
 				if(bd.comprobarLogin(textoUsuario.getText(), textoContrasenya.getText())) {
 					if(bd.esAdministrador(textoUsuario.getText())){
+						bd.logger.log(Level.INFO, "Bienvenido Administrador");//METER LA INFO DEL ERROR
 						//Ir a otra ventana que sea la parte del administrador.
 						new VentanaAdministrador(bd.getuActual());
 						dispose();

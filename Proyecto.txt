@@ -144,3 +144,9 @@ ene 13, 2022 9:25:52 A. M. BD.BD connect
 INFO: Se ha conectado con la BBDD
 ene 13, 2022 9:25:52 A. M. BD.BD disconnect
 INFO: Se ha desconectado de la BD
+ene 13, 2022 12:47:32 P. M. BD.BD connect
+INFO: Se ha conectado con la BBDD
+ene 13, 2022 12:47:32 P. M. ventanas.VentanaInicio$1 actionPerformed
+INFO: Bienvenido
+ene 13, 2022 12:47:32 P. M. BD.BD disconnect
+INFO: Se ha desconectado de la BD
