@@ -29,17 +29,7 @@ public class VentanaPerfil extends JFrame {
 	protected JButton botonEditar,botonAceptar,botonBorrar,botonAtras;
 	protected BD bd = new BD();
 	
-	static Logger logger = Logger.getLogger(VentanaPerfil.class.getName());
-
-	@SuppressWarnings("static-access")
 	public VentanaPerfil(Usuario uActual) {
-		addWindowListener( new WindowAdapter() {
-            @Override
-            public void windowOpened(WindowEvent e) {
-            	//bd.ficheroLogger();
-            }
-          
-        });
 		
 		cp = this.getContentPane();
 		this.setTitle("Mi Perfil");
@@ -180,7 +170,9 @@ public class VentanaPerfil extends JFrame {
 					
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
-					logger.log(Level.INFO, "No se ha podido editar el usuario");
+					bd.ficheroLogger();
+					bd.logger.log(Level.INFO, "No se ha podido editar el usuario");
+					bd.closeLogger();
 				}
 				
 			}
@@ -209,7 +201,9 @@ public class VentanaPerfil extends JFrame {
                     }
 
                 } catch (SQLException e) {
-                    logger.log( Level.INFO, "No se ha podido borrar su perfil" );
+                	bd.ficheroLogger();
+                	bd.logger.log( Level.INFO, "No se ha podido borrar su perfil" );
+                	bd.closeLogger();
                     JOptionPane.showMessageDialog(null, "No se ha podido borrar su perfil");
                 }
 				

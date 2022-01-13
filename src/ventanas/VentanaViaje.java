@@ -44,20 +44,11 @@ public class VentanaViaje extends JFrame {
 	JMenuBar menuBar;
 	JMenu menu;
 	JMenuItem itemPerfil, itemGaleria, itemSesion, itemSalir;
-	static Logger logger = Logger.getLogger( "VentanaViaje" );
 	
 	ButtonGroup rg;
 	BD bd = new BD();
 		
 	public VentanaViaje(Usuario uActual) {
-		
-		addWindowListener( new WindowAdapter() {
-            @Override
-            public void windowOpened(WindowEvent e) {
-            	//bd.ficheroLogger();
-            }
-          
-        });
 				
 		sdf = new SimpleDateFormat("dd-MM-yyyy");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -92,9 +83,10 @@ public class VentanaViaje extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					new VentanaGaleria();
+					bd.logger.log(Level.INFO, "Se ha ejecutaddo correctamentes");
 					dispose();
 				} catch (IOException e) {
-					logger.log(Level.INFO, "No se ha podido ejecutar la ventana");
+					bd.logger.log(Level.INFO, "No se ha podido ejecutar la ventana");
 				}
 				
 			}
@@ -111,7 +103,7 @@ public class VentanaViaje extends JFrame {
 					new VentanaInicio();
 					dispose();
 				} catch (Exception e) {
-					logger.log(Level.INFO, "No se ha podido ejecutar la ventana");
+					bd.logger.log(Level.INFO, "No se ha podido ejecutar la ventana");
 				}
 
 			}
@@ -127,7 +119,7 @@ public class VentanaViaje extends JFrame {
 					JOptionPane.showMessageDialog(null, "¡Nos vemos pronto!");
 					dispose();
 				} catch (Exception e) {
-					logger.log(Level.INFO, "No se ha podido cargar el JOptionPane");
+					bd.logger.log(Level.INFO, "No se ha podido cargar el JOptionPane");
 				}
 
 			}
@@ -283,7 +275,7 @@ public class VentanaViaje extends JFrame {
 							new VentanaActividades(uActual, viajeIda, null, numeroPersonas);
 						} else {
 							JOptionPane.showMessageDialog(null, "No existe un viaje para esa fecha.");
-							logger.log(Level.INFO, "No existe un viaje para esa fecha");
+							bd.logger.log(Level.INFO, "No existe un viaje para esa fecha");
 						}
 					} else {
 						Viaje viajeIda = new Viaje();
@@ -302,11 +294,11 @@ public class VentanaViaje extends JFrame {
 							new VentanaActividades(uActual, viajeIda, viajeVuelta, numeroPersonas);
 						}else{
 							JOptionPane.showMessageDialog(null, "No existen viajes para esas fechas.");
-							logger.log(Level.INFO, "No existe un viaje para esa fecha");
+							bd.logger.log(Level.INFO, "No existe un viaje para esa fecha");
 						}
 					}
 				} catch (IOException e1) {
-					logger.log(Level.INFO, "No se ha podido ejecutar la ventana actividades");
+					bd.logger.log(Level.INFO, "No se ha podido ejecutar la ventana actividades");
 				}
 				cact.setMinSelectableDate(calendarioIda.getDate());
 				cact.setMaxSelectableDate(calendarioVuelta.getDate());

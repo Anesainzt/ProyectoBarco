@@ -35,7 +35,7 @@ public class BD extends JFrame{
 	
 	public static void ficheroLogger() {
 		try {
-			handler = new FileHandler("Proyecto.txt", true);
+			handler = new FileHandler("Proyecto.txt",0,1, true);
 			handler.setFormatter(new SimpleFormatter());
 			logger.addHandler(handler);
 		} catch (SecurityException e) {
@@ -44,8 +44,13 @@ public class BD extends JFrame{
 		} catch (IOException e) {
 			
 			logger.log( Level.INFO, "No se ha podido guardar" );
+		
 		}
 	}
+	public static void closeLogger() {
+		handler.close();
+	}
+	
 	/**
 	 * Metodo para conectar y desconectar la conexión a la base de datos
 	 * @return
@@ -94,11 +99,15 @@ public class BD extends JFrame{
                 }
 
             }
-            logger.warning("Se ha comparado el login correctamente.");
+            ficheroLogger();
+            BD.logger.warning("Se ha comparado el login correctamente.");
+            closeLogger();
             ps.close();
             return false;
         } catch (Exception e) {
-            logger.warning("No se ha podido comparar el login.");
+        	ficheroLogger();
+            BD.logger.warning("No se ha podido comparar el login.");
+            closeLogger();
             return false;
         }
 	}
@@ -153,7 +162,9 @@ public class BD extends JFrame{
 			}
 			
 		} catch (Exception e) {
-			logger.warning("No se ha podido comprobar");
+			ficheroLogger();
+			BD.logger.warning("No se ha podido comprobar");
+			closeLogger();
 		}
 		return true;
 		
@@ -177,8 +188,10 @@ public class BD extends JFrame{
 			if(rs.next()){                 
 				esAdmin = rs.getBoolean("administrador");
 				}         
-			} catch (SQLException e) {             
-				logger.warning( "No se ha podido comprobar el administrador" );
+			} catch (SQLException e) {   
+				ficheroLogger();
+				BD.logger.warning( "No se ha podido comprobar el administrador" );
+				closeLogger();
 		}                  
 		return esAdmin;
 		
@@ -238,13 +251,20 @@ public class BD extends JFrame{
 				JOptionPane.showMessageDialog(null, "Usuario creado con exito");
 				int rs2 = stmt.executeUpdate(instruccion);
 				uActual = new Usuario(nombreText.getText(), apellidoText.getText(), dniText.getText(), tarjetaText.getText(), loginText.getText(), contrasenyaText.getText(), emailText.getText(),0, null);
-				logger.warning("Usuario creado con exito");
+				
+				ficheroLogger();
+				BD.logger.warning("Usuario creado con exito");
+				closeLogger();
 			} else {
 				JOptionPane.showMessageDialog(null, "¡Este usuario ya existe!");
-				logger.warning("Usuario ya existe");
+				ficheroLogger();
+				BD.logger.warning("Usuario ya existe");
+				closeLogger();
 			}
 		} catch (SQLException e) {
-			logger.warning("No se ha creado el usuario");
+			ficheroLogger();
+			BD.logger.warning("No se ha creado el usuario");
+			closeLogger();
 		}	
 
 	} 
@@ -274,11 +294,15 @@ public class BD extends JFrame{
 			int rs2 = stmt.executeUpdate(instruccion);
 
 			uActual = new Usuario(usuario.getNombre(), usuario.getApellido(), usuario.getDni(), usuario.getTarjeta(), usuario.getLogin(), usuario.getContrasenya(), usuario.getEmail(),0, usuario.getListaBilletes());
-			logger.warning("El usuario se ha actualizado");
+			
+			ficheroLogger();
+			BD.logger.warning("El usuario se ha actualizado");
+			closeLogger();
 			JOptionPane.showMessageDialog(null, "¡El usuario se ha actualizado correctamente!");
 		} catch (Exception e) {
-			System.out.println("Se ha ejecutado el metodo de editar usuario a pesar del error");
-			logger.warning("El usuario NO se ha actualizado");
+			ficheroLogger();
+			BD.logger.warning("El usuario NO se ha actualizado, Se ha ejecutado el metodo de editar usuario a pesar del error");
+			closeLogger();
 		}
 
 
@@ -418,7 +442,9 @@ public class BD extends JFrame{
 			}
 
 		} catch (SQLException e2) {
-			logger.warning("Error al obtener los datos");
+			ficheroLogger();
+			BD.logger.warning("Error al obtener los datos");
+			closeLogger();
 		}
 		return cl;
 	}
@@ -455,7 +481,9 @@ public class BD extends JFrame{
 			}
 
 		} catch (SQLException e2) {
-			logger.warning("Ha habido un error al mirar el historial");
+			ficheroLogger();
+			BD.logger.warning("Ha habido un error al mirar el historial");
+			closeLogger();
 		}
 	}
 
@@ -503,7 +531,9 @@ public class BD extends JFrame{
 				listaSki.add(actividad);
 			}
 		} catch (Exception e) {
-			logger.warning("No se ha podido cargar la información");
+			ficheroLogger();
+			BD.logger.warning("No se ha podido cargar la información");
+			closeLogger();
 		}
 		return listaSki;
 	}
@@ -526,9 +556,9 @@ public class BD extends JFrame{
 	}
 
 	
-	public static void insertarNuevaActividad(String cod, String nombre, int aforo, String instructor, String ubicacion, String descripcion, String imagen, String cantMat) throws SQLException {
+	public static void insertarNuevaActividad(String cod, String nombre, int aforo, String instructor, String ubicacion, String descripcion, String imagen, String cantMat, int precio) throws SQLException {
 		Statement statement = conn.createStatement();
-		String sent = "insert into actividad (codigo,nombre,aforo,instructor,ubicacion,descripcion,imagen,cantMaterial) values('"+cod+"','"+nombre+"','"+aforo+"','"+instructor+"','"+ubicacion+"','"+descripcion+"', '"+imagen+"','"+cantMat+"')";
+		String sent = "insert into actividad (codigo,nombre,aforo,instructor,ubicacion,descripcion,imagen,cantMaterial, precio) values('"+cod+"','"+nombre+"','"+aforo+"','"+instructor+"','"+ubicacion+"','"+descripcion+"', '"+imagen+"','"+cantMat+"','"+precio+"')";
 		statement.executeUpdate(sent);
 		
 	}
@@ -546,5 +576,4 @@ public class BD extends JFrame{
     public Viaje getViaje(String origen, String destino, Date fecha) {
         return null;
     }
-    
 }

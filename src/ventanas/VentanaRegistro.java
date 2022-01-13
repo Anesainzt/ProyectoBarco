@@ -21,7 +21,7 @@ public class VentanaRegistro extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	static Logger logger = Logger.getLogger(VentanaRegistro.class.getName());
+	
 
 	public static boolean esNumerico(String str) { 
 		try {
@@ -44,13 +44,7 @@ public class VentanaRegistro extends JFrame {
 	BD bd = new BD();
 
 	public VentanaRegistro() {
-		addWindowListener( new WindowAdapter() {
-            @Override
-            public void windowOpened(WindowEvent e) {
-            	//bd.ficheroLogger();
-            }
-          
-        });
+		
 
 		//ContentPane
 		cp = this.getContentPane();
@@ -191,8 +185,9 @@ public class VentanaRegistro extends JFrame {
 									Thread.sleep(10);
 								}
 							} catch (Exception e2) {
-								// TODO: handle exception
-								logger.log( Level.INFO, "No se ha podido ejecutar el hilo" );
+								bd.ficheroLogger();
+								bd.logger.log( Level.INFO, "No se ha podido ejecutar el hilo" );
+								bd.closeLogger();
 							}	
 							}
 						});
@@ -207,7 +202,9 @@ public class VentanaRegistro extends JFrame {
 								new VentanaViaje(usuario);
 								dispose();
 							} catch (Exception e) {
-								logger.log(Level.INFO, "No se ha podido ejecutar la ventana");
+								bd.ficheroLogger();
+								bd.logger.log(Level.INFO, "No se ha podido ejecutar la ventana");
+								bd.closeLogger();
 							}
 						} 
 						bd.disconnect();
@@ -230,7 +227,9 @@ public class VentanaRegistro extends JFrame {
 				try {
 					new VentanaInicio();
 				} catch (IOException e1) {
-					logger.log(Level.INFO, "No se ha podido ejecutar la ventana");
+					bd.ficheroLogger();
+					bd.logger.log(Level.INFO, "No se ha podido ejecutar la ventana");
+					bd.closeLogger();
 				}
 				dispose();
 

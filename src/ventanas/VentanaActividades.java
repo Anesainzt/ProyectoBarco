@@ -32,8 +32,8 @@ import clases.Usuario;
 import clases.Viaje;
 
 public class VentanaActividades extends JFrame{
-
-	static Logger logger = Logger.getLogger( "VentanaActividades" );
+	
+	
 	
 	private static final long serialVersionUID = 1L;
 	BD bd = new BD();
@@ -43,12 +43,6 @@ public class VentanaActividades extends JFrame{
 	protected List<Actividad> listaActividadesViajeVuelta = new ArrayList<Actividad>();
 
 	public VentanaActividades(Usuario uActual, Viaje viajeIda, Viaje viajeVuelta, int numeroPersonas) throws IOException {
-		addWindowListener( new WindowAdapter() {
-            @Override
-            public void windowOpened(WindowEvent e) {
-            	//bd.ficheroLogger();
-            }
-        });
 		
 		JPanel panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(4, 15, 15, 15));
@@ -89,7 +83,9 @@ public class VentanaActividades extends JFrame{
 				combobox.addItem(actividad.getNombre() + " - " + actividad.getUbicacion());
 			}
 		} catch (Exception e) {
-			logger.log(Level.INFO, "No se han guardado correctamente las actividades.");
+			bd.ficheroLogger();
+			bd.logger.log(Level.INFO, "No se han guardado correctamente las actividades.");
+			bd.closeLogger();
 		}
 		
 		panelPrincipal.setLayout(new GridLayout(1,3));

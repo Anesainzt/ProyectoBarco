@@ -43,18 +43,10 @@ public class VentanaGaleria extends JFrame {
 
     private ArrayList<Actividad> listaActividades;
 
-   // static Logger logger = Logger.getLogger(VentanaGaleria.class.getName());
-
     private Actividad actividad;
 
     public VentanaGaleria() throws IOException {
 
-    	addWindowListener( new WindowAdapter() {
-            @Override
-            public void windowOpened(WindowEvent e) {
-            	//bd.ficheroLogger();
-            }
-        });
         bd.connect();
 
         setTitle("Galería de fotos");
@@ -102,7 +94,9 @@ public class VentanaGaleria extends JFrame {
                         dispose();
                     } catch (Exception e) {
                         // TODO Auto-generated catch block
-                        BD.logger.log(Level.INFO, "");
+                    	bd.ficheroLogger();
+                        bd.logger.log(Level.INFO, "No se puede abrir la ventana");
+                        bd.closeLogger();
                     }
                 }
             });
@@ -133,8 +127,9 @@ public class VentanaGaleria extends JFrame {
                     new VentanaViaje(bd.getuActual());
                     dispose();
                 } catch (Exception e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
+                	bd.ficheroLogger();
+                    bd.logger.log(Level.INFO, "No se puede abrir la ventana");
+                    bd.closeLogger();
                 }
             }
         });

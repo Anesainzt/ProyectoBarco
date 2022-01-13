@@ -30,7 +30,7 @@ public class VentanaGaleriaEspecifica extends JFrame {
     private JPanel panel2Derecha;
 	private JPanel panel2Izquierda;
 	
-	static Logger logger = Logger.getLogger(VentanaGaleriaEspecifica.class.getName());
+	
 	BD bd = new BD();
 
 	public VentanaGaleriaEspecifica(Actividad actividad) throws IOException {
@@ -126,8 +126,9 @@ public class VentanaGaleriaEspecifica extends JFrame {
                     new VentanaGaleria();
                     dispose();
                 } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                	logger.log(Level.INFO, "");//METER LA INFO DEL ERROR
+                	bd.ficheroLogger();
+                    bd.logger.log(Level.INFO, "No se ha podido abrir la ventana");
+                    bd.closeLogger();
                 }
             }
         });

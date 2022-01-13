@@ -35,12 +35,12 @@ public class VentanaInicio extends JFrame {
 	protected JButton botonLogin, botonRegistro;
 	protected static BD bd = new BD();
 	
-	//static Logger logger = Logger.getLogger(VentanaInicio.class.getName());
-	
 	
 	public VentanaInicio() throws IOException {
 		FlatLightLaf.setup();
 		bd.ficheroLogger();
+		bd.logger.log(Level.INFO, "Se ha iniciado la app");
+		bd.closeLogger();
 		
 		//crear usuarioActual
 		Usuario uActual = new Usuario();
@@ -98,20 +98,27 @@ public class VentanaInicio extends JFrame {
 			
 				if(bd.comprobarLogin(textoUsuario.getText(), textoContrasenya.getText())) {
 					if(bd.esAdministrador(textoUsuario.getText())){
-						bd.logger.log(Level.INFO, "Bienvenido Administrador");//METER LA INFO DEL ERROR
+						
+						bd.ficheroLogger();
+						bd.logger.log(Level.INFO, "Ha entrado el admin");
 						//Ir a otra ventana que sea la parte del administrador.
+						bd.closeLogger();
+						
 						new VentanaAdministrador(bd.getuActual());
 						dispose();
 						
 					}else {
 						try {
 							uActual.setLogin(textoUsuario.getText());
-							bd.logger.log(Level.INFO, "Bienvenido");//METER LA INFO DEL ERROR
+							bd.ficheroLogger();
+							bd.logger.log(Level.INFO, "Ha entrado un usuario normal");
+							bd.closeLogger();
 							new VentanaViaje(bd.getuActual());
 							dispose();
 						} catch (Exception e) {
-							
-							bd.logger.log(Level.INFO, "No se ha podido abrir la ventana");//METER LA INFO DEL ERROR
+							bd.ficheroLogger();
+							bd.logger.log(Level.INFO, "No se ha podido abrir la ventana");
+							bd.closeLogger();
 						}
 						
 					}
@@ -172,6 +179,7 @@ public class VentanaInicio extends JFrame {
 		pack();
 		setSize(600,310);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+	
 	}
 
 	public static void main(String[] args) throws IOException {

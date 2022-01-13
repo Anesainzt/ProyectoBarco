@@ -35,17 +35,10 @@ public class VentanaPago extends JFrame{
 
     private JPanel panelAbajo;
     
-    static Logger logger = Logger.getLogger(VentanaPago.class.getName());
     BD bd = new BD();
 
     public VentanaPago(Usuario uActual, Viaje viajeIda, Viaje viajeVuelta, int numeroPersonas, List<Actividad> listaActividades) {
-    	addWindowListener( new WindowAdapter() {
-            @Override
-            public void windowOpened(WindowEvent e) {
-            	//bd.ficheroLogger();
-            }
-        });
-
+    
         cp = this.getContentPane();
         this.setTitle("Pago");
         this.setSize(850, 250);
@@ -114,8 +107,10 @@ public class VentanaPago extends JFrame{
                     new VentanaActividades(uActual, viajeIda, viajeVuelta, numeroPersonas);
                     dispose();
                 } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                	logger.log(Level.INFO, "No se ha podido abrir la VentanaPago");
+                	
+                	bd.ficheroLogger();
+                    bd.logger.log(Level.INFO, "No se ha podido abrir la ventana");
+                    bd.closeLogger();
                 }
             }
         });
@@ -133,7 +128,9 @@ public class VentanaPago extends JFrame{
 	        
 	            } catch (Exception e) {
 	                // TODO Auto-generated catch block
-	            	logger.log(Level.INFO, "No se ha podido abrir la VentanaPago");
+	            	bd.ficheroLogger();
+	            	bd.logger.log(Level.INFO, "No se ha podido abrir la VentanaPago");
+	            	bd.closeLogger();
 	            }
 	        }
         });
@@ -160,7 +157,9 @@ public class VentanaPago extends JFrame{
                     dispose();
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
-                	logger.log(Level.INFO, "No se ha podido abrir la ventana");
+                	bd.ficheroLogger();
+                	bd.logger.log(Level.INFO, "No se ha podido abrir la ventana");
+                	bd.closeLogger();
                 }
             }
         });

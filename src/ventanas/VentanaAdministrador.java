@@ -44,11 +44,12 @@ public class VentanaAdministrador extends JFrame {
 	JPanel panelCentral, panelCentralAdmin, panelTitbot, panelbotonUsuarios, panelBotonActividades, panel_1, panelTitulo, panelAbajo, panelOpciones;
 	JButton botonUsuarios, botonActividades, botonCerrarSesion, btnAñadirAct, btnQuitarAct, botonSalir;
 	JTextPane txtpnMenuAdministrador;
-	 
-	protected static BD bd = new BD();
+	BD bd = new BD();
 	
 	public VentanaAdministrador(Usuario uActual) {
-		
+		bd.ficheroLogger();
+		bd.logger.log(Level.INFO, "Ha entrado el admin a la ventana");
+		bd.closeLogger();
 		setSize(700,500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -72,6 +73,9 @@ public class VentanaAdministrador extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				verUsuarios();
+				bd.ficheroLogger();
+				bd.logger.log(Level.INFO, "Se visualizan todos los usuarios");
+				bd.closeLogger();
 				btnAñadirAct.setEnabled(false);
 				btnQuitarAct.setEnabled(false);
 				
@@ -86,7 +90,9 @@ public class VentanaAdministrador extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				verActividades();
-				bd.logger.log(Level.INFO, "----------------------------------");
+				bd.ficheroLogger();
+				bd.logger.log(Level.INFO, "Se visualizan todas las actividades");
+				bd.closeLogger();
 				btnAñadirAct.setEnabled(true);
 				btnQuitarAct.setEnabled(true);
 				
@@ -100,13 +106,15 @@ public class VentanaAdministrador extends JFrame {
 	    addWindowListener( new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
-            	//bd.ficheroLogger();
+       
                 bd.connect();
-                //verProductos();  // Según se inicia la ventana se visualizan los productos
+       
             }
             @Override
             public void windowClosed(WindowEvent e) {
-                bd.disconnect();
+            
+            	bd.disconnect();
+            
             }
         });
 		
@@ -131,7 +139,9 @@ public class VentanaAdministrador extends JFrame {
 					new VentanaInicio();
 					dispose();
 				} catch (IOException e1) {
+					bd.ficheroLogger();
 					bd.logger.log( Level.INFO, "No se ha podido cargar la VentanaInicio" );
+					bd.closeLogger();
 				}
 				
 			}
@@ -145,6 +155,9 @@ public class VentanaAdministrador extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				aniadirActividad();
 				verActividades();
+				bd.ficheroLogger();
+				bd.logger.log( Level.INFO, "El administrador va a añadir una actividad" );
+				bd.closeLogger();
 				
 			}
 			
@@ -161,8 +174,13 @@ public class VentanaAdministrador extends JFrame {
 					String codi = (String) modeloDeDatos.getValueAt(fill, 0);
 					try {
 						bd.borrarActividad(codi);
+						bd.ficheroLogger();
+						bd.logger.log( Level.INFO, "Se ha borrado la actividad" );
+						bd.closeLogger();
 					} catch (SQLException e1) {
+						bd.ficheroLogger();
 						bd.logger.log( Level.INFO, "No se ha podido borrar la actividad de la tabla" );
+						bd.closeLogger();
 					}
 					
 					verActividades();
@@ -251,8 +269,13 @@ public class VentanaAdministrador extends JFrame {
 			
 				try {
 					bd.modificarActividad(cod, nombre, instructor, ubicacion, descripcion, imagen);
+					bd.ficheroLogger();
+					bd.logger.log( Level.INFO, "Se ha modificado la actividad" );
+					bd.closeLogger();
 				} catch (SQLException e1) {
+					bd.ficheroLogger();
 					bd.logger.log( Level.INFO, "No se ha podido modificar la actividad" );
+					bd.closeLogger();
 				}
 				
 			}
@@ -312,7 +335,9 @@ public class VentanaAdministrador extends JFrame {
 				try {
 					bd.modificarUsuario(dni,login);
 				} catch (SQLException e1) {
+					bd.ficheroLogger();
 					bd.logger.log( Level.INFO, "No se ha podido modificar el usuario" );
+					bd.closeLogger();
 				}
 				bd.disconnect();
 			}
@@ -348,6 +373,7 @@ public class VentanaAdministrador extends JFrame {
 		String descripcion="";
 		String imagen="";
 		String cantMat="";
+		int precio =0;
 		
 		boolean cancel=false;
 		if(cod == null) {
@@ -400,20 +426,33 @@ public class VentanaAdministrador extends JFrame {
 				cancel= true;
 			}
 		}
+		if(cancel == false) {
+			String a= JOptionPane.showInputDialog("Introduce el precio: ");
+			
+			if (a !=null) {
+				precio = Integer.parseInt(a);
+			}
+			if(a == null) {
+				cancel= true;
+			}
+		}
 		
 		if(cancel == false) {
 			try {
 				if(!bd.existeActividadMismoCodigoYNombre(cod, nom))
-					bd.insertarNuevaActividad(cod, nom, aforo,instructor,ubicacion, descripcion, imagen, cantMat);
+					bd.insertarNuevaActividad(cod, nom, aforo,instructor,ubicacion, descripcion, imagen, cantMat, precio);
 				else 
 					JOptionPane.showMessageDialog(null, "Ya existe un producto igual");
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				bd.ficheroLogger();
+				bd.logger.log(Level.INFO, "No se ha podido acceder a la bd");
+				bd.closeLogger();
 			}
 			bd.disconnect();
 		}else {
-			//PONER QUE NO SE HA PODIDO AÑADIR
+			bd.ficheroLogger();
+			bd.logger.log(Level.INFO, "No se ha podido insertar");
+			bd.closeLogger();
 		}
 	}
 }

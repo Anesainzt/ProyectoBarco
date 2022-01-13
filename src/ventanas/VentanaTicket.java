@@ -21,13 +21,7 @@ public class VentanaTicket extends JFrame {
     BD bd = new BD();
 
     public VentanaTicket(){
-    	 addWindowListener( new WindowAdapter() {
-             @Override
-             public void windowOpened(WindowEvent e) {
-            	 //bd.ficheroLogger();
-             }
-
-         });
+    	
 
         cp = this.getContentPane();
         this.setTitle("Ticket");
