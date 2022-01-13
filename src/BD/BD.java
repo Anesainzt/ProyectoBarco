@@ -327,14 +327,13 @@ public class BD extends JFrame{
 				
 				Actividad a ;
 				if(codigo.substring(0, 2).equals("BU")) {
-					a = new Buceo(codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen, cant, precio);
+					a = new Buceo(codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen, precio, cant);
 				}else if(codigo.substring(0, 2).equals("SK")) {
-					a = new Ski(codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen, cant, precio);
+					a = new Ski(codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen, precio, cant);
 				}else if(codigo.substring(0, 2).equals("SU")){ 
-					a = new Surf(codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen, cant, precio);
+					a = new Surf(codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen, precio, cant);
 				}else
-					a= new ActividadExtra(codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen, cant, precio);
-				
+					a= new ActividadExtra(codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen, precio, cant);
 				ret.add(a);
 			}
 			return ret;

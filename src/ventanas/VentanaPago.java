@@ -153,7 +153,8 @@ public class VentanaPago extends JFrame{
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 try {
-                    new VentanaTicket();
+                    // FALTA EL IF QUE COMPRUEBE LAS CONTRASEÑAS
+                    new VentanaTicket(uActual, viajeIda, viajeVuelta, numeroPersonas, listaActividades);
                     dispose();
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
