@@ -48,7 +48,7 @@ public class VentanaEstadisticas extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		bd.connect();
-		ArrayList<Actividad> ret = bd.getActividades();
+		ArrayList<Actividad> ret = bd.getActividadesHijas();
 		HashMap<String, Integer> hm = new HashMap<>();
 		for(Actividad a: ret) {
 			String nombre;

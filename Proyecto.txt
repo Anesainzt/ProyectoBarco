@@ -32,3 +32,71 @@ ene 12, 2022 6:13:30 P. M. BD.BD connect
 INFO: Se ha conectado con la BBDD
 ene 12, 2022 6:13:30 P. M. BD.BD disconnect
 INFO: Se ha desconectado de la BD
+ene 13, 2022 9:00:34 A. M. BD.BD connect
+INFO: Se ha conectado con la BBDD
+ene 13, 2022 9:00:39 A. M. BD.BD connect
+INFO: Se ha conectado con la BBDD
+ene 13, 2022 9:00:39 A. M. ventanas.VentanaInicio$2 actionPerformed
+INFO: Bienvenido
+ene 13, 2022 9:00:40 A. M. BD.BD disconnect
+INFO: Se ha desconectado de la BD
+ene 13, 2022 9:00:46 A. M. BD.BD connect
+INFO: Se ha conectado con la BBDD
+ene 13, 2022 9:00:46 A. M. BD.BD getActividades
+WARNING: No se han podido obtener las actividades
+ene 13, 2022 9:13:05 A. M. BD.BD connect
+INFO: Se ha conectado con la BBDD
+ene 13, 2022 9:13:06 A. M. BD.BD disconnect
+INFO: Se ha desconectado de la BD
+ene 13, 2022 9:13:06 A. M. BD.BD connect
+INFO: Se ha conectado con la BBDD
+ene 13, 2022 9:13:07 A. M. BD.BD connect
+INFO: Se ha conectado con la BBDD
+ene 13, 2022 9:13:07 A. M. BD.BD disconnect
+INFO: Se ha desconectado de la BD
+ene 13, 2022 9:13:09 A. M. BD.BD connect
+INFO: Se ha conectado con la BBDD
+ene 13, 2022 9:13:09 A. M. BD.BD disconnect
+INFO: Se ha desconectado de la BD
+ene 13, 2022 9:13:35 A. M. BD.BD connect
+INFO: Se ha conectado con la BBDD
+ene 13, 2022 9:14:21 A. M. BD.BD disconnect
+INFO: Se ha desconectado de la BD
+ene 13, 2022 9:14:21 A. M. BD.BD connect
+INFO: Se ha conectado con la BBDD
+ene 13, 2022 9:14:21 A. M. BD.BD disconnect
+INFO: Se ha desconectado de la BD
+ene 13, 2022 9:14:30 A. M. BD.BD disconnect
+INFO: Se ha desconectado de la BD
+ene 13, 2022 9:14:30 A. M. BD.BD connect
+INFO: Se ha conectado con la BBDD
+ene 13, 2022 9:14:55 A. M. BD.BD disconnect
+INFO: Se ha desconectado de la BD
+ene 13, 2022 9:15:06 A. M. BD.BD connect
+INFO: Se ha conectado con la BBDD
+ene 13, 2022 9:15:06 A. M. ventanas.VentanaInicio$2 actionPerformed
+INFO: Bienvenido
+ene 13, 2022 9:15:06 A. M. BD.BD disconnect
+INFO: Se ha desconectado de la BD
+ene 13, 2022 9:15:08 A. M. BD.BD connect
+INFO: Se ha conectado con la BBDD
+ene 13, 2022 9:15:22 A. M. BD.BD connect
+INFO: Se ha conectado con la BBDD
+ene 13, 2022 9:15:22 A. M. BD.BD disconnect
+INFO: Se ha desconectado de la BD
+ene 13, 2022 9:15:22 A. M. BD.BD connect
+INFO: Se ha conectado con la BBDD
+ene 13, 2022 9:15:24 A. M. BD.BD connect
+INFO: Se ha conectado con la BBDD
+ene 13, 2022 9:15:24 A. M. BD.BD disconnect
+INFO: Se ha desconectado de la BD
+ene 13, 2022 9:15:28 A. M. BD.BD disconnect
+INFO: Se ha desconectado de la BD
+ene 13, 2022 9:15:34 A. M. BD.BD connect
+INFO: Se ha conectado con la BBDD
+ene 13, 2022 9:15:34 A. M. ventanas.VentanaInicio$2 actionPerformed
+INFO: Bienvenido
+ene 13, 2022 9:15:34 A. M. BD.BD disconnect
+INFO: Se ha desconectado de la BD
+ene 13, 2022 9:15:36 A. M. BD.BD connect
+INFO: Se ha conectado con la BBDD

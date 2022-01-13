@@ -284,7 +284,7 @@ public class BD extends JFrame{
 
 	}
 	
-	public static ArrayList<Actividad> getActividades() {
+	public static ArrayList<Actividad> getActividadesHijas() {
 		try (Statement statement = conn.createStatement()) {
 			ArrayList<Actividad> ret = new ArrayList<>();
 			String sent = "select * from actividad ORDER BY codigo ASC;";
@@ -310,6 +310,29 @@ public class BD extends JFrame{
 				}
 				//ret.add(new Actividad(codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen, precio, fecha) );
 				ret.add(a);
+			}
+			return ret;
+		} catch (Exception e) {
+			logger.warning("No se han podido obtener las actividades");
+			return null;
+		}
+	}
+	public static ArrayList<Actividad> getActividades() {
+		try (Statement statement = conn.createStatement()) {
+			ArrayList<Actividad> ret = new ArrayList<>();
+			String sent = "select * from actividad ORDER BY codigo ASC;";
+			ResultSet rs = statement.executeQuery( sent );
+			while( rs.next() ) { // Leer el resultset
+				String codigo = rs.getString("codigo");
+				String nombre = rs.getString("nombre");
+				int aforo = rs.getInt("aforo");
+				String instructor = rs.getString("instructor");
+				String ubicacion = rs.getString("ubicacion");
+				String descripcion = rs.getString("descripcion");
+				String imagen = rs.getString("imagen");
+				int precio = rs.getInt("precio");
+				ret.add(new Actividad(codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen, precio) );
+				
 			}
 			return ret;
 		} catch (Exception e) {
