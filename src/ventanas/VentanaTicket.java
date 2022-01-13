@@ -17,6 +17,7 @@ public class VentanaTicket extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private Container cp;
     private JPanel panelPrincipal;
+    private JLabel iconoI;
     BD bd = new BD();
 
     public VentanaTicket(){
@@ -32,21 +33,51 @@ public class VentanaTicket extends JFrame {
         this.setTitle("Ticket");
         this.setSize(1000, 600);
         
-        panelPrincipal = new JPanel(new GridLayout(3, 1));
+        panelPrincipal = new JPanel(new GridLayout(2, 1));
         panelPrincipal.setSize(1000, 2000);
+      //panelLabel
+        JPanel panelLabel = new JPanel();
+        panelLabel.setLayout(new FlowLayout());
+        
+      //panelMedio
+        JPanel panelMedio = new JPanel();
+        panelMedio.setLayout(new GridLayout(1,2));
+        
+        JPanel panelIcono2 = new JPanel();
+        panelIcono2.setLayout(new FlowLayout());
+        
+        iconoI = new JLabel(new ImageIcon("images/imprimir.png"));
+        
+        JPanel panelBoton2 = new JPanel();
+        panelBoton2.setLayout(new FlowLayout());
+        
+        
+       
 
-        JLabel labelTexto = new JLabel("¿Como quiere recibir el billete?");
-        JButton botonCorreo = new JButton("Correo");
+        JLabel labelTexto = new JLabel("¡Viaje registrado correctamente!");
         JButton botonImprimir = new JButton("Imprimir");
 
+        
+        
         cp.add(panelPrincipal);
-        panelPrincipal.add(labelTexto);
-        panelPrincipal.add(botonCorreo);
-        panelPrincipal.add(botonImprimir);
-
+        
+        panelPrincipal.add(panelLabel);
+        panelPrincipal.add(panelMedio);
+        
+        panelLabel.add(labelTexto);
+        
+        panelMedio.add(panelIcono2);
+        panelMedio.add(panelBoton2);
+        
+        panelIcono2.add(iconoI);
+        
+        panelBoton2.add(botonImprimir);
+        
         this.pack();
+        this.setTitle("Ticket");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
+        this.setSize(250,150);
 
     }
     public static void main(String[] args) {
