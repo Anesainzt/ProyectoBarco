@@ -17,6 +17,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import clases.Actividad;
+import clases.ActividadExtra;
 import clases.Buceo;
 import clases.Ski;
 import clases.Surf;
@@ -297,18 +298,19 @@ public class BD extends JFrame{
 				String ubicacion = rs.getString("ubicacion");
 				String descripcion = rs.getString("descripcion");
 				String imagen = rs.getString("imagen");
-				int precio = rs.getInt("precio");
-				String fecha = rs.getString("fecha");
 				int cant = rs.getInt("cantMaterial");
+				int precio = rs.getInt("precio");
+				
 				Actividad a ;
 				if(codigo.substring(0, 2).equals("BU")) {
-					a = new Buceo(codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen, precio, cant);
+					a = new Buceo(codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen, cant, precio);
 				}else if(codigo.substring(0, 2).equals("SK")) {
-					a = new Ski(codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen, precio, cant);
-				}else { //Surf que empieza por SU
-					a = new Surf(codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen, precio, cant);
-				}
-				//ret.add(new Actividad(codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen, precio, fecha) );
+					a = new Ski(codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen, cant, precio);
+				}else if(codigo.substring(0, 2).equals("SU")){ 
+					a = new Surf(codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen, cant, precio);
+				}else
+					a= new ActividadExtra(codigo, nombre, aforo, instructor, ubicacion, descripcion, imagen, cant, precio);
+				
 				ret.add(a);
 			}
 			return ret;

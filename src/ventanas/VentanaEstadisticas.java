@@ -16,6 +16,7 @@ import BD.BD;
 import clases.Actividad;
 import clases.Buceo;
 import clases.Ski;
+import clases.Surf;
 
 public class VentanaEstadisticas extends JFrame {
 
@@ -56,8 +57,10 @@ public class VentanaEstadisticas extends JFrame {
 				nombre = "Buceo";
 			else if (a instanceof Ski)
 				nombre = "Ski";
-			else
+			else if (a instanceof Surf)
 				nombre = "Surf";
+			else
+				nombre = "ActividadExtra";
 			if(!hm.containsKey(nombre))
 				hm.put(nombre, 1);
 			else {
