@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Level;
@@ -248,12 +249,7 @@ public class VentanaViaje extends JFrame {
 		JPanel panelBotones = new JPanel();
 		
 		btnIraActividad = new JButton("Aceptar billete");
-
-		//
-		// Falta crear metodo public Viaje getViaje(String origen, String destino, String fecha) en la bd.
-		//
-		
-		//
+		//llamamos al método existeViaje
 		// Falta que el calendario devuelva la fecha en TimiMillis
 		//
 		
@@ -262,20 +258,28 @@ public class VentanaViaje extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if (rbIda.isSelected()) {
-						Viaje viajeIda = new Viaje();
-						int numeroPersonas = (int)spinner.getValue();
-						// viajeIda = bd.getViaje(cbOrigen.getSelectedItem(), cbDestino.getSelectedItem(),
-						// 		calIda.getDate());
-						
-						if (viajeIda.getLocalizador() != "") {
-							//Mientras la fecha seleccionada esté en la base de datos y tenga el mismo orgen y destino se mostrará el ticket
-							
-							
-							new VentanaActividades(uActual, viajeIda, null, numeroPersonas);
-						} else {
-							JOptionPane.showMessageDialog(null, "No existe un viaje para esa fecha.");
-							bd.logger.log(Level.INFO, "No existe un viaje para esa fecha");
+					System.out.println("aslfjsladkf");
+					if (!rbIda.isSelected()) {
+						System.out.println("he entrado en rbIdayvuelta");
+						try {
+							bd.connect();
+							Viaje v = bd.existeViaje(cbOrigen.getSelectedItem().toString(), cbDestino.getSelectedItem().toString(), calendarioIda.getDate(), calendarioVuelta.getDate());
+							System.out.println("eadfjdlskjfladks");
+							if(!v.equals(null)) {
+								int numeroPersonas = (int)spinner.getValue();
+								System.out.println("he entrado");
+								if (v.getLocalizador() != "") {
+									//Mientras la fecha seleccionada esté en la base de datos y tenga el mismo orgen y destino se mostrará el ticket
+									v.setListaActividades(bd.compararDestinoConUbicacion(v.getDestino()));
+									new VentanaActividades(uActual, v, null, numeroPersonas);
+								} else {
+									JOptionPane.showMessageDialog(null, "No existe un viaje para esa fecha.");
+									bd.logger.log(Level.INFO, "No existe un viaje para esa fecha");
+								}
+							}
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
 						}
 					} else {
 						Viaje viajeIda = new Viaje();

@@ -24,6 +24,8 @@ import clases.Surf;
 import clases.Usuario;
 import clases.Viaje;
 import ventanas.VentanaInicio;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class BD extends JFrame{
 
@@ -571,8 +573,39 @@ public class BD extends JFrame{
 		rs.close();
 		return existe;
 }
-	
-    public Viaje getViaje(String origen, String destino, Date fecha) {
-        return null;
+
+    //método compararViajesExistentes
+    public Viaje existeViaje(String origen, String destino, Date  fechaIda, Date fechaVuelta) throws SQLException {
+    	System.out.println(origen + " " + destino + " " + fechaIda + " " +fechaVuelta);
+    	Viaje v = null;
+    	DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+    	String strDate1 = "";
+    	String sent = "select * from viaje where origen='"+origen+"' and destino='"+destino+"';";
+		Statement statement = conn.createStatement();
+		ResultSet rs = statement.executeQuery(sent);
+		boolean existe = false;
+		if(rs.next()) {
+			v = new Viaje(rs.getString("localizador"), rs.getString("origen"), rs.getString("destino"), strDate1, rs.getInt("aforo"), rs.getInt("precio"), new ArrayList<Actividad>());
+			
+			rs.close();
+			return v;
+		} else {
+			System.out.println("estoy en existeviaje");
+			return v;
+		}
+    }
+    
+    //método compararDestinoConUbicacion
+    public ArrayList<Actividad> compararDestinoConUbicacion(String destino) throws SQLException {
+    	ArrayList<Actividad> actividades = new ArrayList<Actividad>();
+    	String sent = "select * from actividad where ubicacion='"+destino+"';";
+    	Statement stmt = conn.createStatement();
+    	ResultSet rs = stmt.executeQuery(sent);
+    	
+    	while(rs.next()) {
+    		Actividad a = new Actividad(rs.getString("codigo"), rs.getString("nombre"), rs.getInt("aforo"), rs.getString("instructor"), rs.getString("ubicacion"), rs.getString("descripcion"), rs.getString("imagen"), rs.getInt("precio"));
+    		actividades.add(a);
+    	}
+        return actividades;	
     }
 }

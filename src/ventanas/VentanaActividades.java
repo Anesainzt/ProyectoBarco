@@ -73,7 +73,7 @@ public class VentanaActividades extends JFrame{
 		try {
 			listaActividadesSeleccionadas = new ArrayList<Actividad>();
 			listaActividades = viajeIda.getListaActividades();
-			listaActividadesViajeVuelta = viajeVuelta.getListaActividades();
+	//		listaActividadesViajeVuelta = viajeVuelta.getListaActividades();
 
 			for (Actividad actividad : listaActividadesViajeVuelta) {
 				listaActividades.add(actividad);
