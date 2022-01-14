@@ -1,6 +1,7 @@
 package ventanas;
 
 
+
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -45,6 +46,7 @@ public class VentanaAdministrador extends JFrame {
 	JButton botonUsuarios, botonActividades, botonCerrarSesion, btnAñadirAct, btnQuitarAct, botonSalir;
 	JTextPane txtpnMenuAdministrador;
 	BD bd = new BD();
+	private JButton btnUsaHerencia;
 	
 	public VentanaAdministrador(Usuario uActual) {
 		bd.ficheroLogger();
@@ -78,7 +80,7 @@ public class VentanaAdministrador extends JFrame {
 				bd.closeLogger();
 				btnAñadirAct.setEnabled(false);
 				btnQuitarAct.setEnabled(false);
-				
+				btnUsaHerencia.setEnabled(false);
 			}
 		});
 
@@ -95,6 +97,7 @@ public class VentanaAdministrador extends JFrame {
 				bd.closeLogger();
 				btnAñadirAct.setEnabled(true);
 				btnQuitarAct.setEnabled(true);
+				btnUsaHerencia.setEnabled(true);
 				
 			}
 		});
@@ -224,6 +227,19 @@ public class VentanaAdministrador extends JFrame {
 		panelOpciones.add(btnQuitarAct);
 		btnAñadirAct.setEnabled(false);
 		btnQuitarAct.setEnabled(false);
+		
+		btnUsaHerencia = new JButton("Estadistica");
+		btnUsaHerencia.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new VentanaEstadisticas();
+				dispose();
+			}
+			
+		});
+		btnUsaHerencia.setEnabled(false);
+		panelOpciones.add(btnUsaHerencia);
 		
 		panelOpciones.add(botonCerrarSesion);
 		panelOpciones.add(botonSalir);

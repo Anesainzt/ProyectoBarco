@@ -6,17 +6,17 @@ import BD.BD;
 import clases.Actividad;
 import clases.Usuario;
 import clases.Viaje;
-import java.util.logging.Logger;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.lang.System.Logger.Level;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class VentanaTicket extends JFrame {
 
@@ -26,7 +26,6 @@ public class VentanaTicket extends JFrame {
   private JLabel iconoI;
   private int precioTotal = 0;
 
-  static Logger logger = Logger.getLogger("VentanaTicket");
   BD bd = new BD();
 
   public VentanaTicket(Usuario uActual, Viaje viajeIda, Viaje viajeVuelta, int numeroPersonas,
@@ -93,7 +92,7 @@ public class VentanaTicket extends JFrame {
             buff.write("Total vuelta: " + String.valueOf(viajeVuelta.getPrecio()) + "€");
             buff.newLine();
           } catch (Exception e) {
-            //logger.log(Level.INFO, "");
+        	  
           }
 
           buff.write("Actividades: ");
@@ -114,11 +113,16 @@ public class VentanaTicket extends JFrame {
           buff.close();
           writer.close();
 
-          System.out.println("Ticket impreso con éxito.");
+          bd.ficheroLogger();
+  		  bd.logger.log(Level.INFO, "Ticket impreso con éxito.");
+  		  bd.closeLogger();
+  		
           dispose();
           new VentanaViaje(uActual);
         } catch (Exception e) {
-            //logger.log(Level.INFO, "No se ha podido abrir la VentanaPago");
+        	bd.ficheroLogger();
+    		bd.logger.log(Level.INFO, "No se ha podido abrir la VentanaPago");
+    		bd.closeLogger();
         }
       }
     });

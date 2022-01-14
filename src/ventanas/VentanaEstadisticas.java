@@ -1,7 +1,10 @@
 package ventanas;
 
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,29 +21,13 @@ import clases.Buceo;
 import clases.Ski;
 import clases.Surf;
 
+import javax.swing.JButton;
+
 public class VentanaEstadisticas extends JFrame {
 
-	private JPanel contentPane;
-	protected static BD bd = new BD();
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaEstadisticas frame = new VentanaEstadisticas();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
+	JPanel contentPane;
+	BD bd = new BD();
+	
 	public VentanaEstadisticas() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -74,6 +61,24 @@ public class VentanaEstadisticas extends JFrame {
 		}
 		JTextArea area = new JTextArea(texto);
 		contentPane.add(new JScrollPane(area),BorderLayout.CENTER);
+		area.setEditable(false);
+		
+		JPanel panel = new JPanel();
+		contentPane.add(panel, BorderLayout.SOUTH);
+		
+		JButton btnVolver = new JButton("Volver");
+		
+		btnVolver.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new VentanaAdministrador(null);
+				dispose();
+			}
+			
+		});
+		panel.add(btnVolver);
+		setVisible(true);
 	}
 
 }

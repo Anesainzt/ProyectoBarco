@@ -16,3 +16,5 @@ ene 14, 2022 12:27:30 A. M. ventanas.VentanaInicio$1 actionPerformed
 INFO: Ha entrado el admin
 ene 14, 2022 12:27:30 A. M. ventanas.VentanaAdministrador <init>
 INFO: Ha entrado el admin a la ventana
+ene 14, 2022 1:05:34 A. M. ventanas.VentanaTicket$1 actionPerformed
+INFO: Ticket impreso con éxito.
