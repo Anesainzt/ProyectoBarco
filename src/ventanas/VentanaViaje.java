@@ -225,6 +225,7 @@ public class VentanaViaje extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 		    	 calVuelta.setMinSelectableDate(calendarioIda.getDate());
+		    	 
 			}
 			
 		});
@@ -258,20 +259,20 @@ public class VentanaViaje extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					System.out.println("aslfjsladkf");
 					if (!rbIda.isSelected()) {
-						System.out.println("he entrado en rbIdayvuelta");
+						
 						try {
 							bd.connect();
 							Viaje v = bd.existeViaje(cbOrigen.getSelectedItem().toString(), cbDestino.getSelectedItem().toString(), calendarioIda.getDate(), calendarioVuelta.getDate());
-							System.out.println("eadfjdlskjfladks");
+				
 							if(!v.equals(null)) {
 								int numeroPersonas = (int)spinner.getValue();
-								System.out.println("he entrado");
+								
 								if (v.getLocalizador() != "") {
 									//Mientras la fecha seleccionada esté en la base de datos y tenga el mismo orgen y destino se mostrará el ticket
 									v.setListaActividades(bd.compararDestinoConUbicacion(v.getDestino()));
 									new VentanaActividades(uActual, v, null, numeroPersonas);
+									dispose();
 								} else {
 									JOptionPane.showMessageDialog(null, "No existe un viaje para esa fecha.");
 									bd.logger.log(Level.INFO, "No existe un viaje para esa fecha");

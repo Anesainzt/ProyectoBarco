@@ -1,118 +1,44 @@
-ene 14, 2022 12:20:19 A. M. ventanas.VentanaInicio <init>
-INFO: -Hola-
-ene 14, 2022 12:20:24 A. M. ventanas.VentanaInicio$1 actionPerformed
-INFO: Bienvenido Administrador
-ene 14, 2022 12:20:24 A. M. ventanas.VentanaAdministrador <init>
-INFO: Bienvenidooooo
-ene 14, 2022 12:20:30 A. M. ventanas.VentanaInicio <init>
-INFO: -Hola-
-ene 14, 2022 12:20:33 A. M. ventanas.VentanaInicio$1 actionPerformed
-INFO: Bienvenido
-ene 14, 2022 12:20:41 A. M. BD.BD editarUsuario
-WARNING: El usuario se ha actualizado
-ene 14, 2022 12:27:24 A. M. ventanas.VentanaInicio <init>
+ene 19, 2022 4:19:48 P. M. ventanas.VentanaInicio <init>
 INFO: Se ha iniciado la app
-ene 14, 2022 12:27:30 A. M. ventanas.VentanaInicio$1 actionPerformed
+ene 19, 2022 4:19:53 P. M. ventanas.VentanaInicio$1 actionPerformed
+INFO: Ha entrado un usuario normal
+ene 19, 2022 4:21:08 P. M. ventanas.VentanaInicio <init>
+INFO: Se ha iniciado la app
+ene 19, 2022 4:21:20 P. M. ventanas.VentanaInicio$1 actionPerformed
 INFO: Ha entrado el admin
-ene 14, 2022 12:27:30 A. M. ventanas.VentanaAdministrador <init>
+ene 19, 2022 4:21:20 P. M. ventanas.VentanaAdministrador <init>
 INFO: Ha entrado el admin a la ventana
-ene 14, 2022 1:05:34 A. M. ventanas.VentanaTicket$1 actionPerformed
+ene 19, 2022 4:21:28 P. M. ventanas.VentanaAdministrador$1 actionPerformed
+INFO: Se visualizan todos los usuarios
+ene 19, 2022 4:21:48 P. M. ventanas.VentanaAdministrador$2 actionPerformed
+INFO: Se visualizan todas las actividades
+ene 19, 2022 4:22:17 P. M. ventanas.VentanaAdministrador$10 tableChanged
+INFO: Se ha modificado la actividad
+ene 19, 2022 4:22:52 P. M. ventanas.VentanaAdministrador$6 actionPerformed
+INFO: Se ha borrado la actividad
+ene 19, 2022 4:23:00 P. M. ventanas.VentanaAdministrador$6 actionPerformed
+INFO: Se ha borrado la actividad
+ene 19, 2022 4:23:18 P. M. ventanas.VentanaAdministrador <init>
+INFO: Ha entrado el admin a la ventana
+ene 19, 2022 4:23:21 P. M. ventanas.VentanaInicio <init>
+INFO: Se ha iniciado la app
+ene 19, 2022 4:24:18 P. M. BD.BD compararLogin
+WARNING: Se ha comparado el login correctamente.
+ene 19, 2022 4:24:20 P. M. BD.BD crearUsuario
+WARNING: Usuario creado con exito
+ene 19, 2022 4:26:09 P. M. ventanas.VentanaTicket$1 actionPerformed
 INFO: Ticket impreso con éxito.
-ene. 14, 2022 10:36:03 A. M. ventanas.VentanaInicio <init>
+ene 19, 2022 4:26:34 P. M. BD.BD editarUsuario
+WARNING: El usuario se ha actualizado
+ene 19, 2022 4:28:41 P. M. BD.BD compararLogin
+WARNING: Se ha comparado el login correctamente.
+ene 19, 2022 7:51:30 P. M. ventanas.VentanaInicio <init>
 INFO: Se ha iniciado la app
-ene. 14, 2022 10:36:08 A. M. ventanas.VentanaInicio$1 actionPerformed
-INFO: Ha entrado un usuario normal
-ene. 14, 2022 10:38:57 A. M. ventanas.VentanaInicio <init>
-INFO: Se ha iniciado la app
-ene. 14, 2022 10:39:00 A. M. ventanas.VentanaInicio$1 actionPerformed
-INFO: Ha entrado un usuario normal
-ene. 14, 2022 10:45:28 A. M. ventanas.VentanaInicio <init>
-INFO: Se ha iniciado la app
-ene. 14, 2022 10:45:32 A. M. ventanas.VentanaInicio$1 actionPerformed
-INFO: Ha entrado un usuario normal
-ene. 14, 2022 11:38:44 A. M. ventanas.VentanaInicio <init>
-INFO: Se ha iniciado la app
-ene. 14, 2022 11:38:48 A. M. ventanas.VentanaInicio$1 actionPerformed
-INFO: Ha entrado un usuario normal
-ene. 14, 2022 11:49:22 A. M. ventanas.VentanaInicio <init>
-INFO: Se ha iniciado la app
-ene. 14, 2022 11:49:25 A. M. ventanas.VentanaInicio$1 actionPerformed
-INFO: Ha entrado un usuario normal
-ene. 14, 2022 11:50:47 A. M. ventanas.VentanaInicio <init>
-INFO: Se ha iniciado la app
-ene. 14, 2022 11:50:50 A. M. ventanas.VentanaInicio$1 actionPerformed
-INFO: Ha entrado un usuario normal
-ene. 14, 2022 11:53:38 A. M. ventanas.VentanaInicio <init>
-INFO: Se ha iniciado la app
-ene. 14, 2022 11:53:41 A. M. ventanas.VentanaInicio$1 actionPerformed
-INFO: Ha entrado un usuario normal
-ene. 14, 2022 11:55:12 A. M. ventanas.VentanaInicio <init>
-INFO: Se ha iniciado la app
-ene. 14, 2022 11:55:14 A. M. ventanas.VentanaInicio$1 actionPerformed
-INFO: Ha entrado un usuario normal
-ene. 14, 2022 11:55:50 A. M. ventanas.VentanaInicio <init>
-INFO: Se ha iniciado la app
-ene. 14, 2022 11:55:53 A. M. ventanas.VentanaInicio$1 actionPerformed
-INFO: Ha entrado un usuario normal
-ene. 14, 2022 11:56:43 A. M. ventanas.VentanaInicio <init>
-INFO: Se ha iniciado la app
-ene. 14, 2022 11:56:46 A. M. ventanas.VentanaInicio$1 actionPerformed
-INFO: Ha entrado un usuario normal
-ene. 14, 2022 11:57:19 A. M. ventanas.VentanaInicio <init>
-INFO: Se ha iniciado la app
-ene. 14, 2022 11:57:22 A. M. ventanas.VentanaInicio$1 actionPerformed
-INFO: Ha entrado un usuario normal
-ene. 14, 2022 12:00:21 P. M. ventanas.VentanaInicio <init>
-INFO: Se ha iniciado la app
-ene. 14, 2022 12:00:25 P. M. ventanas.VentanaInicio$1 actionPerformed
-INFO: Ha entrado un usuario normal
-ene. 14, 2022 12:03:02 P. M. ventanas.VentanaInicio <init>
-INFO: Se ha iniciado la app
-ene. 14, 2022 12:03:04 P. M. ventanas.VentanaInicio$1 actionPerformed
-INFO: Ha entrado un usuario normal
-ene. 14, 2022 12:05:16 P. M. ventanas.VentanaInicio <init>
-INFO: Se ha iniciado la app
-ene. 14, 2022 12:05:19 P. M. ventanas.VentanaInicio$1 actionPerformed
-INFO: Ha entrado un usuario normal
-ene. 14, 2022 12:07:14 P. M. ventanas.VentanaInicio <init>
-INFO: Se ha iniciado la app
-ene. 14, 2022 12:07:17 P. M. ventanas.VentanaInicio$1 actionPerformed
-INFO: Ha entrado un usuario normal
-ene. 14, 2022 12:10:57 P. M. ventanas.VentanaInicio <init>
-INFO: Se ha iniciado la app
-ene. 14, 2022 12:11:00 P. M. ventanas.VentanaInicio$1 actionPerformed
-INFO: Ha entrado un usuario normal
-ene. 14, 2022 12:12:58 P. M. ventanas.VentanaInicio <init>
-INFO: Se ha iniciado la app
-ene. 14, 2022 12:13:02 P. M. ventanas.VentanaInicio$1 actionPerformed
-INFO: Ha entrado un usuario normal
-ene. 14, 2022 12:14:33 P. M. ventanas.VentanaInicio <init>
-INFO: Se ha iniciado la app
-ene. 14, 2022 12:14:36 P. M. ventanas.VentanaInicio$1 actionPerformed
-INFO: Ha entrado un usuario normal
-ene. 14, 2022 12:15:40 P. M. ventanas.VentanaInicio <init>
-INFO: Se ha iniciado la app
-ene. 14, 2022 12:15:43 P. M. ventanas.VentanaInicio$1 actionPerformed
-INFO: Ha entrado un usuario normal
-ene. 14, 2022 12:15:58 P. M. ventanas.VentanaActividades <init>
-INFO: No se han guardado correctamente las actividades.
-ene. 14, 2022 12:40:54 P. M. ventanas.VentanaInicio <init>
-INFO: Se ha iniciado la app
-ene. 14, 2022 12:40:55 P. M. ventanas.VentanaInicio <init>
-INFO: Se ha iniciado la app
-ene. 14, 2022 12:42:11 P. M. ventanas.VentanaInicio <init>
-INFO: Se ha iniciado la app
-ene. 14, 2022 12:42:14 P. M. ventanas.VentanaInicio$1 actionPerformed
-INFO: Ha entrado un usuario normal
-ene. 14, 2022 12:43:08 P. M. ventanas.VentanaInicio <init>
-INFO: Se ha iniciado la app
-ene. 14, 2022 12:43:11 P. M. ventanas.VentanaInicio$1 actionPerformed
-INFO: Ha entrado un usuario normal
-ene. 14, 2022 12:43:27 P. M. ventanas.VentanaActividades <init>
-INFO: No se han guardado correctamente las actividades.
-ene. 14, 2022 12:44:07 P. M. ventanas.VentanaInicio <init>
-INFO: Se ha iniciado la app
-ene. 14, 2022 12:44:10 P. M. ventanas.VentanaInicio$1 actionPerformed
-INFO: Ha entrado un usuario normal
-ene. 14, 2022 12:44:35 P. M. ventanas.VentanaTicket$1 actionPerformed
-INFO: Ticket impreso con éxito.
+ene 19, 2022 7:51:34 P. M. ventanas.VentanaInicio$1 actionPerformed
+INFO: Ha entrado el admin
+ene 19, 2022 7:51:34 P. M. ventanas.VentanaAdministrador <init>
+INFO: Ha entrado el admin a la ventana
+ene 19, 2022 7:51:36 P. M. ventanas.VentanaAdministrador$1 actionPerformed
+INFO: Se visualizan todos los usuarios
+ene 19, 2022 7:52:07 P. M. ventanas.VentanaAdministrador$2 actionPerformed
+INFO: Se visualizan todas las actividades

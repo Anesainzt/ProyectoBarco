@@ -23,6 +23,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -32,7 +33,6 @@ import clases.Usuario;
 import clases.Viaje;
 
 public class VentanaActividades extends JFrame{
-	
 	
 	
 	private static final long serialVersionUID = 1L;
@@ -58,6 +58,7 @@ public class VentanaActividades extends JFrame{
 		JPanel panelCantSpinn = new JPanel();
 		JPanel panelTarifa = new JPanel();
 		JPanel panelFoto = new JPanel();
+		
 		
 		JComboBox<String> combobox = new JComboBox<String>();
 		JLabel label1 = new JLabel("¿Desea alguna actividad? ");
@@ -134,6 +135,7 @@ public class VentanaActividades extends JFrame{
 				// TODO Auto-generated method stub
 				listaActividadesSeleccionadas.add(listaActividades.get(combobox.getSelectedIndex()));
 				tarifaTotal += listaActividades.get(combobox.getSelectedIndex()).getPrecio();
+				JOptionPane.showMessageDialog(null, "Se ha registrado la Actividad");
 			}
 		});
 		
